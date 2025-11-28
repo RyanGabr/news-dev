@@ -1,4 +1,5 @@
 import { supabase } from "../lib/supabase";
+import type { LoginFormData } from "../schemas/login";
 import type { SignupFormData } from "../schemas/signup";
 
 export async function createUser(data: SignupFormData) {
@@ -32,4 +33,25 @@ export async function createUser(data: SignupFormData) {
 
   // 3) Retorna o usuário
   return user;
+}
+
+export async function loginUser(data: LoginFormData) {
+  const { email, password } = data;
+
+  const { data: authData, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    const message = error.message.toLowerCase();
+
+    if (message.includes("invalid") || message.includes("credentials")) {
+      throw new Error("WRONG_CREDENTIALS");
+    }
+
+    throw new Error("GENERIC_AUTH_ERROR");
+  }
+
+  return authData.user;
 }
