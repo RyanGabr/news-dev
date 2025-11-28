@@ -1,5 +1,5 @@
 import { supabase } from "../lib/supabase";
-import type { SignupFormData } from "../schemas/user";
+import type { SignupFormData } from "../schemas/signup";
 
 export async function createUser(data: SignupFormData) {
   const { email, password, username } = data;

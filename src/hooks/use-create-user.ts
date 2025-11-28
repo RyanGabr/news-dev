@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { createUser } from "../services/user";
-import type { SignupFormData } from "../schemas/user";
+import { createUser } from "../services/auth";
+import type { SignupFormData } from "../schemas/signup";
 
 export function useUserCreate() {
   return useMutation({

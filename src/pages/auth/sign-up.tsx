@@ -1,8 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { signupSchema, type SignupFormData } from "../../schemas/user";
 import { useUserCreate } from "../../hooks/use-create-user";
+import { signupSchema, type SignupFormData } from "../../schemas/signup";
 
 export function SignUp() {
   const [pageStep, setPageStep] = useState<string>("form");
