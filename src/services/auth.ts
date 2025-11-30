@@ -55,3 +55,8 @@ export async function loginUser(data: LoginFormData) {
 
   return authData.user;
 }
+
+export async function logoutUser() {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw new Error(error.message);
+}
