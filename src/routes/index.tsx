@@ -1,9 +1,10 @@
+import { Post } from "@/pages/app/post";
 import { createBrowserRouter } from "react-router-dom";
-import { Home } from "../pages/app/home";
-import { SignUp } from "../pages/auth/sign-up";
-import { Login } from "../pages/auth/login";
-import { AuthRedirect } from "./auth-redirect";
 import { Layout } from "../components/layout";
+import { Home } from "../pages/app/home";
+import { Login } from "../pages/auth/login";
+import { SignUp } from "../pages/auth/sign-up";
+import { AuthRedirect } from "./auth-redirect";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/post/:id",
+        element: <Post />,
       },
     ],
   },
