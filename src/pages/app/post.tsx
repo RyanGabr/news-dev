@@ -48,12 +48,10 @@ export function Post() {
         </div>
       </div>
 
-      <div>
-        <p className="leading-7 text-foreground/90 prose">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {post.content}
-          </ReactMarkdown>
-        </p>
+      <div className="prose">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          {post.content}
+        </ReactMarkdown>
       </div>
     </div>
   );
