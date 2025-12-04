@@ -30,7 +30,7 @@ export function PostList() {
           const postNumber = (page - 1) * PAGE_SIZE + index + 1;
 
           return (
-            <div className="flex items-start gap-2">
+            <div key={post.id} className="flex items-start gap-2">
               <div>
                 <span className="font-medium">{postNumber}.</span>
               </div>
