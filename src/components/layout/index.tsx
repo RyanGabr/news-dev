@@ -21,8 +21,8 @@ export function Layout() {
   }
 
   return (
-    <div className="w-full h-screen">
-      <header className="w-full py-3 px-5 border-b border-black/10 flex items-center justify-between">
+    <div className="w-full h-screen flex flex-col">
+      <header className="w-full py-4 px-5 bg-gray-900 text-white flex items-center justify-between">
         <div>
           <Link to="/">News dev</Link>
         </div>
@@ -36,7 +36,7 @@ export function Layout() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="p-1 rounded-md cursor-pointer">
-                  <HugeiconsIcon icon={Menu01Icon} size={20} />
+                  <HugeiconsIcon icon={Menu01Icon} size={20} strokeWidth={2} />
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-52" align="end">
@@ -49,7 +49,7 @@ export function Layout() {
           )}
         </div>
       </header>
-      <main>
+      <main className="w-full">
         <Outlet />
       </main>
     </div>
