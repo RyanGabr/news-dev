@@ -1,4 +1,5 @@
 import { Post } from "@/pages/app/post";
+import { Publish } from "@/pages/app/publish";
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../components/layout";
 import { Home } from "../pages/app/home";
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: "/post/:id",
         element: <Post />,
+      },
+      {
+        path: "/publish",
+        element: <Publish />,
       },
     ],
   },

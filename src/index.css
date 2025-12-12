@@ -134,3 +134,18 @@
         @apply bg-background text-foreground;
     }
 }
+
+.CodeMirror-code {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+}
+
+.cm-header,
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4 {
+    font-size: 14px !important;
+    font-weight: normal !important;
+    color: steelblue;
+}

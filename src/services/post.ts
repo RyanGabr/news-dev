@@ -1,3 +1,4 @@
+import type { CreatePostData } from "@/schemas/post";
 import { supabase } from "../lib/supabase";
 import type { PostWithAuthor } from "../types/post";
 
@@ -34,6 +35,19 @@ export async function getPost(id: string): Promise<PostWithAuthor> {
 
   if (error) throw error;
   if (!data) throw new Error("Post not found");
+
+  return data;
+}
+
+export async function createPost(postData: CreatePostData) {
+  const { data, error } = await supabase
+    .from("posts")
+    .insert([postData])
+    .select();
+
+  if (error) {
+    throw new Error(error.message || "Falha ao criar a postagem.");
+  }
 
   return data;
 }

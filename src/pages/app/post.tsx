@@ -19,7 +19,7 @@ export function Post() {
     <div className="max-w-4xl mx-auto px-6 py-10 space-y-8">
       <div>
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/")}
           className="text-sm cursor-pointer flex items-center gap-1"
         >
           <HugeiconsIcon icon={ArrowLeft01Icon} size={18} />
@@ -48,7 +48,7 @@ export function Post() {
         </div>
       </div>
 
-      <div className="prose">
+      <div className="prose prose-headings:font-semibold">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>
           {post.content}
         </ReactMarkdown>
