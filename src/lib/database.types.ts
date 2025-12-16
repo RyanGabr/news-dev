@@ -86,18 +86,21 @@ export type Database = {
       };
       profiles: {
         Row: {
+          bio: string | null;
           created_at: string | null;
           id: string;
           updated_at: string | null;
           username: string;
         };
         Insert: {
+          bio?: string | null;
           created_at?: string | null;
           id: string;
           updated_at?: string | null;
           username: string;
         };
         Update: {
+          bio?: string | null;
           created_at?: string | null;
           id?: string;
           updated_at?: string | null;

@@ -1,67 +1,37 @@
-import { useUserLogout } from "@/hooks/use-user-logout";
-import {
-  Add01Icon,
-  LogoutSquare02Icon,
-  Menu01Icon,
-} from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
 import { useUser } from "@supabase/auth-helpers-react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
+import { Menu } from "./menu";
 
 export function Layout() {
   const user = useUser();
   const navigate = useNavigate();
-  const { mutateAsync } = useUserLogout();
-
-  async function handleLogout() {
-    await mutateAsync();
-    navigate("/");
-  }
 
   return (
     <div className="w-full h-screen flex flex-col">
-      <header className="w-full py-4 px-5 bg-gray-900 text-white flex items-center justify-between">
+      <header className="w-200 mx-auto py-4 flex items-center justify-between">
         <div>
-          <Link to="/">News dev</Link>
+          <Link to="/">
+            <img
+              src="https://www.notion.com/front-static/favicon.ico"
+              alt=""
+              className="w-10"
+            />
+          </Link>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {!user && (
-            <Link to="/login" className="p-1 text-sm cursor-pointer">
-              Login
-            </Link>
+            <>
+              <Button onClick={() => navigate("/signup")} variant="secondary">
+                Cadastrar
+              </Button>
+              <Button onClick={() => navigate("/login")}>Entrar</Button>
+            </>
           )}
           {user && (
             <>
-              <Link to="/publish" className="p-1 rounded-md cursor-pointer">
-                <HugeiconsIcon icon={Add01Icon} size={20} strokeWidth={2} />
-              </Link>
-
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <button className="p-1 rounded-md cursor-pointer">
-                    <HugeiconsIcon
-                      icon={Menu01Icon}
-                      size={20}
-                      strokeWidth={2}
-                    />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-52" align="end">
-                  <DropdownMenuItem
-                    onClick={handleLogout}
-                    variant="destructive"
-                  >
-                    <HugeiconsIcon icon={LogoutSquare02Icon} />
-                    Fazer logout
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <Button onClick={() => navigate("/publish")}>Postar</Button>
+              <Menu />
             </>
           )}
         </div>

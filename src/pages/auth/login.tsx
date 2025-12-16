@@ -4,6 +4,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import { loginSchema, type LoginFormData } from "../../schemas/login";
 import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ViewIcon, ViewOffIcon } from "@hugeicons/core-free-icons";
 
 export function Login() {
   const [passwordInputType, setPasswordInputType] =
@@ -38,21 +41,20 @@ export function Login() {
     <main className="w-full h-screen">
       <form
         onSubmit={handleSubmit(handleLogin)}
-        className="absolute top-1/2 left-1/2 -translate-1/2 w-96 flex flex-col gap-5"
+        className="absolute top-1/2 left-1/2 -translate-1/2 w-96 flex flex-col gap-5 items-center justify-center"
       >
         <div>
-          <h2 className="font-semibold text-2xl">Login</h2>
+          <h2 className="font-bold text-2xl">Entrar</h2>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-5 w-full">
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm">Email</label>
             <input
               {...register("email")}
               aria-invalid={!!errors.email}
               type="email"
-              placeholder="Digite seu email"
-              className="p-2.5 rounded-md border border-black/15 text-sm"
+              placeholder="Insira seu endereço de email"
+              className="bg-foreground/5 py-3 px-4 rounded-md text-[15px] outline-0"
             />
             {errors.email && (
               <span className="text-sm text-red-500">
@@ -62,16 +64,15 @@ export function Login() {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <label className="text-sm">Senha</label>
             <div className="relative w-full">
               <input
                 {...register("password")}
                 aria-invalid={!!errors.password}
                 type={passwordInputType}
-                placeholder="Digite sua senha"
-                className="p-2.5 rounded-md border border-black/15 text-sm w-full"
+                placeholder="Senha"
+                className="bg-foreground/5 py-3 px-4 rounded-md text-[15px] outline-0 w-full"
               />
-              <button
+              <Button
                 type="button"
                 onClick={toggleShowPassword}
                 aria-label={
@@ -79,10 +80,16 @@ export function Login() {
                     ? "Mostrar senha"
                     : "Ocultar senha"
                 }
-                className="absolute top-1/2 -translate-y-1/2 right-3 text-sm bg-black/10 p-1 rounded"
+                className="absolute top-1/2 -translate-y-1/2 right-3 p-1 bg-transparent text-foreground"
               >
-                {passwordInputType === "password" ? "Mostrar" : "Ocultar"}
-              </button>
+                <HugeiconsIcon
+                  icon={
+                    passwordInputType === "password" ? ViewIcon : ViewOffIcon
+                  }
+                  size={22}
+                  strokeWidth={2}
+                />
+              </Button>
             </div>
 
             {errors.password && (
@@ -93,14 +100,10 @@ export function Login() {
           </div>
         </div>
 
-        <div>
-          <button
-            type="submit"
-            disabled={isPending}
-            className="w-full bg-black rounded-md p-2.5 text-white text-sm disabled:opacity-50"
-          >
-            {isPending ? "Entrando..." : "Login"}
-          </button>
+        <div className="w-full">
+          <Button type="submit" disabled={isPending} className="w-full py-3">
+            {isPending ? "Entrando..." : "Avançar"}
+          </Button>
         </div>
 
         {apiError && (
@@ -113,10 +116,10 @@ export function Login() {
           </div>
         )}
 
-        <div className="w-full flex items-center justify-center gap-1 text-sm">
+        <div className="w-full flex items-center justify-center gap-1">
           <p>Não possui uma conta?</p>
           <Link to="/signup" className="text-blue-500 hover:underline">
-            Criar conta
+            Inscreva-se
           </Link>
         </div>
       </form>

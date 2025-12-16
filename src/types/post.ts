@@ -5,5 +5,6 @@ export type Post = Database["public"]["Tables"]["posts"]["Row"];
 export type PostWithAuthor = Post & {
   profiles: {
     username: string;
+    bio: string | null;
   };
 };

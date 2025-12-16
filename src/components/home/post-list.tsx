@@ -1,10 +1,10 @@
 import { useGetPosts } from "@/hooks/use-get-posts";
-import { timeAgo } from "@/lib/utils";
 import { PAGE_SIZE } from "@/services/post";
 import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { PostCard } from "./post-card";
+import { Button } from "../ui/button";
 
 export function PostList() {
   const [page, setPage] = useState(1);
@@ -25,58 +25,38 @@ export function PostList() {
 
   return (
     <>
-      <div className="flex flex-col gap-3">
-        {posts.map((post, index) => {
-          const postNumber = (page - 1) * PAGE_SIZE + index + 1;
-
+      <div className="flex flex-col">
+        {posts.map((post) => {
           return (
-            <div key={post.id} className="flex items-start gap-2">
-              <div>
-                <span className="font-medium">{postNumber}.</span>
-              </div>
-
-              <div className="flex flex-col">
-                <div>
-                  <Link
-                    to={`/post/${post.id}`}
-                    className="hover:underline line-clamp-2 text-ellipsis font-medium"
-                  >
-                    {post.title}
-                  </Link>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-[13px] text-foreground/60 hover:underline cursor-pointer">
-                    Postado por {post.profiles.username}
-                  </span>
-                  {post.created_at && (
-                    <span className="text-[13px] text-foreground/60">
-                      {timeAgo(post.created_at)}
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
+            <PostCard
+              key={post.id}
+              postId={post.id}
+              content={post.content}
+              title={post.title}
+            />
           );
         })}
       </div>
 
-      <div className="w-full flex items-center justify-center gap-5">
-        <button
+      <div className="w-full flex items-center justify-end gap-2">
+        <Button
           disabled={page === 1}
           onClick={handlePrev}
-          className="cursor-pointer disabled:opacity-50 disabled:cursor-default flex items-center gap-1"
+          variant="secondary"
+          className="py-3"
         >
-          <HugeiconsIcon icon={ArrowLeft01Icon} size={18} />
+          <HugeiconsIcon icon={ArrowLeft01Icon} size={18} strokeWidth={2} />
           Anterior
-        </button>
-        <button
+        </Button>
+        <Button
           disabled={!hasNextPage}
           onClick={handleNext}
-          className="cursor-pointer disabled:opacity-50 disabled:cursor-default flex items-center gap-1"
+          variant="secondary"
+          className="py-3"
         >
           Próximo
-          <HugeiconsIcon icon={ArrowRight01Icon} size={18} />
-        </button>
+          <HugeiconsIcon icon={ArrowRight01Icon} size={18} strokeWidth={2} />
+        </Button>
       </div>
     </>
   );

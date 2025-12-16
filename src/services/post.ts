@@ -14,7 +14,7 @@ export async function getPosts({ page }: getPostsProps) {
 
   const { data, error, count } = await supabase
     .from("posts")
-    .select("*, profiles(username)", { count: "exact" })
+    .select("*, profiles(username, bio)", { count: "exact" })
     .order("created_at", { ascending: false })
     .range(from, to);
 
@@ -29,7 +29,7 @@ export async function getPosts({ page }: getPostsProps) {
 export async function getPost(id: string): Promise<PostWithAuthor> {
   const { data, error } = await supabase
     .from("posts")
-    .select("*, profiles(username)")
+    .select("*, profiles(username, bio)")
     .eq("id", id)
     .single();
 
