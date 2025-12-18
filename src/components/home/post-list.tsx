@@ -31,7 +31,7 @@ export function PostList() {
             <PostCard
               key={post.id}
               postId={post.id}
-              content={post.content}
+              contentPreview={post.content}
               title={post.title}
             />
           );

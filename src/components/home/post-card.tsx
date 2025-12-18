@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
+import { MarkdownCleaner } from "./markdown-cleaner";
 
 interface PostCardProps {
   postId: string;
   title: string;
   date?: string;
-  content: string;
+  contentPreview: string;
 }
 
 export function PostCard(props: PostCardProps) {
@@ -24,9 +25,7 @@ export function PostCard(props: PostCardProps) {
       </div>
 
       <div>
-        <p className="text-foreground/50 line-clamp-2 text-ellipsis">
-          {props.content}
-        </p>
+        <MarkdownCleaner markdown={props.contentPreview} />
       </div>
     </Link>
   );
