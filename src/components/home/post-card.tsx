@@ -4,18 +4,31 @@ import { MarkdownCleaner } from "./markdown-cleaner";
 interface PostCardProps {
   postId: string;
   title: string;
-  date?: string;
+  date: string | null;
   contentPreview: string;
 }
 
 export function PostCard(props: PostCardProps) {
+  const postCreatedAt = new Date(props.date || "");
+
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+
+  const postFormattedDate = new Intl.DateTimeFormat(
+    "pt-BR",
+    dateOptions,
+  ).format(postCreatedAt);
+
   return (
     <Link
       to={`/post/${props.postId}`}
       className="flex flex-col gap-1.5 px-4 py-8 md:p-8 rounded-xl cursor-pointer hover:bg-foreground/5 transition"
     >
       <div>
-        <p className="text-foreground/50 text-sm">7 de jul. de 2025</p>
+        <p className="text-foreground/50 text-sm">{postFormattedDate}</p>
       </div>
 
       <div className="w-fit">

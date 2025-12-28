@@ -44,7 +44,7 @@ export function Menu() {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-64" align="end">
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => navigate(`/${profile.username}`)}>
           <div>
             <img
               src="https://pbs.twimg.com/profile_images/1999199376619581440/8W7FN5gc_400x400.jpg"
@@ -53,12 +53,8 @@ export function Menu() {
             />
           </div>
           <div>
-            <strong>{profile.username}</strong>
-            {profile.bio && (
-              <p className="text-foreground/50 text-sm line-clamp-1 text-ellipsis">
-                {profile.bio}
-              </p>
-            )}
+            <span className="font-semibold">{profile.username}</span>
+            <p className="text-sm text-muted-foreground">Ver perfil</p>
           </div>
         </DropdownMenuItem>
 

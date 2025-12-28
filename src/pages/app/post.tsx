@@ -31,10 +31,10 @@ export function Post() {
     <div className="max-w-3xl mx-auto px-6 lg:px-0 py-16 space-y-10">
       <div>
         <button
-          onClick={() => navigate("/")}
+          onClick={() => navigate(-1)}
           className="bg-foreground/5 cursor-pointer flex items-center gap-1 rounded-full px-4.5 py-2.5 font-semibold hover:bg-foreground/8 transition"
         >
-          Todas as postagens
+          Voltar
           <HugeiconsIcon icon={ArrowLeft02Icon} size={20} />
         </button>
       </div>
@@ -60,9 +60,14 @@ export function Post() {
 
             <div>
               <p>
-                Por <Link to="/">{post.profiles.username}</Link>
+                Por{" "}
+                <Link to={`/${post.profiles.username}`}>
+                  {post.profiles.username}
+                </Link>
               </p>
-              <p className="text-sm text-foreground/50">{post.profiles.bio}</p>
+              <p className="text-sm text-foreground/50 line-clamp-1 text-ellipsis">
+                {post.profiles.bio}
+              </p>
             </div>
           </div>
         </div>

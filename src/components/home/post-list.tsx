@@ -33,6 +33,7 @@ export function PostList() {
               postId={post.id}
               contentPreview={post.content}
               title={post.title}
+              date={post.created_at}
             />
           );
         })}
