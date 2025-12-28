@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { useGetPost } from "@/hooks/use-get-post";
 import { ArrowLeft02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -30,13 +31,14 @@ export function Post() {
   return (
     <div className="max-w-3xl mx-auto px-6 lg:px-0 py-16 space-y-10">
       <div>
-        <button
+        <Button
           onClick={() => navigate(-1)}
-          className="bg-foreground/5 cursor-pointer flex items-center gap-1 rounded-full px-4.5 py-2.5 font-semibold hover:bg-foreground/8 transition"
+          variant="secondary"
+          className="py-2.5"
         >
           Voltar
           <HugeiconsIcon icon={ArrowLeft02Icon} size={20} />
-        </button>
+        </Button>
       </div>
 
       <div className="space-y-14">
@@ -72,7 +74,7 @@ export function Post() {
           </div>
         </div>
 
-        <div className="prose prose-headings:font-bold text-lg leading-8 prose-zinc">
+        <div className="prose prose-headings:font-bold text-lg leading-8 prose-zinc dark:prose-invert">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {post.content}
           </ReactMarkdown>
