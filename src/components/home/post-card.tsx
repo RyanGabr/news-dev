@@ -19,7 +19,7 @@ export function PostCard(props: PostCardProps) {
       </div>
 
       <div className="w-fit">
-        <p className="line-clamp-2 text-ellipsis font-semibold text-2xl">
+        <p className="line-clamp-2 text-ellipsis font-semibold text-[22px]">
           {props.title}
         </p>
       </div>
