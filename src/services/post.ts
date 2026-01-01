@@ -80,3 +80,11 @@ export async function createPost(postData: CreatePostData) {
 
   return data;
 }
+
+export async function deletePost(postId: string) {
+  const { error } = await supabase.from("posts").delete().eq("id", postId);
+
+  if (error) {
+    throw new Error(error.message || "Falha ao deletar a postagem");
+  }
+}
