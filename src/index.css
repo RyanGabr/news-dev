@@ -139,6 +139,60 @@
     }
 }
 
+.CodeMirror {
+    background-color: var(--background) !important;
+    color: var(--foreground) !important;
+    border: none !important;
+    padding: 12px 0 !important;
+}
+
+.dark .CodeMirror-selected {
+    background-color: var(--foreground) !important;
+    opacity: 15% !important;
+}
+
+.editor-toolbar {
+    background-color: transparent !important;
+    border: none;
+    opacity: 1 !important;
+    padding: 0 !important;
+}
+
+/* Ícones da barra de ferramentas */
+.editor-toolbar button {
+    color: var(--muted-foreground) !important;
+}
+
+.editor-toolbar button {
+    border: none !important;
+    border-radius: 8px;
+}
+
+.editor-toolbar button:hover,
+.editor-toolbar button.active {
+    background-color: var(--secondary-foreground) !important;
+    color: var(--foreground) !important;
+    border: none !important;
+}
+
+/* Divisor entre os ícones */
+.editor-toolbar i.separator {
+    border: 1px solid var(--muted-foreground) !important;
+    opacity: 30%;
+}
+
+/* Área de Preview */
+.editor-preview-active,
+.editor-preview-active * {
+    background-color: var(--background) !important;
+    color: var(--foreground) !important;
+}
+
+/* Cursor (Caret) */
+.dark .CodeMirror-cursor {
+    border-left: 1px solid #ffffff !important;
+}
+
 .CodeMirror-code {
     font-size: 14px !important;
     line-height: 1.5 !important;
@@ -151,5 +205,5 @@
 .cm-header-4 {
     font-size: 14px !important;
     font-weight: normal !important;
-    color: steelblue;
+    color: dodgerblue;
 }

@@ -1,10 +1,8 @@
-import { AddCircleHalfDotIcon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
 import { useUser } from "@supabase/auth-helpers-react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Menu } from "./menu";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { PublishForm } from "./publish-form";
 
 export function Layout() {
   const user = useUser();
@@ -25,24 +23,7 @@ export function Layout() {
         <div className="flex items-center gap-2">
           {user ? (
             <>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    onClick={() => navigate("/publish")}
-                    variant="secondary"
-                    rounded="full"
-                    className="p-3.5"
-                  >
-                    <HugeiconsIcon
-                      icon={AddCircleHalfDotIcon}
-                      strokeWidth={2}
-                      size={20}
-                    />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>Publicar</TooltipContent>
-              </Tooltip>
-
+              <PublishForm />
               <Menu />
             </>
           ) : (

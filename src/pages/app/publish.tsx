@@ -1,4 +1,4 @@
-import { PostForm } from "@/components/publish/post-form";
+// import { PostForm } from "@/components/publish/post-form";
 
 export function Publish() {
   return (
@@ -7,7 +7,7 @@ export function Publish() {
         <h1 className="font-semibold text-3xl">Publicar</h1>
       </div>
 
-      <PostForm />
+      {/*<PostForm />*/}
     </div>
   );
 }
