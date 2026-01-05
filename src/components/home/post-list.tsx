@@ -25,17 +25,9 @@ export function PostList() {
 
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-2">
         {posts.map((post) => {
-          return (
-            <PostCard
-              key={post.id}
-              postId={post.id}
-              contentPreview={post.content}
-              title={post.title}
-              date={post.created_at}
-            />
-          );
+          return <PostCard key={post.id} post={post} />;
         })}
       </div>
 
@@ -44,7 +36,7 @@ export function PostList() {
           disabled={page === 1}
           onClick={handlePrev}
           variant="secondary"
-          className="py-3"
+          rounded="full"
         >
           <HugeiconsIcon icon={ArrowLeft01Icon} size={18} strokeWidth={2} />
           Anterior
@@ -53,7 +45,7 @@ export function PostList() {
           disabled={!hasNextPage}
           onClick={handleNext}
           variant="secondary"
-          className="py-3"
+          rounded="full"
         >
           Próximo
           <HugeiconsIcon icon={ArrowRight01Icon} size={18} strokeWidth={2} />

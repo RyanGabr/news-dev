@@ -1,6 +1,6 @@
 import type { CreatePostData } from "@/schemas/post";
 import { supabase } from "../lib/supabase";
-import type { Post, PostWithAuthor } from "../types/post";
+import type { PostWithAuthor } from "../types/post";
 
 interface getPostsProps {
   page: number;
@@ -54,7 +54,7 @@ export async function getPostsByAuthor({
 
   const { data, error, count } = await supabase
     .from("posts")
-    .select("*", { count: "exact" })
+    .select("*, profiles(username, bio)", { count: "exact" })
     .eq("author_id", authorId)
     .order("created_at", { ascending: false })
     .range(from, to);
@@ -63,7 +63,7 @@ export async function getPostsByAuthor({
   if (!data) throw new Error("Post not found");
 
   return {
-    data: data as Post[],
+    data: data as PostWithAuthor[],
     count,
   };
 }

@@ -35,24 +35,16 @@ export function PostList() {
 
   return (
     <>
-      <div>
-        <span className="font-semibold text-muted-foreground px-4 md:px-8">
+      <div className="flex flex-col gap-5">
+        <span className="font-medium text-muted-foreground text-lg">
           Publicações
         </span>
 
-        <hr className="my-3 mx-4 md:mx-8" />
-
-        {posts
-          ? posts.map((post) => (
-              <PostCard
-                key={post.id}
-                postId={post.id}
-                contentPreview={post.content}
-                title={post.title}
-                date={post.created_at}
-              />
-            ))
-          : "Nenhuma publicação encontrada"}
+        <div className="flex flex-col gap-5">
+          {posts
+            ? posts.map((post) => <PostCard key={post.id} post={post} />)
+            : "Nenhuma publicação encontrada"}
+        </div>
       </div>
 
       <div className="w-full flex items-center justify-end gap-2">

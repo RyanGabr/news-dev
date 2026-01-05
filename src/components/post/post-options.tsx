@@ -1,8 +1,8 @@
 import {
-  ArrowLeft02Icon,
   Delete02Icon,
   Edit03Icon,
   MoreHorizontalIcon,
+  Share08Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -44,24 +44,19 @@ export function PostOptions() {
   }
 
   return (
-    <div className="flex items-center justify-between">
-      <Button
-        onClick={() => navigate(-1)}
-        variant="secondary"
-        className="py-2.5"
-      >
-        Voltar
-        <HugeiconsIcon icon={ArrowLeft02Icon} size={20} />
-      </Button>
-
+    <div className="flex items-center gap-2">
       {post.author_id === user?.id && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="secondary" className="py-2.5">
-              <HugeiconsIcon icon={MoreHorizontalIcon} />
+            <Button variant="secondary" size="sm" rounded="full">
+              <HugeiconsIcon icon={MoreHorizontalIcon} size={20} />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-52 p-1.5">
+          <DropdownMenuContent align="start" className="w-52 p-1.5">
+            <DropdownMenuItem>
+              Compartilhar
+              <HugeiconsIcon icon={Share08Icon} strokeWidth={2} />
+            </DropdownMenuItem>
             <DropdownMenuItem>
               Editar
               <HugeiconsIcon icon={Edit03Icon} strokeWidth={2} />

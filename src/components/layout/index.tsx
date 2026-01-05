@@ -1,3 +1,5 @@
+import { AddCircleHalfDotIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useUser } from "@supabase/auth-helpers-react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
@@ -9,7 +11,7 @@ export function Layout() {
 
   return (
     <div className="w-full h-screen flex flex-col">
-      <header className="w-200 mx-auto py-4 flex items-center justify-between">
+      <header className="px-6 w-full xl:px-0 xl:w-3/4 2xl:w-1/2 mx-auto py-4 flex items-center justify-between">
         <div>
           <Link to="/">
             <img
@@ -19,18 +21,26 @@ export function Layout() {
             />
           </Link>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           {!user && (
-            <>
-              <Button onClick={() => navigate("/signup")} variant="secondary">
-                Cadastrar
-              </Button>
-              <Button onClick={() => navigate("/login")}>Entrar</Button>
-            </>
+            <Button onClick={() => navigate("/login")} size="sm" rounded="full">
+              Entrar ou Inscrever-se
+            </Button>
           )}
           {user && (
             <>
-              <Button onClick={() => navigate("/publish")}>Postar</Button>
+              <Button
+                onClick={() => navigate("/publish")}
+                variant="secondary"
+                rounded="full"
+                className="p-3.5"
+              >
+                <HugeiconsIcon
+                  icon={AddCircleHalfDotIcon}
+                  strokeWidth={2}
+                  size={20}
+                />
+              </Button>
               <Menu />
             </>
           )}
