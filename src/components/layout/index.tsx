@@ -4,6 +4,7 @@ import { useUser } from "@supabase/auth-helpers-react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Menu } from "./menu";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 export function Layout() {
   const user = useUser();
@@ -22,30 +23,36 @@ export function Layout() {
           </Link>
         </div>
         <div className="flex items-center gap-2">
-          {!user && (
+          {user ? (
+            <>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    onClick={() => navigate("/publish")}
+                    variant="secondary"
+                    rounded="full"
+                    className="p-3.5"
+                  >
+                    <HugeiconsIcon
+                      icon={AddCircleHalfDotIcon}
+                      strokeWidth={2}
+                      size={20}
+                    />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Publicar</TooltipContent>
+              </Tooltip>
+
+              <Menu />
+            </>
+          ) : (
             <Button onClick={() => navigate("/login")} size="sm" rounded="full">
               Entrar ou Inscrever-se
             </Button>
           )}
-          {user && (
-            <>
-              <Button
-                onClick={() => navigate("/publish")}
-                variant="secondary"
-                rounded="full"
-                className="p-3.5"
-              >
-                <HugeiconsIcon
-                  icon={AddCircleHalfDotIcon}
-                  strokeWidth={2}
-                  size={20}
-                />
-              </Button>
-              <Menu />
-            </>
-          )}
         </div>
       </header>
+
       <main className="w-full">
         <Outlet />
       </main>
