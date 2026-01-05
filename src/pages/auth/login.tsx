@@ -124,7 +124,6 @@ export function Login() {
                       passwordInputType === "password" ? ViewIcon : ViewOffIcon
                     }
                     size={18}
-                    strokeWidth={2}
                   />
                 </Button>
               </div>
