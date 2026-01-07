@@ -32,8 +32,7 @@ export function PostHeader() {
           size="sm"
           rounded="full"
         >
-          <HugeiconsIcon icon={ArrowLeft02Icon} size={14} strokeWidth={2} />
-          Voltar
+          <HugeiconsIcon icon={ArrowLeft02Icon} size={20} strokeWidth={2} />
         </Button>
 
         <PostOptions />
