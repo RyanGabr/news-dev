@@ -40,7 +40,7 @@ export function PostHeader() {
       </div>
 
       <div>
-        <h1 className="font-semibold text-3xl md:text-5xl tracking-tight">
+        <h1 className="font-semibold text-3xl md:text-[40px] tracking-tight">
           {post.title}
         </h1>
       </div>
