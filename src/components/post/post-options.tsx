@@ -74,18 +74,31 @@ export function PostOptions() {
                   <HugeiconsIcon icon={Delete02Icon} strokeWidth={2} />
                 </DropdownMenuItem>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="w-sm">
                 <DialogTitle>Deletar postagem</DialogTitle>
                 <DialogDescription>
                   Você tem certeza dessa ação? A postagem será deletada
                   permanentemente.
                 </DialogDescription>
 
-                <DialogFooter>
+                <DialogFooter className="flex-row sm:justify-normal">
                   <DialogClose asChild>
-                    <Button variant="secondary">Cancelar</Button>
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      rounded="full"
+                      className="w-full"
+                    >
+                      Cancelar
+                    </Button>
                   </DialogClose>
-                  <Button onClick={deletePost} disabled={isPending}>
+                  <Button
+                    onClick={deletePost}
+                    disabled={isPending}
+                    size="sm"
+                    rounded="full"
+                    className="w-full"
+                  >
                     Deletar
                   </Button>
                 </DialogFooter>
