@@ -130,6 +130,10 @@
     --brand: oklab(0.6799 0.00967303 -0.158467);
 }
 
+.font-mono {
+    font-family: "JetBrains Mono";
+}
+
 @layer base {
     * {
         @apply border-border outline-ring/50;
