@@ -74,6 +74,7 @@ export function PublishForm() {
         localStorage.removeItem(LOCAL_STORAGE_DRAFT_KEY);
         reset({ title: "", content: "" });
         navigate(`/post/${newPostData[0].id}`);
+        setDialogIsOpen(false);
       },
       onError: (err) => {
         console.log(err);
@@ -124,7 +125,7 @@ export function PublishForm() {
       <DialogTrigger>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="secondary" rounded="full" className="p-3.5">
+            <Button variant="secondary" rounded="full" className="py-3">
               <HugeiconsIcon
                 icon={AddCircleHalfDotIcon}
                 strokeWidth={2}
