@@ -16,7 +16,6 @@ import {
   Settings01Icon,
 } from "@hugeicons/core-free-icons";
 import { VerifiedIcon } from "../ui/verified-icon";
-import { Button } from "../ui/button";
 
 export function Menu() {
   const { mutateAsync } = useUserLogout();
@@ -35,26 +34,13 @@ export function Menu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant="secondary"
-          rounded="full"
-          size="sm"
-          className="gap-2 pl-2 pr-4"
-        >
-          <div>
-            <img
-              src="https://pbs.twimg.com/profile_images/1999199376619581440/8W7FN5gc_400x400.jpg"
-              alt=""
-              className="min-w-8 max-w-8 rounded-full"
-            />
-          </div>
-          <div className="text-left">
-            <div className="flex items-center">
-              <span>{profile.username}</span>
-              <VerifiedIcon className="scale-70" />
-            </div>
-          </div>
-        </Button>
+        <button className="cursor-pointer hover:scale-98 transition">
+          <img
+            src="https://pbs.twimg.com/profile_images/1999199376619581440/8W7FN5gc_400x400.jpg"
+            alt=""
+            className="min-w-9 max-w-9 rounded-full"
+          />
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-72 p-0" align="end" sideOffset={10}>
         <div className="relative">
