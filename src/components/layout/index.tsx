@@ -3,6 +3,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Menu } from "./menu";
 import { PublishForm } from "./publish-form";
+import { Search } from "./search";
 
 export function Layout() {
   const user = useUser();
@@ -23,6 +24,7 @@ export function Layout() {
         <div className="flex items-center gap-2">
           {user ? (
             <>
+              <Search />
               <PublishForm />
               <Menu />
             </>

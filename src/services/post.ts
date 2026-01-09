@@ -1,9 +1,18 @@
 import type { CreatePostData } from "@/schemas/post";
 import { supabase } from "../lib/supabase";
-import type { PostWithAuthor } from "../types/post";
+import type { Post, PostWithAuthor } from "../types/post";
 
 interface getPostsProps {
   page: number;
+}
+
+interface getPostsByAuthorProps {
+  authorId: string;
+  page: number;
+}
+
+interface getPostsBySearch {
+  search: string;
 }
 
 export const PAGE_SIZE: number = 14;
@@ -40,11 +49,6 @@ export async function getPost(id: string): Promise<PostWithAuthor> {
   return data;
 }
 
-interface getPostsByAuthorProps {
-  authorId: string;
-  page: number;
-}
-
 export async function getPostsByAuthor({
   authorId,
   page,
@@ -66,6 +70,24 @@ export async function getPostsByAuthor({
     data: data as PostWithAuthor[],
     count,
   };
+}
+
+export async function getPostsBySearch({
+  search,
+}: getPostsBySearch): Promise<Post[]> {
+  let query = supabase
+    .from("posts")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (search) {
+    query = query.ilike("title", `%${search}%`);
+  }
+
+  const { data, error } = await query;
+
+  if (error) throw new Error(error.message);
+  return data;
 }
 
 export async function createPost(postData: CreatePostData) {
