@@ -1,13 +1,15 @@
+import { Loading } from "@/components/post/loading";
 import { PostContent } from "@/components/post/post-content";
 import { PostHeader } from "@/components/post/post-header";
+import { Suspense } from "react";
 
 export function Post() {
   return (
-    <div className="max-w-2xl mx-auto px-6 lg:px-0 py-10 space-y-10">
-      <div className="space-y-8 md:space-y-14">
+    <div className="max-w-2xl mx-auto px-6 lg:px-0 py-10 space-y-8">
+      <Suspense fallback={<Loading />}>
         <PostHeader />
         <PostContent />
-      </div>
+      </Suspense>
     </div>
   );
 }
