@@ -1,6 +1,8 @@
 import { useCreatePost } from "@/hooks/use-create-post";
 import { postSchema, type PostFormData } from "@/schemas/post";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Add01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import "easymde/dist/easymde.min.css";
 import { useEffect, useMemo, useState } from "react";
 import ReactDOMServer from "react-dom/server";
@@ -11,7 +13,6 @@ import SimpleMdeEditor from "react-simplemde-editor";
 import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import { Button } from "../ui/button";
-import { HugeiconsIcon } from "@hugeicons/react";
 import {
   Dialog,
   DialogClose,
@@ -19,7 +20,6 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
-import { AddCircleHalfDotIcon } from "@hugeicons/core-free-icons";
 
 const LOCAL_STORAGE_DRAFT_KEY = "content-new";
 
@@ -125,12 +125,8 @@ export function PublishForm() {
       <DialogTrigger>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="secondary" rounded="full" className="py-3">
-              <HugeiconsIcon
-                icon={AddCircleHalfDotIcon}
-                strokeWidth={2}
-                size={20}
-              />
+            <Button variant="secondary" rounded="full" size="icon">
+              <HugeiconsIcon icon={Add01Icon} strokeWidth={2} size={18} />
             </Button>
           </TooltipTrigger>
           <TooltipContent sideOffset={5}>Publicar</TooltipContent>

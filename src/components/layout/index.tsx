@@ -16,7 +16,7 @@ export function Layout() {
             <img
               src="https://www.notion.com/front-static/favicon.ico"
               alt=""
-              className="w-10"
+              className="w-9"
             />
           </Link>
         </div>
