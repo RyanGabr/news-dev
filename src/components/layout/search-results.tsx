@@ -29,9 +29,10 @@ function EmptyState() {
 
 interface SearchResultsProps {
   search: string;
+  setCommandOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function SearchResults({ search }: SearchResultsProps) {
+export function SearchResults({ search, setCommandOpen }: SearchResultsProps) {
   const debouncedSearch = useDebounce(search, 500);
   const isTyping = search !== debouncedSearch;
 
@@ -67,6 +68,7 @@ export function SearchResults({ search }: SearchResultsProps) {
         key={post.id}
         to={`/post/${post.id}`}
         className="px-3 py-4 flex items-center gap-3.5 rounded-md hover:bg-foreground/7 cursor-pointer transition"
+        onClick={() => setCommandOpen(false)}
       >
         <div>
           <img

@@ -53,7 +53,7 @@ export function Search() {
         />
 
         <Activity mode={search.trim().length > 0 ? "visible" : "hidden"}>
-          <SearchResults search={search} />
+          <SearchResults search={search} setCommandOpen={setCommandOpen} />
         </Activity>
       </CommandDialog>
     </>
