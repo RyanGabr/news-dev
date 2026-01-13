@@ -1,3 +1,4 @@
+import { Comments } from "@/components/post/comments";
 import { Loading } from "@/components/post/loading";
 import { PostContent } from "@/components/post/post-content";
 import { PostHeader } from "@/components/post/post-header";
@@ -9,6 +10,8 @@ export function Post() {
       <Suspense fallback={<Loading />}>
         <PostHeader />
         <PostContent />
+        <hr />
+        <Comments />
       </Suspense>
     </div>
   );
