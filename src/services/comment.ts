@@ -5,6 +5,12 @@ interface getCommentsProps {
   postId: string;
 }
 
+interface CreateCommentProps {
+  postId: string;
+  authorId: string;
+  content: string;
+}
+
 export async function getComments({
   postId,
 }: getCommentsProps): Promise<CommentWithAutor[]> {
@@ -25,5 +31,20 @@ export async function getComments({
     throw new Error(error.message);
   }
 
+  return data;
+}
+
+export async function createComment({
+  authorId,
+  content,
+  postId,
+}: CreateCommentProps) {
+  const { data, error } = await supabase
+    .from("comments")
+    .insert([{ post_id: postId, author_id: authorId, content }])
+    .select()
+    .single();
+
+  if (error) throw new Error(error.message);
   return data;
 }
