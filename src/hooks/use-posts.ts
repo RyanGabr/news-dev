@@ -35,12 +35,10 @@ export function useGetPosts(params: GetPostsParams) {
 export function useGetPostById(params: GetPostByIdParams) {
   return useSuspenseQuery({
     queryKey: ["post", params.id],
-    queryFn: ({ queryKey }) => {
-      const [, postId] = queryKey;
-      return getPostById({
-        id: postId,
-      });
-    },
+    queryFn: () =>
+      getPostById({
+        id: params.id,
+      }),
   });
 }
 
