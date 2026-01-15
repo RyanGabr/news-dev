@@ -1,24 +1,22 @@
-import { deleteComment, getComments } from "@/services/comment";
+import {
+  deleteComment,
+  getComments,
+  type CreateCommentProps,
+  type DeleteCommentProps,
+  type GetCommentsProps,
+} from "@/services/comment";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createComment } from "@/services/comment";
 import { useUser } from "@supabase/auth-helpers-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-interface useGetCommentsProps {
+type DeleteCommentData = DeleteCommentProps & {
   postId: string;
-}
+};
 
-interface DeleteCommentProps {
-  commentId: string;
-  postId: string;
-}
+type CreateCommentData = Omit<CreateCommentProps, "authorId">;
 
-interface CreateCommentProps {
-  content: string;
-  postId: string;
-}
-
-export function useGetComments({ postId }: useGetCommentsProps) {
+export function useGetComments({ postId }: GetCommentsProps) {
   return useSuspenseQuery({
     queryKey: ["comments", postId],
     queryFn: () => getComments({ postId: postId }),
@@ -30,7 +28,7 @@ export function useCreateComment() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ content, postId }: CreateCommentProps) =>
+    mutationFn: ({ content, postId }: CreateCommentData) =>
       createComment({
         authorId: user!.id,
         content: content,
@@ -48,7 +46,7 @@ export function useDeleteComment() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (variables: DeleteCommentProps) =>
+    mutationFn: (variables: DeleteCommentData) =>
       deleteComment({ commentId: variables.commentId }),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({

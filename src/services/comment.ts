@@ -1,17 +1,17 @@
 import { supabase } from "@/lib/supabase";
 import type { CommentWithAutor } from "@/types/comment";
 
-interface GetCommentsProps {
+export interface GetCommentsProps {
   postId: string;
 }
 
-interface CreateCommentProps {
+export interface CreateCommentProps {
   postId: string;
   authorId: string;
   content: string;
 }
 
-interface DeleteCommentProps {
+export interface DeleteCommentProps {
   commentId: string;
 }
 
