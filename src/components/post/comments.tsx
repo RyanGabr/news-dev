@@ -1,5 +1,6 @@
 import { useGetComments } from "@/hooks/use-comments";
 import { Link, useParams } from "react-router-dom";
+import { CommentForm } from "./comment-form";
 
 export function Comments() {
   const { id } = useParams();
@@ -8,12 +9,14 @@ export function Comments() {
   });
 
   return (
-    <section>
+    <section className="space-y-10">
       <h2 className="font-semibold text-2xl tracking-tight">Comentários</h2>
 
-      <div>
+      <CommentForm />
+
+      <div className="space-y-10">
         {comments.map((comment) => (
-          <div key={comment.id} className="space-y-4 py-6">
+          <div key={comment.id} className="space-y-4">
             <div className="flex items-center gap-2.5 mt-3">
               <img
                 src="https://pbs.twimg.com/profile_images/1999199376619581440/8W7FN5gc_400x400.jpg"
