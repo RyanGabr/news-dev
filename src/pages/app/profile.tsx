@@ -1,6 +1,6 @@
 import { PostList } from "@/components/profile/post-list";
 import { VerifiedIcon } from "@/components/ui/verified-icon";
-import { useGetProfileByUsername } from "@/hooks/use-get-profile";
+import { useGetProfileByUsername } from "@/hooks/use-profile";
 import { useParams } from "react-router-dom";
 
 export function Profile() {

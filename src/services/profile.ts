@@ -1,10 +1,18 @@
 import { supabase } from "@/lib/supabase";
 
-export async function getProfileByUsername(username: string) {
+export interface GetProfileByUsernameParams {
+  username: string;
+}
+
+export interface GetProfileByIdParams {
+  id: string;
+}
+
+export async function getProfileByUsername(params: GetProfileByUsernameParams) {
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
-    .eq("username", username)
+    .eq("username", params.username)
     .single();
 
   if (error) {
@@ -14,11 +22,11 @@ export async function getProfileByUsername(username: string) {
   return data;
 }
 
-export async function getProfileById(id: string) {
+export async function getProfileById(params: GetProfileByIdParams) {
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
-    .eq("id", id)
+    .eq("id", params.id)
     .single();
 
   if (error) {

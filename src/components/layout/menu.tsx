@@ -1,4 +1,4 @@
-import { useGetProfileById } from "@/hooks/use-get-profile";
+import { useGetProfileById } from "@/hooks/use-profile";
 import { useUserLogout } from "@/hooks/use-auth";
 import { useUser } from "@supabase/auth-helpers-react";
 import { useNavigate } from "react-router-dom";
