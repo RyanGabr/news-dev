@@ -1,6 +1,6 @@
 import { PostCard } from "@/components/home/post-card";
 import { Button } from "@/components/ui/button";
-import { useGetPostsByAuthor } from "@/hooks/use-get-posts-by-author";
+import { useGetPostsByAuthor } from "@/hooks/use-posts";
 import { useGetProfileByUsername } from "@/hooks/use-get-profile";
 import { PROFILE_POSTS_PAGE_SIZE } from "@/services/post";
 import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";

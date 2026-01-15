@@ -1,11 +1,13 @@
+import { cn } from "@/lib/utils";
 import { useMemo } from "react";
 import removeMd from "remove-markdown";
 
 interface PlainTextProps {
   markdown: string;
+  className?: string;
 }
 
-export function MarkdownCleaner({ markdown }: PlainTextProps) {
+export function MarkdownCleaner({ markdown, className }: PlainTextProps) {
   const plainText = useMemo(() => {
     return removeMd(markdown, {
       stripListLeaders: true,
@@ -15,7 +17,12 @@ export function MarkdownCleaner({ markdown }: PlainTextProps) {
   }, [markdown]);
 
   return (
-    <p className="whitespace-pre-wrap text-foreground/50 line-clamp-2 text-ellipsis text-base">
+    <p
+      className={cn(
+        "whitespace-pre-wrap text-foreground/50 line-clamp-2 text-ellipsis text-base",
+        className,
+      )}
+    >
       {plainText}
     </p>
   );

@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { useDeletePost } from "@/hooks/use-delete-post";
+import { useDeletePost } from "@/hooks/use-posts";
 import { useNavigate, useParams } from "react-router-dom";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -16,14 +16,22 @@ import { Delete02Icon } from "@hugeicons/core-free-icons";
 import { Button } from "../ui/button";
 
 export function DeletePost() {
-  const { id } = useParams();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { mutateAsync, isPending } = useDeletePost();
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  if (!id) {
+    throw new Error("Post not found");
+  }
+
+  const postId = id;
 
   async function deletePost() {
     if (id) {
-      await mutateAsync(id);
+      await mutateAsync({
+        postId,
+      });
       navigate("/");
     }
   }

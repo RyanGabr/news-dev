@@ -1,7 +1,7 @@
 import { Skeleton } from "../ui/skeleton";
 import { Link } from "react-router-dom";
 import { useDebounce } from "@/hooks/use-debounce";
-import { useGetPostsBySearch } from "@/hooks/use-get-posts-by-search";
+import { useGetPostsBySearch } from "@/hooks/use-posts";
 import { CommandList } from "../ui/command";
 
 function PostSkeleton() {

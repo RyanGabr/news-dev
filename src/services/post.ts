@@ -2,24 +2,32 @@ import type { CreatePostData } from "@/schemas/post";
 import { supabase } from "../lib/supabase";
 import type { Post, PostWithAuthor } from "../types/post";
 
-interface getPostsProps {
+export interface GetPostsParams {
   page: number;
 }
 
-interface getPostsByAuthorProps {
+export interface GetPostByIdParams {
+  id: string;
+}
+
+export interface GetPostsByAuthorParams {
   authorId: string;
   page: number;
 }
 
-interface getPostsBySearch {
+export interface GetPostsBySearchParams {
   search: string;
+}
+
+export interface DeletePostParams {
+  postId: string;
 }
 
 export const PAGE_SIZE: number = 14;
 export const PROFILE_POSTS_PAGE_SIZE: number = 3;
 
-export async function getPosts({ page }: getPostsProps) {
-  const from = (page - 1) * PAGE_SIZE;
+export async function getPosts(params: GetPostsParams) {
+  const from = (params.page - 1) * PAGE_SIZE;
   const to = from + PAGE_SIZE - 1;
 
   const { data, error, count } = await supabase
@@ -36,11 +44,13 @@ export async function getPosts({ page }: getPostsProps) {
   };
 }
 
-export async function getPost(id: string): Promise<PostWithAuthor> {
+export async function getPostById(
+  params: GetPostByIdParams,
+): Promise<PostWithAuthor> {
   const { data, error } = await supabase
     .from("posts")
     .select("*, profiles(username, bio)")
-    .eq("id", id)
+    .eq("id", params.id)
     .single();
 
   if (error) throw error;
@@ -49,17 +59,14 @@ export async function getPost(id: string): Promise<PostWithAuthor> {
   return data;
 }
 
-export async function getPostsByAuthor({
-  authorId,
-  page,
-}: getPostsByAuthorProps) {
-  const from = (page - 1) * PROFILE_POSTS_PAGE_SIZE;
+export async function getPostsByAuthor(params: GetPostsByAuthorParams) {
+  const from = (params.page - 1) * PROFILE_POSTS_PAGE_SIZE;
   const to = from + PROFILE_POSTS_PAGE_SIZE - 1;
 
   const { data, error, count } = await supabase
     .from("posts")
     .select("*, profiles(username, bio)", { count: "exact" })
-    .eq("author_id", authorId)
+    .eq("author_id", params.authorId)
     .order("created_at", { ascending: false })
     .range(from, to);
 
@@ -72,16 +79,16 @@ export async function getPostsByAuthor({
   };
 }
 
-export async function getPostsBySearch({
-  search,
-}: getPostsBySearch): Promise<Post[]> {
+export async function getPostsBySearch(
+  params: GetPostsBySearchParams,
+): Promise<Post[]> {
   let query = supabase
     .from("posts")
     .select("*")
     .order("created_at", { ascending: false });
 
-  if (search) {
-    query = query.ilike("title", `%${search}%`);
+  if (params.search) {
+    query = query.ilike("title", `%${params.search}%`);
   }
 
   const { data, error } = await query;
@@ -103,8 +110,11 @@ export async function createPost(postData: CreatePostData) {
   return data;
 }
 
-export async function deletePost(postId: string) {
-  const { error } = await supabase.from("posts").delete().eq("id", postId);
+export async function deletePost(params: DeletePostParams) {
+  const { error } = await supabase
+    .from("posts")
+    .delete()
+    .eq("id", params.postId);
 
   if (error) {
     throw new Error(error.message || "Falha ao deletar a postagem");

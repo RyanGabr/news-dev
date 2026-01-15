@@ -1,7 +1,7 @@
-import { useCreatePost } from "@/hooks/use-create-post";
+import { useCreatePost } from "@/hooks/use-posts";
 import { postSchema, type PostFormData } from "@/schemas/post";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Add01Icon } from "@hugeicons/core-free-icons";
+import { PlusSignIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import "easymde/dist/easymde.min.css";
 import { useEffect, useMemo, useState } from "react";
@@ -19,7 +19,6 @@ import {
   DialogContent,
   DialogTrigger,
 } from "../ui/dialog";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 const LOCAL_STORAGE_DRAFT_KEY = "content-new";
 
@@ -76,7 +75,7 @@ export function PublishForm() {
         navigate(`/post/${newPostData[0].id}`);
         setDialogIsOpen(false);
       },
-      onError: (err) => {
+      onError: (err: Error) => {
         console.log(err);
       },
     });
@@ -122,15 +121,10 @@ export function PublishForm() {
 
   return (
     <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
-      <DialogTrigger>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="secondary" rounded="full" size="icon">
-              <HugeiconsIcon icon={Add01Icon} strokeWidth={2} size={18} />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent sideOffset={5}>Publicar</TooltipContent>
-        </Tooltip>
+      <DialogTrigger asChild>
+        <Button variant="secondary" rounded="full" size="icon">
+          <HugeiconsIcon icon={PlusSignIcon} strokeWidth={2.5} size={18} />
+        </Button>
       </DialogTrigger>
       <DialogContent className="w-2xl">
         <form onSubmit={handleSubmit(createPost)} className="space-y-5">

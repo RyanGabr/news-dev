@@ -1,11 +1,20 @@
-import { useGetPost } from "@/hooks/use-get-post";
+import { useGetPostById } from "@/hooks/use-posts";
 import ReactMarkdown from "react-markdown";
 import { useParams } from "react-router-dom";
 import remarkGfm from "remark-gfm";
 
 export function PostContent() {
   const { id } = useParams();
-  const { data: post } = useGetPost(id ?? "");
+
+  if (!id) {
+    throw new Error("Post not found");
+  }
+
+  const postId = id;
+
+  const { data: post } = useGetPostById({
+    id: postId,
+  });
 
   if (!id) {
     return "Post não encontrado";

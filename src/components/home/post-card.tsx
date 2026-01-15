@@ -20,7 +20,7 @@ export function PostCard({ post }: PostCardProps) {
 
       <div className="flex flex-col gap-3">
         <div className="w-fit">
-          <p className="line-clamp-2 text-ellipsis font-medium text-xl">
+          <p className="line-clamp-2 text-ellipsis font-medium text-lg md:text-xl">
             {post.title}
           </p>
         </div>

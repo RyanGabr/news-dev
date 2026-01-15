@@ -1,4 +1,4 @@
-import { useGetPosts } from "@/hooks/use-get-posts";
+import { useGetPosts } from "@/hooks/use-posts";
 import { PAGE_SIZE } from "@/services/post";
 import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";

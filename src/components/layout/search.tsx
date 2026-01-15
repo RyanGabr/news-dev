@@ -3,7 +3,6 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { Activity, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { CommandDialog, CommandInput } from "../ui/command";
-import { Kbd, KbdGroup } from "../ui/kbd";
 import { SearchResults } from "./search-results";
 
 export function Search() {
@@ -25,19 +24,11 @@ export function Search() {
     <>
       <Button
         variant="secondary"
-        size="sm"
+        size="icon"
         rounded="full"
-        className="font-normal gap-1.5"
         onClick={() => setCommandOpen(true)}
       >
-        <HugeiconsIcon icon={Search01Icon} strokeWidth={2} size={18} />
-
-        <p className="text-muted-foreground">Pesquisar</p>
-
-        <KbdGroup>
-          <Kbd className="bg-foreground/8">Ctrl</Kbd>
-          <Kbd className="bg-foreground/8">K</Kbd>
-        </KbdGroup>
+        <HugeiconsIcon icon={Search01Icon} strokeWidth={2.5} size={18} />
       </Button>
 
       <CommandDialog

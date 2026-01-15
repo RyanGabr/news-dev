@@ -1,14 +1,19 @@
-import { useGetPost } from "@/hooks/use-get-post";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { Button } from "../ui/button";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { ArrowLeft02Icon } from "@hugeicons/core-free-icons";
+import { useGetPostById } from "@/hooks/use-posts";
+import { Link, useParams } from "react-router-dom";
 import { PostOptions } from "./post-options";
 
 export function PostHeader() {
   const { id } = useParams();
-  const { data: post } = useGetPost(id ?? "");
-  const navigate = useNavigate();
+
+  if (!id) {
+    throw new Error("Post not found");
+  }
+
+  const postId = id;
+
+  const { data: post } = useGetPostById({
+    id: postId,
+  });
 
   const postCreatedAt = new Date(post.created_at!);
 
@@ -24,20 +29,7 @@ export function PostHeader() {
   ).format(postCreatedAt);
 
   return (
-    <div className="space-y-5">
-      <div className="flex items-center gap-2">
-        <Button
-          onClick={() => navigate(-1)}
-          variant="secondary"
-          size="sm"
-          rounded="full"
-        >
-          <HugeiconsIcon icon={ArrowLeft02Icon} size={20} strokeWidth={2} />
-        </Button>
-
-        <PostOptions />
-      </div>
-
+    <div className="space-y-5 mt-5">
       <div>
         <h1 className="font-semibold text-3xl md:text-[40px] tracking-tight">
           {post.title}
@@ -65,6 +57,8 @@ export function PostHeader() {
         <p className="text-muted-foreground text-center text-sm md:text-base">
           {postFormattedDate}
         </p>
+
+        <PostOptions />
       </div>
     </div>
   );

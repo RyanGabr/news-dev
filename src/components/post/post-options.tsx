@@ -1,4 +1,4 @@
-import { useGetPost } from "@/hooks/use-get-post";
+import { useGetPostById } from "@/hooks/use-posts";
 import {
   Edit03Icon,
   MoreHorizontalIcon,
@@ -18,8 +18,17 @@ import { DeletePost } from "./delete-post";
 
 export function PostOptions() {
   const { id } = useParams();
-  const { data: post } = useGetPost(id ?? "");
   const user = useUser();
+
+  if (!id) {
+    throw new Error("Post not found");
+  }
+
+  const postId = id;
+
+  const { data: post } = useGetPostById({
+    id: postId,
+  });
 
   return (
     post.author_id === user?.id && (
