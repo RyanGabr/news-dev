@@ -1,7 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import type { CommentWithAutor } from "@/types/comment";
 
-interface getCommentsProps {
+interface GetCommentsProps {
   postId: string;
 }
 
@@ -17,7 +17,7 @@ interface DeleteCommentProps {
 
 export async function getComments({
   postId,
-}: getCommentsProps): Promise<CommentWithAutor[]> {
+}: GetCommentsProps): Promise<CommentWithAutor[]> {
   const { data, error } = await supabase
     .from("comments")
     .select(
