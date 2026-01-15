@@ -9,23 +9,19 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 export function useGetProfileByUsername(params: GetProfileByUsernameParams) {
   return useSuspenseQuery({
     queryKey: ["profile", params.username],
-    queryFn: ({ queryKey }) => {
-      const [, username] = queryKey;
-      return getProfileByUsername({
-        username,
-      });
-    },
+    queryFn: () =>
+      getProfileByUsername({
+        username: params.username,
+      }),
   });
 }
 
 export function useGetProfileById(params: GetProfileByIdParams) {
   return useSuspenseQuery({
     queryKey: ["profile-id", params.id],
-    queryFn: ({ queryKey }) => {
-      const [, id] = queryKey;
-      return getProfileById({
-        id,
-      });
-    },
+    queryFn: () =>
+      getProfileById({
+        id: params.id,
+      }),
   });
 }

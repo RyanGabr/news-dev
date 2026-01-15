@@ -7,7 +7,7 @@ export function Profile() {
   const { username } = useParams();
 
   const { data: profile } = useGetProfileByUsername({
-    username: username || "",
+    username: username!,
   });
 
   return (

@@ -23,7 +23,7 @@ export function Menu() {
   const user = useUser();
 
   const { data: profile } = useGetProfileById({
-    id: user?.id || "",
+    id: user!.id,
   });
 
   async function handleLogout() {
