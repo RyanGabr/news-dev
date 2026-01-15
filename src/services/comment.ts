@@ -1,23 +1,23 @@
 import { supabase } from "@/lib/supabase";
 import type { CommentWithAutor } from "@/types/comment";
 
-export interface GetCommentsProps {
+export interface GetCommentsParams {
   postId: string;
 }
 
-export interface CreateCommentProps {
+export interface CreateCommentData {
   postId: string;
   authorId: string;
   content: string;
 }
 
-export interface DeleteCommentProps {
+export interface DeleteCommentParams {
   commentId: string;
 }
 
-export async function getComments({
-  postId,
-}: GetCommentsProps): Promise<CommentWithAutor[]> {
+export async function getComments(
+  params: GetCommentsParams,
+): Promise<CommentWithAutor[]> {
   const { data, error } = await supabase
     .from("comments")
     .select(
@@ -28,7 +28,7 @@ export async function getComments({
         )
       `,
     )
-    .eq("post_id", postId)
+    .eq("post_id", params.postId)
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -38,26 +38,24 @@ export async function getComments({
   return data;
 }
 
-export async function createComment({
-  authorId,
-  content,
-  postId,
-}: CreateCommentProps) {
-  const { data, error } = await supabase
+export async function createComment(data: CreateCommentData) {
+  const { data: comment, error } = await supabase
     .from("comments")
-    .insert([{ post_id: postId, author_id: authorId, content }])
+    .insert([
+      { post_id: data.postId, author_id: data.authorId, content: data.content },
+    ])
     .select()
     .single();
 
   if (error) throw new Error(error.message);
-  return data;
+  return comment;
 }
 
-export async function deleteComment({ commentId }: DeleteCommentProps) {
+export async function deleteComment(params: DeleteCommentParams) {
   const { error } = await supabase
     .from("comments")
     .delete()
-    .eq("id", commentId);
+    .eq("id", params.commentId);
 
   if (error) {
     throw new Error(error.message || "Falha ao excluir comentário");

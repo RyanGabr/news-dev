@@ -1,25 +1,25 @@
 import {
   deleteComment,
   getComments,
-  type CreateCommentProps,
-  type DeleteCommentProps,
-  type GetCommentsProps,
+  type GetCommentsParams,
+  type CreateCommentData as CreateCommentPayload,
+  type DeleteCommentParams as DeleteCommentServiceParams,
 } from "@/services/comment";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createComment } from "@/services/comment";
 import { useUser } from "@supabase/auth-helpers-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-type DeleteCommentData = DeleteCommentProps & {
+type CreateCommentData = Omit<CreateCommentPayload, "authorId">;
+
+type DeleteCommentParams = DeleteCommentServiceParams & {
   postId: string;
 };
 
-type CreateCommentData = Omit<CreateCommentProps, "authorId">;
-
-export function useGetComments({ postId }: GetCommentsProps) {
+export function useGetComments(params: GetCommentsParams) {
   return useSuspenseQuery({
-    queryKey: ["comments", postId],
-    queryFn: () => getComments({ postId: postId }),
+    queryKey: ["comments", params.postId],
+    queryFn: () => getComments({ postId: params.postId }),
   });
 }
 
@@ -28,11 +28,11 @@ export function useCreateComment() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ content, postId }: CreateCommentData) =>
+    mutationFn: (data: CreateCommentData) =>
       createComment({
         authorId: user!.id,
-        content: content,
-        postId: postId,
+        content: data.content,
+        postId: data.postId,
       }),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
@@ -46,8 +46,8 @@ export function useDeleteComment() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (variables: DeleteCommentData) =>
-      deleteComment({ commentId: variables.commentId }),
+    mutationFn: (params: DeleteCommentParams) =>
+      deleteComment({ commentId: params.commentId }),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
         queryKey: ["comments", variables.postId],
