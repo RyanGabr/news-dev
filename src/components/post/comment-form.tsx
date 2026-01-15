@@ -66,7 +66,7 @@ export function CommentForm() {
             ref={textAreaRef}
             rows={1}
             placeholder="Adicione um comentário..."
-            className="border-b w-full outline-none focus:border-foreground resize-none h-9 pb-2"
+            className="border-b w-full outline-none focus:border-foreground resize-none h-9 pb-2 overflow-hidden"
             value={inputValue}
             onChange={handleInput}
           />
