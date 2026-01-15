@@ -11,6 +11,10 @@ interface CreateCommentProps {
   content: string;
 }
 
+interface DeleteCommentProps {
+  commentId: string;
+}
+
 export async function getComments({
   postId,
 }: getCommentsProps): Promise<CommentWithAutor[]> {
@@ -47,4 +51,15 @@ export async function createComment({
 
   if (error) throw new Error(error.message);
   return data;
+}
+
+export async function deleteComment({ commentId }: DeleteCommentProps) {
+  const { error } = await supabase
+    .from("comments")
+    .delete()
+    .eq("id", commentId);
+
+  if (error) {
+    throw new Error(error.message || "Falha ao excluir comentário");
+  }
 }
