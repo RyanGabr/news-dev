@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { useUserLogin } from "../../hooks/use-user-login";
+import { useUserLogin } from "@/hooks/use-auth";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import { loginSchema, type LoginFormData } from "../../schemas/login";

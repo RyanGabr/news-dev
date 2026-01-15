@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useUserCreate } from "../../hooks/use-create-user";
+import { useCreateUser } from "@/hooks/use-auth";
 import { signupSchema, type SignupFormData } from "../../schemas/signup";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,7 @@ export function SignUp() {
   const [passwordInputType, setPasswordInputType] =
     useState<string>("password");
 
-  const { mutateAsync, isPending, error: apiError } = useUserCreate();
+  const { mutateAsync, isPending, error: apiError } = useCreateUser();
 
   const {
     register,
