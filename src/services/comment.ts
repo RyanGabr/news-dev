@@ -15,6 +15,11 @@ export interface DeleteCommentParams {
   commentId: string;
 }
 
+export interface UpdateCommentData {
+  commentId: string;
+  content: string;
+}
+
 export async function getComments(
   params: GetCommentsParams,
 ): Promise<CommentWithAutor[]> {
@@ -60,4 +65,17 @@ export async function deleteComment(params: DeleteCommentParams) {
   if (error) {
     throw new Error(error.message || "Falha ao excluir comentário");
   }
+}
+
+export async function updateComment(data: UpdateCommentData) {
+  const { data: comment, error } = await supabase
+    .from("comments")
+    .update({ content: data.content })
+    .eq("id", data.commentId)
+    .select()
+    .single();
+
+  if (error) throw new Error(error.message);
+
+  return comment;
 }

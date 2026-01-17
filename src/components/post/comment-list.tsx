@@ -1,15 +1,15 @@
 import { useGetComments } from "@/hooks/use-comments";
-import { Edit03Icon, MoreVerticalIcon } from "@hugeicons/core-free-icons";
+import { MoreVerticalIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Link, useParams } from "react-router-dom";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { DeleteComment } from "./delete-comment";
+import { EditComment } from "./edit-comment";
 
 export function CommentList() {
   const { id } = useParams();
@@ -55,11 +55,7 @@ export function CommentList() {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-40 p-1.5">
-                  <DropdownMenuItem>
-                    Editar
-                    <HugeiconsIcon icon={Edit03Icon} />
-                  </DropdownMenuItem>
-
+                  <EditComment comment={comment} />
                   <DeleteComment commentId={comment.id} />
                 </DropdownMenuContent>
               </DropdownMenu>
