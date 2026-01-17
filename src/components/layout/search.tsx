@@ -4,6 +4,7 @@ import { Activity, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { CommandDialog, CommandInput } from "../ui/command";
 import { SearchResults } from "./search-results";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 export function Search() {
   const [commandOpen, setCommandOpen] = useState(false);
@@ -22,14 +23,18 @@ export function Search() {
 
   return (
     <>
-      <Button
-        variant="secondary"
-        size="icon"
-        rounded="full"
-        onClick={() => setCommandOpen(true)}
-      >
-        <HugeiconsIcon icon={Search01Icon} strokeWidth={2.5} size={18} />
-      </Button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="blank"
+            className="py-0 text-muted-foreground hover:text-foreground px-2"
+            onClick={() => setCommandOpen(true)}
+          >
+            <HugeiconsIcon icon={Search01Icon} strokeWidth={2} size={17} />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>Buscar — Ctrl + K</TooltipContent>
+      </Tooltip>
 
       <CommandDialog
         open={commandOpen}

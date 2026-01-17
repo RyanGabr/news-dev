@@ -13,6 +13,7 @@ const buttonVariants = cva(
         outline: "bg-transparent border border-border",
         ghost: "hover:bg-secondary-foreground font-normal",
         link: "hover:underline font-normal text-muted-foreground",
+        blank: "",
       },
       size: {
         default: "text-base px-4 py-2",

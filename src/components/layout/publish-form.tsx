@@ -1,8 +1,6 @@
 import { useCreatePost } from "@/hooks/use-posts";
 import { postSchema, type PostFormData } from "@/schemas/post";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { PlusSignIcon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
 import "easymde/dist/easymde.min.css";
 import { useEffect, useMemo, useState } from "react";
 import ReactDOMServer from "react-dom/server";
@@ -122,8 +120,12 @@ export function PublishForm() {
   return (
     <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
       <DialogTrigger asChild>
-        <Button variant="secondary" rounded="full" size="icon">
-          <HugeiconsIcon icon={PlusSignIcon} strokeWidth={2.5} size={18} />
+        <Button
+          variant="blank"
+          size="sm"
+          className="py-0 text-foreground/80 hover:text-foreground px-2"
+        >
+          Criar Postagem
         </Button>
       </DialogTrigger>
       <DialogContent className="w-2xl">
