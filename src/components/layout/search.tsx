@@ -3,8 +3,8 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { Activity, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { CommandDialog, CommandInput } from "../ui/command";
-import { SearchResults } from "./search-results";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { SearchResults } from "./search-results";
 
 export function Search() {
   const [commandOpen, setCommandOpen] = useState(false);
@@ -39,13 +39,14 @@ export function Search() {
       <CommandDialog
         open={commandOpen}
         onOpenChange={setCommandOpen}
-        className="max-w-xl shadow-none dark:bg-secondary-foreground rounded-xl"
+        className="max-w-xl bg-popover backdrop-blur-lg shadow-none rounded-lg border border-border/20"
         showCloseButton={false}
       >
         <CommandInput
-          placeholder="O que você deseja encontrar?"
+          placeholder="O que você quer encontrar?"
           value={search}
           onValueChange={(search: string) => setSearch(search)}
+          className="text-xl bg-transparent placeholder:opacity-80 px-1.5"
         />
 
         <Activity mode={search.trim().length > 0 ? "visible" : "hidden"}>
