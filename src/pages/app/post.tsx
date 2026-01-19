@@ -13,7 +13,6 @@ export function Post() {
         <hr />
         <Comments />
       </Suspense>
-      <Loading />
     </div>
   );
 }
