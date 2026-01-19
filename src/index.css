@@ -96,7 +96,7 @@
 }
 
 .dark {
-    --background: rgb(20, 20, 20);
+    --background: rgb(19, 21, 23);
     --foreground: oklch(0.985 0 0);
     --card: oklch(0.21 0.006 285.885);
     --card-foreground: oklch(0.985 0 0);
@@ -104,7 +104,7 @@
     --popover-foreground: oklch(0.985 0 0);
     --primary: oklch(0.92 0.004 286.32);
     --primary-foreground: oklch(0.21 0.006 285.885);
-    --secondary: rgba(255, 255, 255, 0.02);
+    --secondary: rgba(255, 255, 255, 0.04);
     --secondary-foreground: rgb(38, 38, 38);
     --muted: oklch(0.274 0.006 286.033);
     --muted-foreground: oklch(0.705 0.015 286.067);
@@ -144,7 +144,7 @@
 }
 
 .CodeMirror {
-    background-color: var(--background) !important;
+    background-color: transparent !important;
     color: var(--foreground) !important;
     border: none !important;
     padding: 12px 0 !important;
@@ -162,7 +162,6 @@
     padding: 0 !important;
 }
 
-/* Ícones da barra de ferramentas */
 .editor-toolbar button {
     color: var(--muted-foreground) !important;
 }
@@ -188,8 +187,36 @@
 /* Área de Preview */
 .editor-preview-active,
 .editor-preview-active * {
-    background-color: var(--background) !important;
+    background-color: transparent !important;
     color: var(--foreground) !important;
+    border-radius: 4px;
+    margin-top: 8px;
+}
+
+.cm-header,
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4 {
+    font-size: 16px !important;
+    font-weight: normal !important;
+    color: dodgerblue;
+}
+
+body:has(.editor-preview-active)
+    :is(
+        .CodeMirror,
+        .cm-header,
+        .cm-header-1,
+        .cm-header-2,
+        .cm-header-3,
+        .cm-header-4,
+        .cm-link,
+        .cm-url,
+        .cm-underline,
+        .cm-quote
+    ) {
+    color: transparent !important;
 }
 
 /* Cursor (Caret) */
@@ -198,16 +225,10 @@
 }
 
 .CodeMirror-code {
-    font-size: 14px !important;
+    font-size: 16px !important;
     line-height: 1.5 !important;
 }
 
-.cm-header,
-.cm-header-1,
-.cm-header-2,
-.cm-header-3,
-.cm-header-4 {
-    font-size: 14px !important;
-    font-weight: normal !important;
-    color: dodgerblue;
+.squircle {
+    corner-shape: squircle;
 }

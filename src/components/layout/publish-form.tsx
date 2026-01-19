@@ -128,7 +128,7 @@ export function PublishForm() {
           Criar Postagem
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-2xl">
+      <DialogContent className="w-3xl border border-border/70">
         <form onSubmit={handleSubmit(createPost)} className="space-y-5">
           <div className="flex flex-col gap-6">
             <div>
@@ -148,8 +148,8 @@ export function PublishForm() {
                     {...field}
                     autoFocus
                     type="text"
-                    placeholder="Dê um título para sua postagem"
-                    className="w-full text-2xl placeholder:font-medium font-semibold outline-none"
+                    placeholder="Título da postagem"
+                    className="w-full text-3xl font-semibold outline-none"
                   />
                 )}
               />

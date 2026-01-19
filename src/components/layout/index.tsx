@@ -14,7 +14,7 @@ export function Layout() {
 
   return (
     <div className="w-full h-screen">
-      <header className="w-full p-3.5 bg-background fixed top-0">
+      <header className="w-full p-3.5 bg-background/30 backdrop-blur-lg fixed top-0">
         <div className="relative flex items-center justify-between">
           <Link to="/">
             <HugeiconsIcon
