@@ -39,7 +39,7 @@ export function PostOptions() {
           </Button>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent align="start" className="w-52 p-1.5">
+        <DropdownMenuContent align="start" className="w-52">
           <DropdownMenuItem>
             Compartilhar
             <HugeiconsIcon icon={Share08Icon} strokeWidth={2} />

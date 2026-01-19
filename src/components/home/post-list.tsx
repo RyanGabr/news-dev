@@ -29,7 +29,7 @@ export function PostList() {
         <h2 className="text-xl font-medium">Postagens</h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="flex flex-col gap-4 divide-y">
         {posts.map((post) => {
           return <PostCard key={post.id} post={post} />;
         })}
