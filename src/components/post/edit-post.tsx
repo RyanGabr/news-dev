@@ -15,23 +15,34 @@ import remarkGfm from "remark-gfm";
 import { Button } from "../ui/button";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
-import { postSchema } from "@/schemas/post";
+import { postSchema, type PostFormData } from "@/schemas/post";
 import SimpleMdeEditor from "react-simplemde-editor";
 import type { PostWithAuthor } from "@/types/post";
+import { useUpdatePost } from "@/hooks/use-posts";
+import { useParams } from "react-router-dom";
+import z from "zod/v3";
 
 interface EditPostProps {
   post: PostWithAuthor;
 }
 
 export function EditPost({ post }: EditPostProps) {
+  const { id } = useParams();
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
+  const { mutateAsync, isPending } = useUpdatePost();
+
+  if (!id) {
+    throw new Error("Post not found");
+  }
+
+  const postId = z.string().uuid().parse(id);
 
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm({
+  } = useForm<PostFormData>({
     resolver: zodResolver(postSchema),
     defaultValues: {
       title: post.title,
@@ -43,8 +54,19 @@ export function EditPost({ post }: EditPostProps) {
     control: control,
   });
 
-  function editComment() {
-    // mutate
+  async function editComment(data: PostFormData) {
+    await mutateAsync(
+      {
+        title: data.title,
+        content: data.content,
+        postId,
+      },
+      {
+        onSuccess: () => {
+          setDialogIsOpen(false);
+        },
+      },
+    );
   }
 
   const mdeOptions = useMemo((): EasyMDE.Options => {
@@ -183,8 +205,9 @@ export function EditPost({ post }: EditPostProps) {
               type="submit"
               rounded="full"
               disabled={
-                formValues.title?.trim() === post.title &&
-                formValues.content?.trim() === post.content
+                (formValues.title?.trim() === post.title &&
+                  formValues.content?.trim() === post.content) ||
+                isPending
               }
             >
               Editar

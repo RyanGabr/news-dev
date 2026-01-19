@@ -1,3 +1,5 @@
+import type { PostFormData } from "@/schemas/post";
+import { useUser } from "@supabase/auth-helpers-react";
 import {
   useMutation,
   useQueryClient,
@@ -10,15 +12,15 @@ import {
   getPosts,
   getPostsByAuthor,
   getPostsBySearch,
+  updatePost,
   type DeletePostParams,
   type GetPostByIdParams,
   type GetPostsByAuthorParams,
   type GetPostsBySearchParams,
   type GetPostsParams,
+  type UpdatePostData,
 } from "../services/post";
 import type { PostWithAuthor } from "../types/post";
-import { useUser } from "@supabase/auth-helpers-react";
-import type { PostFormData } from "@/schemas/post";
 
 type GetPostsResponse = {
   data: PostWithAuthor[];
@@ -92,6 +94,18 @@ export function useDeletePost() {
         postId: params.postId,
       }),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] });
+    },
+  });
+}
+
+export function useUpdatePost() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: UpdatePostData) => updatePost(data),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["post", variables.postId] });
       queryClient.invalidateQueries({ queryKey: ["posts"] });
     },
   });

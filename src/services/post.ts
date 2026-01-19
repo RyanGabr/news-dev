@@ -23,6 +23,12 @@ export interface DeletePostParams {
   postId: string;
 }
 
+export interface UpdatePostData {
+  postId: string;
+  title: string;
+  content: string;
+}
+
 export const PAGE_SIZE: number = 14;
 export const PROFILE_POSTS_PAGE_SIZE: number = 3;
 
@@ -119,4 +125,21 @@ export async function deletePost(params: DeletePostParams) {
   if (error) {
     throw new Error(error.message || "Falha ao deletar a postagem");
   }
+}
+
+export async function updatePost(data: UpdatePostData) {
+  const { data: post, error } = await supabase
+    .from("posts")
+    .update({
+      title: data.title,
+      content: data.content,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", data.postId)
+    .select()
+    .single();
+
+  if (error) throw new Error(error.message);
+
+  return post;
 }
