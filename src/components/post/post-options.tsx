@@ -1,9 +1,5 @@
 import { useGetPostById } from "@/hooks/use-posts";
-import {
-  Edit03Icon,
-  MoreHorizontalIcon,
-  Share08Icon,
-} from "@hugeicons/core-free-icons";
+import { MoreHorizontalIcon, Share08Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useUser } from "@supabase/auth-helpers-react";
 import { useParams } from "react-router-dom";
@@ -15,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { DeletePost } from "./delete-post";
+import { EditPost } from "./edit-post";
 
 export function PostOptions() {
   const { id } = useParams();
@@ -44,10 +41,7 @@ export function PostOptions() {
             Compartilhar
             <HugeiconsIcon icon={Share08Icon} strokeWidth={2} />
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            Editar
-            <HugeiconsIcon icon={Edit03Icon} strokeWidth={2} />
-          </DropdownMenuItem>
+          <EditPost post={post} />
           <DeletePost />
         </DropdownMenuContent>
       </DropdownMenu>
