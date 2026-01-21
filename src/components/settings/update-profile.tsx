@@ -33,6 +33,7 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
     defaultValues: {
       username: profile.username,
       bio: profile.bio,
+      display_name: profile.display_name,
     },
   });
 
@@ -91,7 +92,7 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
               <Label>Nome</Label>
               <input
                 type="text"
-                defaultValue="Ryan Gabriel"
+                {...register("display_name")}
                 spellCheck={false}
                 className="px-3 py-2 rounded-md border border-border text-sm w-full"
               />

@@ -47,6 +47,7 @@ export function useUpdateProfile() {
         userId: user?.id,
         username: data.username,
         bio: data.bio,
+        display_name: data.display_name,
       });
     },
     onSuccess: () => {

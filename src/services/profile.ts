@@ -47,6 +47,7 @@ export async function updateProfile(data: UpdateProfileData) {
     .update({
       username: data.username,
       bio: data.bio,
+      display_name: data.display_name,
     })
     .eq("id", data.userId)
     .select()
