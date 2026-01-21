@@ -6,6 +6,7 @@ import { Login } from "../pages/auth/login";
 import { SignUp } from "../pages/auth/sign-up";
 import { AuthRedirect } from "./auth-redirect";
 import { Profile } from "@/pages/app/profile";
+import { Settings } from "@/pages/app/settings";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
       {
         path: "/:username",
         element: <Profile />,
+      },
+      {
+        path: "/settings",
+        element: <Settings />,
       },
     ],
   },

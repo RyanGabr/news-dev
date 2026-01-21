@@ -60,7 +60,7 @@ export function Menu() {
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => navigate("/settings")}>
             Configurações <HugeiconsIcon icon={Settings03Icon} />
           </DropdownMenuItem>
           <DropdownMenuItem onClick={handleLogout}>
