@@ -1,5 +1,6 @@
 import { useGetProfileById } from "@/hooks/use-profile";
 import { type User } from "@supabase/auth-helpers-react";
+import { UpdateProfile } from "./update-profile";
 
 interface AccountProps {
   user: User;
@@ -48,9 +49,8 @@ export function Account({ user }: AccountProps) {
             <p className="text-xs text-muted-foreground max-w-56 truncate text-ellipsis">
               {profile.bio}
             </p>
-            <button className="text-sm text-sky-600 dark:text-blue-400 font-medium cursor-pointer">
-              Editar perfil
-            </button>
+
+            <UpdateProfile profile={profile} />
           </div>
         </div>
       </div>
