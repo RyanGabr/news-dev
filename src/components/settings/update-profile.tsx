@@ -1,4 +1,18 @@
+import { useDebounce } from "@/hooks/use-debounce";
+import {
+  useUpdateProfile,
+  useUploadAvatar,
+  useUsernameAvailability,
+} from "@/hooks/use-profile";
+import {
+  updateProfileSchema,
+  type UpdateProfileFormData,
+} from "@/schemas/profile";
 import type { Profile } from "@/types/profile";
+import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
+import { CircleCheck, CircleX, LoaderCircle } from "lucide-react";
+import { useRef, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -8,16 +22,6 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Label } from "../ui/label";
-import { useForm, useWatch } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
-import {
-  updateProfileSchema,
-  type UpdateProfileFormData,
-} from "@/schemas/profile";
-import { useUpdateProfile, useUsernameAvailability } from "@/hooks/use-profile";
-import { useState } from "react";
-import { useDebounce } from "@/hooks/use-debounce";
-import { CircleCheck, CircleX, LoaderCircle } from "lucide-react";
 
 interface UpdateProfileProps {
   profile: Profile;
@@ -25,45 +29,85 @@ interface UpdateProfileProps {
 
 export function UpdateProfile({ profile }: UpdateProfileProps) {
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { mutateAsync, isPending } = useUpdateProfile();
+  const { mutateAsync: uploadAvatar, isPending: uploadIsPending } =
+    useUploadAvatar();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
+    setValue,
   } = useForm<UpdateProfileFormData>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
       username: profile.username,
       bio: profile.bio,
       display_name: profile.display_name,
+      avatar_url: profile.avatar_url,
     },
   });
 
   const formValues = useWatch({ control });
   const usernameValue = useWatch({ control, name: "username" });
+  const avatarValue = useWatch({ control, name: "avatar_url" });
   const debouncedUsername = useDebounce(usernameValue.trim(), 500);
+
+  const previewUrl =
+    avatarValue instanceof File
+      ? URL.createObjectURL(avatarValue)
+      : avatarValue;
+
+  const handleTriggerClick = () => fileInputRef.current?.click();
 
   const { data: isAvailable, isFetching } = useUsernameAvailability({
     currentUserId: profile.id,
     username: debouncedUsername,
   });
 
-  const { mutateAsync, isPending } = useUpdateProfile();
-
   const hasRealChanges =
     formValues.username?.trim() !== profile.username?.trim() ||
     formValues.display_name?.trim() !== (profile.display_name?.trim() || "") ||
-    formValues.bio?.trim() !== (profile.bio?.trim() || "");
+    formValues.bio?.trim() !== (profile.bio?.trim() || "") ||
+    avatarValue instanceof File;
 
-  const canSave = hasRealChanges && isAvailable && !isFetching && !isPending;
+  const canSave =
+    hasRealChanges &&
+    isAvailable &&
+    !isFetching &&
+    !isPending &&
+    !uploadIsPending;
+
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      setValue("avatar_url", file, { shouldDirty: true });
+    }
+  }
 
   async function updateProfile(data: UpdateProfileFormData) {
-    await mutateAsync(data, {
-      onSuccess: () => {
-        setDialogIsOpen(false);
+    let finalAvatarUrl = profile.avatar_url;
+
+    if (data.avatar_url instanceof File) {
+      finalAvatarUrl = await uploadAvatar({ file: data.avatar_url });
+    }
+
+    await mutateAsync(
+      {
+        ...data,
+        avatar_url: finalAvatarUrl,
       },
-    });
+      {
+        onSuccess: () => {
+          setDialogIsOpen(false);
+        },
+      },
+    );
+
+    console.log(finalAvatarUrl);
   }
 
   return (
@@ -78,15 +122,27 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
 
         <form id="update-profile-form" onSubmit={handleSubmit(updateProfile)}>
           <div className="flex items-center justify-center py-10">
-            <button className="cursor-pointer group relative">
+            <input
+              type="file"
+              className="hidden"
+              ref={fileInputRef}
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+
+            <button
+              onClick={handleTriggerClick}
+              className="cursor-pointer group relative"
+              type="button"
+            >
               <div className="bg-black/40 w-full h-full absolute rounded-full items-center justify-center hidden group-hover:flex transition">
                 <p className="text-xs font-medium">Alterar</p>
               </div>
 
               <img
-                src="https://pbs.twimg.com/profile_images/1999199376619581440/8W7FN5gc_400x400.jpg"
-                alt=""
-                className="min-w-24 max-w-24 rounded-full"
+                src={previewUrl || "/default-avatar.png"}
+                alt="Profile preview"
+                className="min-w-24 max-w-24 h-24 rounded-full object-cover"
               />
             </button>
           </div>

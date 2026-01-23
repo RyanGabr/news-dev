@@ -18,6 +18,11 @@ export type UpdateProfileData = UpdateProfileFormData & {
   userId: string;
 };
 
+export interface UploadAvatarData {
+  userId: string;
+  file: File;
+}
+
 export async function getProfileByUsername(params: GetProfileByUsernameParams) {
   const { data, error } = await supabase
     .from("profiles")
@@ -67,6 +72,7 @@ export async function updateProfile(data: UpdateProfileData) {
       username: data.username,
       bio: data.bio,
       display_name: data.display_name,
+      avatar_url: data.avatar_url as string,
     })
     .eq("id", data.userId)
     .select()
@@ -75,4 +81,23 @@ export async function updateProfile(data: UpdateProfileData) {
   if (error) throw new Error(error.message);
 
   return profile;
+}
+
+export async function uploadAvatar(data: UploadAvatarData) {
+  const fileExt = data.file.name.split(".").pop();
+  const filePath = `${data.userId}/${Date.now()}.${fileExt}`;
+
+  const { error: uploadError } = await supabase.storage
+    .from("avatars")
+    .upload(filePath, data.file, {
+      upsert: true,
+    });
+
+  if (uploadError) throw new Error(uploadError.message);
+
+  const { data: avatar } = supabase.storage
+    .from("avatars")
+    .getPublicUrl(filePath);
+
+  return avatar.publicUrl;
 }

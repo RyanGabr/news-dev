@@ -4,9 +4,11 @@ import {
   getProfileById,
   getProfileByUsername,
   updateProfile,
+  uploadAvatar,
   type CheckUsernameAvailabilityParams,
   type GetProfileByIdParams,
   type GetProfileByUsernameParams,
+  type UploadAvatarData as UploadAvatarPayload,
 } from "@/services/profile";
 import { useUser } from "@supabase/auth-helpers-react";
 import {
@@ -15,6 +17,8 @@ import {
   useQueryClient,
   useSuspenseQuery,
 } from "@tanstack/react-query";
+
+type UploadAvatarData = Omit<UploadAvatarPayload, "userId">;
 
 export function useGetProfileByUsername(params: GetProfileByUsernameParams) {
   return useSuspenseQuery({
@@ -62,11 +66,29 @@ export function useUpdateProfile() {
         username: data.username,
         bio: data.bio,
         display_name: data.display_name,
+        avatar_url: data.avatar_url,
       });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["profile"] });
       queryClient.invalidateQueries({ queryKey: ["profile-id"] });
+    },
+  });
+}
+
+export function useUploadAvatar() {
+  const user = useUser();
+
+  return useMutation({
+    mutationFn: (data: UploadAvatarData) => {
+      if (!user?.id) {
+        throw new Error("Usuário não autenticado");
+      }
+
+      return uploadAvatar({
+        file: data.file,
+        userId: user?.id,
+      });
     },
   });
 }
