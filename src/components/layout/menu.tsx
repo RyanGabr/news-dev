@@ -50,9 +50,11 @@ export function Menu() {
           />
 
           <div className="flex flex-col">
-            <span className="text-base font-medium">{profile.username}</span>
+            <span className="text-base font-medium line-clamp-1 text-ellipsis">
+              {profile.display_name}
+            </span>
             <span className="text-xs font-medium text-muted-foreground line-clamp-1 text-ellipsis">
-              {profile.bio}
+              @{profile.username}
             </span>
           </div>
         </DropdownMenuItem>

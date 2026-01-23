@@ -8,14 +8,16 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Label } from "../ui/label";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import {
   updateProfileSchema,
   type UpdateProfileFormData,
 } from "@/schemas/profile";
-import { useUpdateProfile } from "@/hooks/use-profile";
+import { useUpdateProfile, useUsernameAvailability } from "@/hooks/use-profile";
 import { useState } from "react";
+import { useDebounce } from "@/hooks/use-debounce";
+import { CircleCheck, CircleX, LoaderCircle } from "lucide-react";
 
 interface UpdateProfileProps {
   profile: Profile;
@@ -28,6 +30,7 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm<UpdateProfileFormData>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
@@ -37,7 +40,23 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
     },
   });
 
+  const formValues = useWatch({ control });
+  const usernameValue = useWatch({ control, name: "username" });
+  const debouncedUsername = useDebounce(usernameValue.trim(), 500);
+
+  const { data: isAvailable, isFetching } = useUsernameAvailability({
+    currentUserId: profile.id,
+    username: debouncedUsername,
+  });
+
   const { mutateAsync, isPending } = useUpdateProfile();
+
+  const hasRealChanges =
+    formValues.username?.trim() !== profile.username?.trim() ||
+    formValues.display_name?.trim() !== (profile.display_name?.trim() || "") ||
+    formValues.bio?.trim() !== (profile.bio?.trim() || "");
+
+  const canSave = hasRealChanges && isAvailable && !isFetching && !isPending;
 
   async function updateProfile(data: UpdateProfileFormData) {
     await mutateAsync(data, {
@@ -75,12 +94,38 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label>Nome de usuário</Label>
-              <input
-                type="text"
-                {...register("username")}
-                spellCheck={false}
-                className="px-3 py-2 rounded-md border border-border text-sm w-full"
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  {...register("username")}
+                  spellCheck={false}
+                  className="px-3 py-2 rounded-md border border-border text-sm w-full"
+                />
+
+                <div className="absolute right-3 top-2.5">
+                  {isFetching && (
+                    <LoaderCircle
+                      className="animate-spin text-muted-foreground"
+                      size={18}
+                    />
+                  )}
+                  {!isFetching &&
+                    debouncedUsername.length > 0 &&
+                    debouncedUsername !== profile.username &&
+                    (isAvailable ? (
+                      <CircleCheck className="text-green-400" size={18} />
+                    ) : (
+                      <CircleX className="text-red-400" size={18} />
+                    ))}
+                </div>
+              </div>
+
+              {!isAvailable && debouncedUsername.length > 0 && !isFetching && (
+                <p className="text-xs text-red-400">
+                  Este nome de usuário já está em uso.
+                </p>
+              )}
+
               {errors.username && (
                 <span className="text-xs text-red-400">
                   {errors.username.message}
@@ -115,7 +160,7 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
             form="update-profile-form"
             type="submit"
             size="sm"
-            disabled={isPending}
+            disabled={!canSave}
           >
             Salvar alterações
           </Button>
