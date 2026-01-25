@@ -1,6 +1,7 @@
 import { PostList } from "@/components/profile/post-list";
 import { VerifiedIcon } from "@/components/ui/verified-icon";
 import { useGetProfileByUsername } from "@/hooks/use-profile";
+import Avvvatars from "avvvatars-react";
 import { useParams } from "react-router-dom";
 
 export function Profile() {
@@ -13,11 +14,14 @@ export function Profile() {
   return (
     <div className="w-1/2 mx-auto px-4 lg:px-0 pt-10 pb-32 space-y-10">
       <div className="space-y-8">
-        <img
-          src="https://pbs.twimg.com/profile_images/1999199376619581440/8W7FN5gc_400x400.jpg"
-          alt=""
-          className="w-20 rounded-full"
-        />
+        {profile.avatar_url ? (
+          <img
+            src={profile.avatar_url}
+            className="min-w-20 max-w-20 rounded-full"
+          />
+        ) : (
+          <Avvvatars value={profile.display_name} size={64} style="shape" />
+        )}
 
         <div className="space-y-1">
           <div className="flex items-center gap-1.5">

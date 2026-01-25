@@ -22,6 +22,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Label } from "../ui/label";
+import Avvvatars from "avvvatars-react";
 
 interface UpdateProfileProps {
   profile: Profile;
@@ -139,11 +140,19 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
                 <p className="text-xs font-medium">Alterar</p>
               </div>
 
-              <img
-                src={previewUrl || "/default-avatar.png"}
-                alt="Profile preview"
-                className="min-w-24 max-w-24 h-24 rounded-full object-cover"
-              />
+              {previewUrl ? (
+                <img
+                  src={previewUrl}
+                  alt="Profile preview"
+                  className="min-w-24 max-w-24 h-24 rounded-full object-cover"
+                />
+              ) : (
+                <Avvvatars
+                  value={profile.display_name}
+                  size={96}
+                  style="shape"
+                />
+              )}
             </button>
           </div>
 

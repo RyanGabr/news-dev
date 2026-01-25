@@ -12,6 +12,7 @@ import {
 } from "../ui/dropdown-menu";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { LogoutSquare01Icon, Settings03Icon } from "@hugeicons/core-free-icons";
+import Avvvatars from "avvvatars-react";
 
 export function Menu() {
   const { mutateAsync } = useUserLogout();
@@ -31,11 +32,14 @@ export function Menu() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="cursor-pointer hover:scale-98 transition ml-2">
-          <img
-            src="https://pbs.twimg.com/profile_images/1999199376619581440/8W7FN5gc_400x400.jpg"
-            alt=""
-            className="min-w-7 max-w-7 rounded-full"
-          />
+          {profile.avatar_url ? (
+            <img
+              src={profile.avatar_url}
+              className="min-w-7 max-w-7 rounded-full"
+            />
+          ) : (
+            <Avvvatars value={profile.display_name} size={24} style="shape" />
+          )}
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-72" align="end" sideOffset={10}>
@@ -43,11 +47,14 @@ export function Menu() {
           onClick={() => navigate(`/${profile.username}`)}
           className="justify-normal gap-3"
         >
-          <img
-            src="https://pbs.twimg.com/profile_images/1999199376619581440/8W7FN5gc_400x400.jpg"
-            alt=""
-            className="rounded-full min-w-9 max-w-9"
-          />
+          {profile.avatar_url ? (
+            <img
+              src={profile.avatar_url}
+              className="min-w-9 max-w-9 rounded-full"
+            />
+          ) : (
+            <Avvvatars value={profile.display_name} size={36} style="shape" />
+          )}
 
           <div className="flex flex-col">
             <span className="text-base font-medium line-clamp-1 text-ellipsis">

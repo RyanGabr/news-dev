@@ -38,7 +38,9 @@ export async function getPosts(params: GetPostsParams) {
 
   const { data, error, count } = await supabase
     .from("posts")
-    .select("*, profiles(username, bio)", { count: "exact" })
+    .select("*, profiles(username, bio, display_name, avatar_url)", {
+      count: "exact",
+    })
     .order("created_at", { ascending: false })
     .range(from, to);
 
@@ -55,7 +57,7 @@ export async function getPostById(
 ): Promise<PostWithAuthor> {
   const { data, error } = await supabase
     .from("posts")
-    .select("*, profiles(username, bio)")
+    .select("*, profiles(username, bio, display_name, avatar_url)")
     .eq("id", params.id)
     .single();
 
@@ -71,7 +73,9 @@ export async function getPostsByAuthor(params: GetPostsByAuthorParams) {
 
   const { data, error, count } = await supabase
     .from("posts")
-    .select("*, profiles(username, bio)", { count: "exact" })
+    .select("*, profiles(username, bio, display_name, avatar_url)", {
+      count: "exact",
+    })
     .eq("author_id", params.authorId)
     .order("created_at", { ascending: false })
     .range(from, to);

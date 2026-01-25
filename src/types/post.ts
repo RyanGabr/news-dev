@@ -6,5 +6,7 @@ export type PostWithAuthor = Post & {
   profiles: {
     username: string;
     bio: string | null;
+    display_name: string;
+    avatar_url: string;
   };
 };

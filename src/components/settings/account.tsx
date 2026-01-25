@@ -1,6 +1,7 @@
 import { useGetProfileById } from "@/hooks/use-profile";
 import { type User } from "@supabase/auth-helpers-react";
 import { UpdateProfile } from "./update-profile";
+import Avvvatars from "avvvatars-react";
 
 interface AccountProps {
   user: User;
@@ -37,11 +38,14 @@ export function Account({ user }: AccountProps) {
 
         <div className="my-10 flex items-center gap-5">
           <div>
-            <img
-              src="https://pbs.twimg.com/profile_images/1999199376619581440/8W7FN5gc_400x400.jpg"
-              alt=""
-              className="min-w-12 max-w-12 rounded-full"
-            />
+            {profile.avatar_url ? (
+              <img
+                src={profile.avatar_url}
+                className="min-w-12 max-w-12 rounded-full"
+              />
+            ) : (
+              <Avvvatars value={profile.display_name} size={48} style="shape" />
+            )}
           </div>
 
           <div className="space-y-1">
