@@ -1,6 +1,6 @@
 import type { CreatePostData } from "@/schemas/post";
 import { supabase } from "../lib/supabase";
-import type { Post, PostWithAuthor } from "../types/post";
+import type { PostWithAuthor } from "../types/post";
 
 export interface GetPostsParams {
   page: number;
@@ -91,10 +91,10 @@ export async function getPostsByAuthor(params: GetPostsByAuthorParams) {
 
 export async function getPostsBySearch(
   params: GetPostsBySearchParams,
-): Promise<Post[]> {
+): Promise<PostWithAuthor[]> {
   let query = supabase
     .from("posts")
-    .select("*")
+    .select("*, profiles(username, bio, display_name, avatar_url)")
     .order("created_at", { ascending: false });
 
   if (params.search) {
