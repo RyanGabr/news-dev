@@ -7,6 +7,6 @@ export type PostWithAuthor = Post & {
     username: string;
     bio: string | null;
     display_name: string;
-    avatar_url: string;
+    avatar_url: string | null;
   };
 };
