@@ -1,12 +1,15 @@
-import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
-import { useCallback, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useCreateUser } from "@/hooks/use-auth";
-import { signupSchema, type SignupFormData } from "../../schemas/signup";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { useCreateUser } from "@/hooks/use-auth";
+import { useDebounce } from "@/hooks/use-debounce";
+import { useUsernameAvailability } from "@/hooks/use-profile";
+import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
 import { Mail01Icon, ViewIcon, ViewOffIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { CircleCheck, CircleX, LoaderCircle } from "lucide-react";
+import { useCallback, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { signupSchema, type SignupFormData } from "../../schemas/signup";
 
 export function SignUp() {
   const [pageStep, setPageStep] = useState<string>("form");
@@ -20,8 +23,16 @@ export function SignUp() {
     handleSubmit,
     formState: { errors },
     reset,
+    control,
   } = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
+  });
+
+  const usernameValue = useWatch({ control, name: "username" }) ?? "";
+  const debouncedUsername = useDebounce(usernameValue, 500);
+
+  const { data: isAvailable, isFetching } = useUsernameAvailability({
+    username: debouncedUsername,
   });
 
   const toggleShowPassword = useCallback(() => {
@@ -31,10 +42,23 @@ export function SignUp() {
   }, []);
 
   async function handleCreateUser(data: SignupFormData) {
-    await mutateAsync(data);
+    if (!isAvailable) {
+      return;
+    }
 
-    setPageStep("confirm-email");
-    reset();
+    if (isFetching) return;
+
+    try {
+      await mutateAsync(data);
+
+      setPageStep("confirm-email");
+      reset();
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Ocorreu um erro desconhecido";
+
+      throw new Error(errorMessage);
+    }
   }
 
   return (
@@ -60,7 +84,8 @@ export function SignUp() {
               </div>
 
               <p className="text-muted-foreground text-sm">
-                Preencha com seus dados para criar sua conta no news.dev
+                Uma plataforma de publicação de conteúdo, fique por dentro de
+                tudo que está acontecendo.
               </p>
             </div>
 
@@ -81,13 +106,55 @@ export function SignUp() {
           <div className="p-6 w-full lg:w-1/2 space-y-4">
             <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-1.5">
-                <label className="text-sm">Nome de usuário</label>
+                <label className="text-sm">Nome</label>
                 <input
-                  {...register("username")}
+                  {...register("display_name")}
                   type="text"
-                  placeholder="ryangabr"
+                  placeholder="Ryan Gabriel"
                   className="py-2.5 text-sm outline-0 border-b focus:border-foreground"
                 />
+                {errors.display_name && (
+                  <span className="text-xs text-red-500">
+                    {errors.display_name.message}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="text-sm">Nome de usuário</label>
+                <div className="relative">
+                  <input
+                    {...register("username")}
+                    type="text"
+                    placeholder="@ryangabr"
+                    className="py-2.5 text-sm outline-0 border-b focus:border-foreground w-full"
+                  />
+
+                  <div className="absolute right-3 top-2.5">
+                    {isFetching && (
+                      <LoaderCircle
+                        className="animate-spin text-muted-foreground"
+                        size={18}
+                      />
+                    )}
+
+                    {!isFetching &&
+                      debouncedUsername.length >= 3 &&
+                      (isAvailable ? (
+                        <CircleCheck className="text-green-400" size={18} />
+                      ) : (
+                        <CircleX className="text-red-400" size={18} />
+                      ))}
+                  </div>
+                </div>
+                {!isAvailable &&
+                  debouncedUsername.length > 3 &&
+                  !isFetching && (
+                    <p className="text-xs text-red-400">
+                      Este nome de usuário já está em uso.
+                    </p>
+                  )}
+
                 {errors.username && (
                   <span className="text-xs text-red-500">
                     {errors.username.message}
@@ -154,8 +221,7 @@ export function SignUp() {
                 <Button
                   type="submit"
                   size="sm"
-                  rounded="full"
-                  disabled={isPending}
+                  disabled={isPending || !isAvailable}
                   className="w-full py-2.5"
                 >
                   {isPending ? "Cadastrando..." : "Cadastrar"}
