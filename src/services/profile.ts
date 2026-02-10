@@ -11,7 +11,7 @@ export interface GetProfileByIdParams {
 
 export interface CheckUsernameAvailabilityParams {
   username: string;
-  currentUserId: string;
+  currentUserId?: string;
 }
 
 export type UpdateProfileData = UpdateProfileFormData & {
@@ -51,15 +51,20 @@ export async function getProfileById(params: GetProfileByIdParams) {
   return data;
 }
 
-export async function checkUsernameAvailability(
-  params: CheckUsernameAvailabilityParams,
-) {
-  const { data, error } = await supabase
+export async function checkUsernameAvailability({
+  username,
+  currentUserId,
+}: CheckUsernameAvailabilityParams) {
+  let query = supabase
     .from("profiles")
     .select("id")
-    .eq("username", params.username)
-    .not("id", "eq", params.currentUserId)
-    .maybeSingle();
+    .eq("username", username.toLowerCase().trim());
+
+  if (currentUserId) {
+    query = query.not("id", "eq", currentUserId);
+  }
+
+  const { data, error } = await query.maybeSingle();
 
   if (error) return false;
   return !data;

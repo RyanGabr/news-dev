@@ -40,13 +40,14 @@ export function useGetProfileById(params: GetProfileByIdParams) {
   });
 }
 
-export function useUsernameAvailability(
-  params: CheckUsernameAvailabilityParams,
-) {
+export function useUsernameAvailability({
+  username,
+  currentUserId,
+}: CheckUsernameAvailabilityParams) {
   return useQuery({
-    queryKey: ["username-available", params.username],
-    queryFn: () => checkUsernameAvailability(params),
-    enabled: params.username.length > 0,
+    queryKey: ["username-available", username, currentUserId],
+    queryFn: () => checkUsernameAvailability({ username, currentUserId }),
+    enabled: username.trim().length >= 3,
     staleTime: 1000 * 60,
   });
 }
