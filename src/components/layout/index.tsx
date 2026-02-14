@@ -1,8 +1,13 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Footer } from "./footer";
 import { NavigationBar } from "./navigation-bar";
+import { Activity } from "react";
 
 export function Layout() {
+  const location = useLocation();
+
+  const isPublishPage = location.pathname.includes("publish");
+
   return (
     <div className="w-full h-screen">
       <NavigationBar />
@@ -17,7 +22,9 @@ export function Layout() {
         <Outlet />
       </main>
 
-      <Footer />
+      <Activity mode={isPublishPage ? "hidden" : "visible"}>
+        <Footer />
+      </Activity>
     </div>
   );
 }
