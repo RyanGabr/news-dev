@@ -1,6 +1,9 @@
 import { useDeletePost } from "@/hooks/use-posts";
+import { Delete02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "sonner";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -8,12 +11,9 @@ import {
   DialogContent,
   DialogDescription,
   DialogFooter,
-  DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Delete02Icon } from "@hugeicons/core-free-icons";
 
 export function DeletePost() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -29,10 +29,26 @@ export function DeletePost() {
 
   async function deletePost() {
     if (id) {
-      await mutateAsync({
-        postId,
-      });
-      navigate("/");
+      await mutateAsync(
+        {
+          postId,
+        },
+        {
+          onSuccess: () => {
+            navigate("/");
+            toast.success("Publicação removida com sucesso!", {
+              position: "bottom-center",
+              style: {
+                fontSize: 16,
+                height: 50,
+                backgroundColor: "var(--foreground)",
+                color: "var(--background)",
+                border: "none",
+              },
+            });
+          },
+        },
+      );
     }
   }
 
