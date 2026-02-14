@@ -35,7 +35,7 @@ export function Menu() {
               className="min-w-8 max-w-8 rounded-full"
             />
           ) : (
-            <Avvvatars value={profile.display_name} size={32} style="shape" />
+            <Avvvatars value={profile.username} size={32} style="shape" />
           )}
         </button>
       </DropdownMenuTrigger>
