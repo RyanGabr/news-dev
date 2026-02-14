@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import SimpleMdeEditor from "react-simplemde-editor";
 import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
+import { toast } from "sonner";
 
 export const LOCAL_STORAGE_DRAFT_KEY = "content-new";
 
@@ -62,6 +63,16 @@ export function Form() {
         localStorage.removeItem(LOCAL_STORAGE_DRAFT_KEY);
         reset({ title: "", content: "" });
         navigate(`/post/${newPostData[0].id}`);
+        toast.success("Publicação criada com sucesso!", {
+          position: "bottom-center",
+          style: {
+            fontSize: 16,
+            height: 50,
+            backgroundColor: "var(--foreground)",
+            color: "var(--background)",
+            border: "none",
+          },
+        });
       },
       onError: (err: Error) => {
         console.log(err);
