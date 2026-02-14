@@ -1,6 +1,6 @@
 import { useGetPostById } from "@/hooks/use-posts";
 import { Link, useParams } from "react-router-dom";
-import { PostOptions } from "./post-options";
+import Avvvatars from "avvvatars-react";
 
 export function PostHeader() {
   const { id } = useParams();
@@ -29,36 +29,36 @@ export function PostHeader() {
   ).format(postCreatedAt);
 
   return (
-    <div className="space-y-5 mt-5">
+    <div className="flex flex-col gap-4 items-center justify-center">
       <div>
-        <h1 className="font-semibold text-3xl md:text-[40px] tracking-tight">
+        <p className="text-muted-foreground text-[15px]">{postFormattedDate}</p>
+      </div>
+
+      <div>
+        <h1 className="font-bold text-3xl lg:text-[40px] lg:leading-12 tracking-tight text-center">
           {post.title}
         </h1>
       </div>
 
-      <div className="flex items-center gap-3">
-        <img
-          src="https://pbs.twimg.com/profile_images/1999199376619581440/8W7FN5gc_400x400.jpg"
-          alt=""
-          className="w-7 rounded-full"
-        />
+      <div className="flex items-center gap-2">
+        {post.profiles.avatar_url ? (
+          <img
+            src={post.profiles.avatar_url}
+            alt=""
+            className="min-w-6 max-w-6 rounded-full"
+          />
+        ) : (
+          <Avvvatars value={post.profiles.username} size={24} style="shape" />
+        )}
 
         <div>
           <Link
             to={`/${post.profiles.username}`}
-            className="text-sm md:text-base"
+            className="text-[15px] font-medium"
           >
-            {post.profiles.username}
+            {post.profiles.display_name}
           </Link>
         </div>
-
-        <hr className="h-5 w-px bg-foreground/30" />
-
-        <p className="text-muted-foreground text-center text-sm md:text-base">
-          {postFormattedDate}
-        </p>
-
-        <PostOptions />
       </div>
     </div>
   );

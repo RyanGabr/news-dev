@@ -1,44 +1,31 @@
 import { Link } from "react-router-dom";
-import { MarkdownCleaner } from "./markdown-cleaner";
 import type { PostWithAuthor } from "@/types/post";
 import Avvvatars from "avvvatars-react";
+import type { PROFILE_POSTS_PAGE_SIZE } from "@/services/post";
+import { MarkdownCleaner } from "./markdown-cleaner";
 
 interface PostCardProps {
   post: PostWithAuthor;
+  index: number;
 }
 
-export function PostCard({ post }: PostCardProps) {
+export function PostCard({ post, index }: PostCardProps) {
+  const postCreatedAt = new Date(post.created_at!);
+
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+
+  const postFormattedDate = new Intl.DateTimeFormat("en", dateOptions).format(
+    postCreatedAt,
+  );
+
   return (
     <Link
       to={`/post/${post.id}`}
-      className="flex flex-col gap-4 py-6 cursor-pointer transition"
-    >
-      <div className="w-fit">
-        <p className="line-clamp-2 text-ellipsis text-lg">{post.title}</p>
-      </div>
-
-      <div className="flex items-center gap-2">
-        {post.profiles.avatar_url ? (
-          <img
-            src={post.profiles.avatar_url}
-            className="min-w-6 max-w-6 rounded-full"
-          />
-        ) : (
-          <Avvvatars
-            value={post.profiles.display_name}
-            size={24}
-            style="shape"
-          />
-        )}
-
-        <p className="text-muted-foreground text-sm">
-          {post.profiles.username}
-        </p>
-      </div>
-
-      <div>
-        <MarkdownCleaner markdown={post.content} />
-      </div>
-    </Link>
+      className={`flex items-center justify-between p-6 transition ${index % 2 === 0 ? "bg-secondary" : ""}`}
+    ></Link>
   );
 }

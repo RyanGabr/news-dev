@@ -108,15 +108,12 @@ export function EditComment({ comment }: EditCommentProps) {
 
         <DialogFooter className="m-0">
           <DialogClose asChild>
-            <Button variant="ghost" rounded="full">
-              Cancelar
-            </Button>
+            <Button variant="ghost">Cancelar</Button>
           </DialogClose>
 
           <Button
             type="button"
             onClick={updateComment}
-            rounded="full"
             disabled={inputValue.trim() === comment.content || isPending}
           >
             Editar

@@ -39,7 +39,7 @@ export function Login() {
   }
 
   return (
-    <main className="w-full h-screen bg-secondary-foreground">
+    <main className="w-full h-screen bg-secondary">
       <form
         onSubmit={handleSubmit(handleLogin)}
         className="absolute top-1/2 left-1/2 -translate-1/2 w-[calc(100%-2rem)] max-w-2xl flex flex-col lg:flex-row bg-background rounded-2xl divide-y lg:divide-x lg:divide-y-0"
@@ -53,9 +53,9 @@ export function Login() {
                 className="w-6"
               />
 
-              <h2 className="font-semibold text-2xl tracking-tight">
-                Entrar no news.dev
-              </h2>
+              <p className="font-semibold text-2xl tracking-tight">
+                Entrar no Lumi
+              </p>
             </div>
 
             <p className="text-muted-foreground text-sm">
@@ -139,9 +139,9 @@ export function Login() {
               <Button
                 type="submit"
                 size="sm"
-                rounded="full"
                 disabled={isPending}
                 className="w-full py-2.5"
+                rounded="lg"
               >
                 {isPending ? "Entrando..." : "Continuar"}
               </Button>

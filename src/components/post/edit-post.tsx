@@ -1,4 +1,17 @@
-import { HugeiconsIcon } from "@hugeicons/react";
+import { useUpdatePost } from "@/hooks/use-posts";
+import { postSchema, type PostFormData } from "@/schemas/post";
+import type { PostWithAuthor } from "@/types/post";
+import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
+import { useMemo, useState } from "react";
+import ReactDOMServer from "react-dom/server";
+import { Controller, useForm, useWatch } from "react-hook-form";
+import ReactMarkdown from "react-markdown";
+import { useParams } from "react-router-dom";
+import SimpleMdeEditor from "react-simplemde-editor";
+import remarkBreaks from "remark-breaks";
+import remarkGfm from "remark-gfm";
+import z from "zod/v3";
+import { Button } from "../ui/button";
 import {
   Dialog,
   DialogClose,
@@ -6,21 +19,8 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { Edit03Icon } from "@hugeicons/core-free-icons";
-import { useMemo, useState } from "react";
-import ReactDOMServer from "react-dom/server";
-import ReactMarkdown from "react-markdown";
-import remarkBreaks from "remark-breaks";
-import remarkGfm from "remark-gfm";
-import { Button } from "../ui/button";
-import { Controller, useForm, useWatch } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
-import { postSchema, type PostFormData } from "@/schemas/post";
-import SimpleMdeEditor from "react-simplemde-editor";
-import type { PostWithAuthor } from "@/types/post";
-import { useUpdatePost } from "@/hooks/use-posts";
-import { useParams } from "react-router-dom";
-import z from "zod/v3";
 
 interface EditPostProps {
   post: PostWithAuthor;
@@ -116,8 +116,8 @@ export function EditPost({ post }: EditPostProps) {
             setDialogIsOpen(true);
           }}
         >
-          Editar
-          <HugeiconsIcon icon={Edit03Icon} strokeWidth={2} />
+          <HugeiconsIcon icon={Edit03Icon} />
+          Editar publicaçao
         </DropdownMenuItem>
       </DialogTrigger>
       <DialogContent className="w-3xl border border-border/70">
@@ -195,7 +195,6 @@ export function EditPost({ post }: EditPostProps) {
                 }}
                 type="button"
                 variant="ghost"
-                rounded="full"
               >
                 Cancelar
               </Button>
@@ -203,7 +202,6 @@ export function EditPost({ post }: EditPostProps) {
 
             <Button
               type="submit"
-              rounded="full"
               disabled={
                 (formValues.title?.trim() === post.title &&
                   formValues.content?.trim() === post.content) ||

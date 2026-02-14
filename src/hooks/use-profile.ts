@@ -30,6 +30,16 @@ export function useGetProfileByUsername(params: GetProfileByUsernameParams) {
   });
 }
 
+export function useGetCurrentProfile() {
+  const user = useUser();
+
+  return useQuery({
+    queryKey: ["current-user", user?.id],
+    queryFn: () => getProfileById({ id: user!.id }),
+    enabled: !!user?.id,
+  });
+}
+
 export function useGetProfileById(params: GetProfileByIdParams) {
   return useSuspenseQuery({
     queryKey: ["profile-id", params.id],

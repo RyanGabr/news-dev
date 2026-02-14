@@ -30,7 +30,7 @@ export interface UpdatePostData {
 }
 
 export const PAGE_SIZE: number = 14;
-export const PROFILE_POSTS_PAGE_SIZE: number = 3;
+export const PROFILE_POSTS_PAGE_SIZE: number = 14;
 
 export async function getPosts(params: GetPostsParams) {
   const from = (params.page - 1) * PAGE_SIZE;

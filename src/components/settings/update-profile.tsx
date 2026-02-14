@@ -10,6 +10,7 @@ import {
 } from "@/schemas/profile";
 import type { Profile } from "@/types/profile";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
+import Avvvatars from "avvvatars-react";
 import { CircleCheck, CircleX, LoaderCircle } from "lucide-react";
 import { useRef, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
@@ -22,7 +23,6 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Label } from "../ui/label";
-import Avvvatars from "avvvatars-react";
 
 interface UpdateProfileProps {
   profile: Profile;
@@ -114,9 +114,9 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
   return (
     <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
       <DialogTrigger asChild>
-        <button className="text-sm text-sky-600 dark:text-blue-400 font-medium cursor-pointer">
-          Editar perfil
-        </button>
+        <Button size="xs" variant="secondary">
+          Editar
+        </Button>
       </DialogTrigger>
       <DialogContent className="w-lg">
         <DialogTitle className="text-sm font-medium">Editar perfil</DialogTitle>

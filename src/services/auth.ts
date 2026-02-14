@@ -3,7 +3,7 @@ import type { LoginFormData } from "../schemas/login";
 import type { SignupFormData } from "../schemas/signup";
 
 export async function createUser(data: SignupFormData) {
-  const { email, password, username } = data;
+  const { email, password, username, display_name } = data;
 
   // 1) Criar usuário no Auth
   const { data: authData, error: authError } = await supabase.auth.signUp({
@@ -25,6 +25,7 @@ export async function createUser(data: SignupFormData) {
   const { error: profileError } = await supabase.from("profiles").insert({
     id: user.id,
     username,
+    display_name,
   });
 
   if (profileError) {

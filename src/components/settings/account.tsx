@@ -1,7 +1,7 @@
 import { useGetProfileById } from "@/hooks/use-profile";
 import { type User } from "@supabase/auth-helpers-react";
-import { UpdateProfile } from "./update-profile";
 import Avvvatars from "avvvatars-react";
+import { UpdateProfile } from "./update-profile";
 
 interface AccountProps {
   user: User;
@@ -13,49 +13,38 @@ export function Account({ user }: AccountProps) {
   });
 
   return (
-    <div className="space-y-10">
-      <h3 className="font-medium opacity-90">Conta</h3>
+    <div className="space-y-5">
+      <p className="font-medium text-muted-foreground">Conta</p>
 
-      <div className="space-y-3">
-        <h2 className="text-2xl">
-          Escolha como quer aparecer e o que será exibido para você no Lumi
-        </h2>
-
-        <p className="text-muted-foreground text-sm">
-          Conectado como {user?.email}
+      <div className="bg-secondary px-4 py-3 rounded-lg">
+        <p className="text-sm">Email</p>
+        <p className="text-sm text-muted-foreground">
+          Conectado como {user.email}
         </p>
       </div>
 
-      <hr />
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          {profile.avatar_url ? (
+            <img
+              src={profile.avatar_url}
+              alt=""
+              className="min-w-12 max-w-12 rounded-full"
+            />
+          ) : (
+            <Avvvatars value={profile.username} size={48} style="shape" />
+          )}
 
-      <div className="space-y-3">
-        <h2 className="font-semibold text-xl">Seu perfil do Lumi</h2>
-
-        <p className="text-xs text-muted-foreground">
-          Esta é a exibição do seu perfil no Lumi. É preciso ter uma conta criar
-          suas próprias postagens e fazer comentários.
-        </p>
-
-        <div className="my-10 flex items-center gap-5">
           <div>
-            {profile.avatar_url ? (
-              <img
-                src={profile.avatar_url}
-                className="min-w-12 max-w-12 rounded-full"
-              />
-            ) : (
-              <Avvvatars value={profile.display_name} size={48} style="shape" />
-            )}
-          </div>
-
-          <div className="space-y-1">
-            <p>{profile.username}</p>
-            <p className="text-xs text-muted-foreground max-w-56 truncate text-ellipsis">
+            <p className="font-medium text-sm">{profile.display_name}</p>
+            <p className="text-[13px] text-muted-foreground line-clamp-1">
               {profile.bio}
             </p>
-
-            <UpdateProfile profile={profile} />
           </div>
+        </div>
+
+        <div>
+          <UpdateProfile profile={profile} />
         </div>
       </div>
     </div>

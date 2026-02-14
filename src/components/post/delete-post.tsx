@@ -1,4 +1,7 @@
+import { useDeletePost } from "@/hooks/use-posts";
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Button } from "../ui/button";
 import {
   Dialog,
   DialogClose,
@@ -8,12 +11,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { useDeletePost } from "@/hooks/use-posts";
-import { useNavigate, useParams } from "react-router-dom";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Delete02Icon } from "@hugeicons/core-free-icons";
-import { Button } from "../ui/button";
 
 export function DeletePost() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -40,39 +40,36 @@ export function DeletePost() {
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
         <DropdownMenuItem
-          variant="destructive"
           onClick={(e) => {
             e.preventDefault();
             setIsDialogOpen(true);
           }}
         >
+          <HugeiconsIcon icon={Delete02Icon} />
           Deletar
-          <HugeiconsIcon icon={Delete02Icon} strokeWidth={2} />
         </DropdownMenuItem>
       </DialogTrigger>
-      <DialogContent className="w-sm">
-        <DialogTitle>Deletar postagem</DialogTitle>
-        <DialogDescription>
-          Você tem certeza dessa ação? A postagem será deletada permanentemente.
-        </DialogDescription>
+      <DialogContent className="w-md gap-8">
+        <div className="space-y-2">
+          <p className="text-lg font-medium">Deletar postagem</p>
+          <DialogDescription>
+            Você tem certeza dessa ação? A publicação será deletada
+            permanentemente.
+          </DialogDescription>
+        </div>
 
-        <DialogFooter className="flex-row sm:justify-normal">
+        <DialogFooter>
           <DialogClose asChild>
-            <Button
-              variant="secondary"
-              size="sm"
-              rounded="full"
-              className="w-full"
-            >
+            <Button variant="outline" size="sm" rounded="md">
               Cancelar
             </Button>
           </DialogClose>
+
           <Button
             onClick={deletePost}
             disabled={isPending}
             size="sm"
-            rounded="full"
-            className="w-full"
+            rounded="md"
           >
             Deletar
           </Button>

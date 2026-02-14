@@ -21,7 +21,7 @@ export function PostContent() {
   }
 
   return (
-    <div className="prose prose-headings:font-semibold prose-headings:tracking-tight prose-h1:text-[28px] md:prose-h1:text-[32px] md:text-lg leading-7.5 prose-zinc dark:prose-invert prose-strong:font-semibold prose-hr:my-5">
+    <div className="prose prose-headings:font-semibold prose-h1:text-[28px] md:prose-h1:text-[32px] lg:prose-h2:text-2xl prose-zinc dark:prose-invert prose-strong:font-semibold prose-hr:my-5 dark:prose-p:text-muted-foreground lg:prose-lg lg:leading-7">
       <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
     </div>
   );

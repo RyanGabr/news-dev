@@ -29,7 +29,9 @@ export async function getComments(
       `
         *,
         author:profiles (
-          username
+          username,
+          display_name,
+          avatar_url
         )
       `,
     )

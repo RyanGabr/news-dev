@@ -62,7 +62,7 @@ export function SignUp() {
   }
 
   return (
-    <main className="w-full h-screen bg-secondary-foreground">
+    <main className="w-full h-screen bg-secondary">
       {pageStep === "form" ? (
         <form
           onSubmit={handleSubmit(handleCreateUser)}
@@ -78,9 +78,9 @@ export function SignUp() {
                   className="w-6"
                 />
 
-                <h2 className="font-semibold text-2xl tracking-tight">
+                <p className="font-semibold text-2xl tracking-tight">
                   Inscrever-se
-                </h2>
+                </p>
               </div>
 
               <p className="text-muted-foreground text-sm">
@@ -223,6 +223,7 @@ export function SignUp() {
                   size="sm"
                   disabled={isPending || !isAvailable}
                   className="w-full py-2.5"
+                  rounded="lg"
                 >
                   {isPending ? "Cadastrando..." : "Cadastrar"}
                 </Button>

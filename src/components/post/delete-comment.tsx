@@ -59,12 +59,7 @@ export function DeleteComment({ commentId }: DeleteCommentProps) {
 
         <DialogFooter className="flex-row sm:justify-normal">
           <DialogClose asChild>
-            <Button
-              variant="secondary"
-              size="sm"
-              rounded="full"
-              className="w-full"
-            >
+            <Button variant="secondary" size="sm" className="w-full">
               Cancelar
             </Button>
           </DialogClose>
@@ -72,7 +67,6 @@ export function DeleteComment({ commentId }: DeleteCommentProps) {
             onClick={deleteComment}
             disabled={isPending}
             size="sm"
-            rounded="full"
             className="w-full"
           >
             Deletar

@@ -3,8 +3,9 @@ import { PAGE_SIZE } from "@/services/post";
 import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
-import { PostCard } from "./post-card";
+import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
+import Avvvatars from "avvvatars-react";
 
 export function PostList() {
   const [page, setPage] = useState(1);
@@ -24,14 +25,59 @@ export function PostList() {
   };
 
   return (
-    <>
+    <div className="space-y-8">
       <div>
-        <h2 className="text-xl font-medium">Postagens</h2>
+        <p className="text-xl lg:text-2xl font-semibold">Postagens recentes</p>
       </div>
 
-      <div className="flex flex-col gap-4 divide-y">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
         {posts.map((post) => {
-          return <PostCard key={post.id} post={post} />;
+          const postCreatedAt = new Date(post.created_at!);
+
+          const dateOptions: Intl.DateTimeFormatOptions = {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          };
+
+          const postFormattedDate = new Intl.DateTimeFormat(
+            "pt-BR",
+            dateOptions,
+          ).format(postCreatedAt);
+
+          return (
+            <Link
+              key={post.id}
+              to={`/post/${post.id}`}
+              className="flex flex-col gap-4 bg-popover dark:bg-secondary p-4 rounded-md hover:opacity-70 transition"
+            >
+              <div className="flex items-start justify-between">
+                <p className="font-medium text-sm">
+                  Por {post.profiles.display_name}
+                </p>
+
+                {post.profiles.avatar_url ? (
+                  <img
+                    src={post.profiles.avatar_url}
+                    className="min-w-8 max-w-8 rounded-full"
+                  />
+                ) : (
+                  <Avvvatars
+                    value={post.profiles.username}
+                    size={32}
+                    style="shape"
+                  />
+                )}
+              </div>
+
+              <div className="space-y-1">
+                <p className="font-semibold leading-5">{post.title}</p>
+                <p className="text-muted-foreground text-[15px]">
+                  {postFormattedDate}
+                </p>
+              </div>
+            </Link>
+          );
         })}
       </div>
 
@@ -40,21 +86,21 @@ export function PostList() {
           disabled={page === 1}
           onClick={handlePrev}
           variant="secondary"
-          rounded="full"
+          size="xs"
+          className="px-1.5"
         >
           <HugeiconsIcon icon={ArrowLeft01Icon} size={18} strokeWidth={2} />
-          Anterior
         </Button>
         <Button
           disabled={!hasNextPage}
           onClick={handleNext}
           variant="secondary"
-          rounded="full"
+          size="xs"
+          className="px-1.5"
         >
-          Próximo
           <HugeiconsIcon icon={ArrowRight01Icon} size={18} strokeWidth={2} />
         </Button>
       </div>
-    </>
+    </div>
   );
 }

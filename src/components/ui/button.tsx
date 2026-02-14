@@ -3,27 +3,27 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 
 const buttonVariants = cva(
-  "cursor-pointer flex items-center justify-center gap-1 font-medium transition disabled:opacity-50 disabled:cursor-default",
+  "cursor-pointer flex items-center justify-center font-medium gap-1.5 disabled:opacity-50 disabled:cursor-default",
   {
     variants: {
       variant: {
-        default: "bg-foreground text-background hover:opacity-90",
+        default: "bg-brand text-background hover:opacity-90",
         secondary:
-          "bg-secondary-foreground text-foreground hover:bg-foreground/6 dark:hover:bg-foreground/10",
-        outline: "bg-transparent border border-border",
+          "bg-secondary dark:bg-popover text-foreground hover:bg-foreground/10",
+        outline: "bg-popover border border-border",
         ghost: "hover:bg-secondary-foreground font-normal",
         link: "hover:underline font-normal text-muted-foreground",
         blank: "",
       },
       size: {
         default: "text-base px-4 py-2",
-        sm: "text-sm px-3 py-2",
-        link: "p-0 text-sm",
-        icon: "p-2.5",
+        sm: "text-sm px-3 py-1.5",
+        xs: "text-sm px-2.5 py-1.5",
       },
       rounded: {
-        default: "rounded-md",
-        full: "rounded-full",
+        default: "rounded-full",
+        md: "rounded-md",
+        lg: "rounded-lg",
       },
     },
     defaultVariants: {

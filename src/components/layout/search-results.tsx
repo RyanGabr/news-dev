@@ -5,6 +5,7 @@ import { useGetPostsBySearch } from "@/hooks/use-posts";
 import { CommandList } from "../ui/command";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Search01Icon } from "@hugeicons/core-free-icons";
+import Avvvatars from "avvvatars-react";
 
 function PostSkeleton() {
   return (
@@ -67,15 +68,22 @@ export function SearchResults({ search, setCommandOpen }: SearchResultsProps) {
         onClick={() => setCommandOpen(false)}
       >
         <div>
-          <img
-            src="https://pbs.twimg.com/profile_images/1999199376619581440/8W7FN5gc_400x400.jpg"
-            alt=""
-            className="min-w-8 max-w-8 rounded-full"
-          />
+          {post.profiles.avatar_url ? (
+            <img
+              src={post.profiles.avatar_url}
+              className="min-w-8 max-w-8 rounded-full"
+            />
+          ) : (
+            <Avvvatars
+              value={post.profiles.display_name}
+              size={32}
+              style="shape"
+            />
+          )}
         </div>
 
         <div>
-          <h3 className="text-base line-clamp-1 text-ellipsis">{post.title}</h3>
+          <p className="text-base line-clamp-1 text-ellipsis">{post.title}</p>
         </div>
       </Link>
     ));

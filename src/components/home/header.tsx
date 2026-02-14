@@ -1,23 +1,35 @@
-import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 
 export function Header() {
   return (
-    <div className="flex flex-col items-center justify-center gap-6 md:pt-10">
-      <h1 className="hidden md:block text-5xl font-medium tracking-tight text-center">
-        Leia, escreva e compartilhe <br /> com a comunidade.
-      </h1>
+    <div className="flex flex-col gap-8">
+      <strong className="text-3xl lg:text-4xl font-semibold tracking-tight">
+        Início
+      </strong>
 
-      <h1 className="md:hidden text-4xl font-medium">Explorar</h1>
+      <Link
+        to=""
+        className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-12 items-center"
+      >
+        <div>
+          <div className="bg-brand rounded-md h-64" />
+        </div>
 
-      <p className="text-muted-foreground text-lg font-medium hidden md:block text-center">
-        Uma comunidade feita para compartilhar conhecimentos, debater <br />{" "}
-        ideias e encontrar relevância em assuntos variados.
-      </p>
-
-      <div className="items-center gap-3 hidden md:flex">
-        <Button>Start now</Button>
-        <Button variant="outline">Estrela no GitHub</Button>
-      </div>
+        <div className="space-y-2">
+          <p className="text-sm lg:text-base text-muted-foreground">
+            14 de fevereiro de 2026
+          </p>
+          <p className="font-semibold text-2xl lg:text-3xl">
+            Seja bem-vindo ao Lumi. Leia, escreva e compartilhe com a comunidade
+          </p>
+          <p className="text-sm lg:text-base text-muted-foreground line-clamp-3">
+            O Lumi é um projeto pessoal dedicado à publicação de textos, artigos
+            e à interação entre pessoas que buscam conteúdo relevante. Criado
+            com uma estética minimalista, o espaço prioriza a leitura e a troca
+            direta de informações.
+          </p>
+        </div>
+      </Link>
     </div>
   );
 }

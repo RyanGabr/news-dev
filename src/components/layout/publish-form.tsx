@@ -113,32 +113,21 @@ export function PublishForm() {
       ],
       sideBySideFullscreen: false,
       status: false,
-      placeholder: "O que está acontecendo?",
     };
   }, []);
 
   return (
     <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
       <DialogTrigger asChild>
-        <Button
-          variant="blank"
-          size="sm"
-          className="py-0 text-foreground/80 hover:text-foreground px-2"
-        >
-          Criar Postagem
-        </Button>
+        <Button size="sm">Criar</Button>
       </DialogTrigger>
-      <DialogContent className="w-3xl border border-border/70">
-        <form onSubmit={handleSubmit(createPost)} className="space-y-5">
-          <div className="flex flex-col gap-6">
-            <div>
-              <img
-                src="https://pbs.twimg.com/profile_images/1999199376619581440/8W7FN5gc_400x400.jpg"
-                alt=""
-                className="rounded-full min-w-11 max-w-11"
-              />
-            </div>
+      <DialogContent className="w-3xl p-0 border">
+        <div className="bg-foreground/10 px-4 py-3 rounded-t-xl">
+          <p className="text-muted-foreground font-medium">Nova publicação</p>
+        </div>
 
+        <form onSubmit={handleSubmit(createPost)} className="space-y-5 p-6">
+          <div className="flex flex-col gap-6">
             <div className="space-y-1.5 w-full">
               <Controller
                 name="title"
@@ -148,8 +137,8 @@ export function PublishForm() {
                     {...field}
                     autoFocus
                     type="text"
-                    placeholder="Título da postagem"
-                    className="w-full text-3xl font-semibold outline-none"
+                    placeholder="Título"
+                    className="w-full text-lg outline-none"
                   />
                 )}
               />
@@ -197,7 +186,6 @@ export function PublishForm() {
               <Button
                 type="button"
                 variant="ghost"
-                rounded="full"
                 onClick={() => {
                   setTimeout(() => {
                     reset({ title: "", content: "" });
@@ -209,7 +197,7 @@ export function PublishForm() {
               </Button>
             </DialogClose>
 
-            <Button type="submit" disabled={isPending} rounded="full">
+            <Button size="sm" type="submit" disabled={isPending}>
               Publicar
             </Button>
           </div>

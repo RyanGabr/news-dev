@@ -10,6 +10,7 @@ import {
 } from "../ui/dropdown-menu";
 import { DeleteComment } from "./delete-comment";
 import { EditComment } from "./edit-comment";
+import Avvvatars from "avvvatars-react";
 
 export function CommentList() {
   const { id } = useParams();
@@ -27,43 +28,58 @@ export function CommentList() {
   return (
     <div className="space-y-10">
       {comments.map((comment) => (
-        <div key={comment.id} className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2.5 mt-3">
+        <div key={comment.id} className="flex items-start gap-3">
+          <div>
+            {comment.author?.avatar_url ? (
               <img
-                src="https://pbs.twimg.com/profile_images/1999199376619581440/8W7FN5gc_400x400.jpg"
+                src={comment.author?.avatar_url ?? ""}
                 alt=""
-                className="min-w-7 max-w-7 rounded-full"
+                className="min-w-8 max-w-8 min-h-8 max-h-8 rounded-full"
               />
+            ) : (
+              <Avvvatars
+                value={comment.author?.username ?? ""}
+                size={32}
+                style="shape"
+              />
+            )}
+          </div>
 
-              <div className="flex items-center gap-2">
-                <Link to="">
-                  <p className="font-semibold">{comment.author?.username}</p>
-                </Link>
+          <div className="w-full space-y-1">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="flex items-center gap-2">
+                  <Link to="" className="flex items-center gap-2">
+                    <p className="font-medium text-[15px]">
+                      {comment.author?.display_name}
+                    </p>
+                    <p className="text-[15px] text-muted-foreground">
+                      @{comment.author?.username}
+                    </p>
+                  </Link>
 
-                <div className="w-[3px] h-[3px] rounded-full bg-muted-foreground" />
+                  <p className="text-muted-foreground text-[15px]">3d</p>
+                </div>
+              </div>
 
-                <p className="text-muted-foreground">5 horas atrás</p>
+              <div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="p-0">
+                      <HugeiconsIcon icon={MoreVerticalIcon} size={20} />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="w-40 p-1.5">
+                    <EditComment comment={comment} />
+                    <DeleteComment commentId={comment.id} />
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
 
             <div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" rounded="full">
-                    <HugeiconsIcon icon={MoreVerticalIcon} size={20} />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-40 p-1.5">
-                  <EditComment comment={comment} />
-                  <DeleteComment commentId={comment.id} />
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <p className="wrap-break-word text-[15px]">{comment.content}</p>
             </div>
-          </div>
-
-          <div>
-            <p className="wrap-break-word">{comment.content}</p>
           </div>
         </div>
       ))}

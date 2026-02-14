@@ -1,50 +1,56 @@
-import { ChevronDown } from "lucide-react";
-import { Button } from "../ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+import { Tick02Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useTheme } from "../ui/theme-provider";
 
 export function Theme() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between pb-10">
-      <div className="space-y-3">
-        <h3 className="font-medium opacity-90">Aparência</h3>
+    <div className="space-y-5">
+      <p className="font-medium text-muted-foreground">Tema</p>
 
-        <p className="text-sm text-muted-foreground">
-          Personalize a aparência do Lumi no seu dispositivo.
-        </p>
-      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+        <button
+          onClick={() => setTheme("system")}
+          className="flex flex-col cursor-pointer group"
+        >
+          <div className="h-20 bg-secondary rounded-t-lg opacity-50"></div>
+          <div className="bg-secondary px-4 py-3 flex items-center justify-between rounded-b-lg">
+            <p className="text-sm font-medium">Sistema</p>
 
-      <div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="text-sm">
-              {theme === "dark"
-                ? "Escuro"
-                : theme === "light"
-                  ? "Claro"
-                  : "Sistema"}
-              <ChevronDown size={14} />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" className="w-64">
-            <DropdownMenuItem onClick={() => setTheme("system")}>
-              Usar configuração do sistema
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("light")}>
-              Claro
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("dark")}>
-              Escuro
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+            {theme === "system" && (
+              <HugeiconsIcon icon={Tick02Icon} size={18} strokeWidth={2} />
+            )}
+          </div>
+        </button>
+
+        <button
+          onClick={() => setTheme("dark")}
+          className="flex flex-col cursor-pointer group"
+        >
+          <div className="h-20 bg-secondary rounded-t-lg opacity-50"></div>
+          <div className="bg-secondary px-4 py-3 flex items-center justify-between rounded-b-lg">
+            <p className="text-sm font-medium">Escuro</p>
+
+            {theme === "dark" && (
+              <HugeiconsIcon icon={Tick02Icon} size={18} strokeWidth={2} />
+            )}
+          </div>
+        </button>
+
+        <button
+          onClick={() => setTheme("light")}
+          className="flex flex-col cursor-pointer group"
+        >
+          <div className="h-20 bg-secondary rounded-t-lg opacity-50"></div>
+          <div className="bg-secondary px-4 py-3 flex items-center justify-between rounded-b-lg">
+            <p className="text-sm font-medium">Claro</p>
+
+            {theme === "light" && (
+              <HugeiconsIcon icon={Tick02Icon} size={18} strokeWidth={2} />
+            )}
+          </div>
+        </button>
       </div>
     </div>
   );

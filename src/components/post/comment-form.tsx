@@ -51,26 +51,16 @@ export function CommentForm() {
   }
 
   return (
-    <div className="flex items-start gap-3">
-      <div>
-        <img
-          src="https://pbs.twimg.com/profile_images/1999199376619581440/8W7FN5gc_400x400.jpg"
-          alt=""
-          className="min-w-7 max-w-7 rounded-full"
-        />
-      </div>
-
+    <div className="flex items-start gap-3 bg-secondary p-4 rounded-lg">
       <form className="flex flex-col gap-3 w-full">
-        <div>
-          <textarea
-            ref={textAreaRef}
-            rows={1}
-            placeholder="Adicione um comentário..."
-            className="border-b w-full outline-none focus:border-foreground resize-none h-9 pb-2 overflow-hidden"
-            value={inputValue}
-            onChange={handleInput}
-          />
-        </div>
+        <textarea
+          ref={textAreaRef}
+          rows={1}
+          placeholder="Escreva um comentário..."
+          className="w-full outline-none focus:border-foreground resize-none overflow-hidden text-[15px]"
+          value={inputValue}
+          onChange={handleInput}
+        />
 
         <Activity mode={inputValue.trim().length > 0 ? "visible" : "hidden"}>
           <div className="flex items-center justify-end w-full gap-2">
@@ -78,7 +68,6 @@ export function CommentForm() {
               onClick={cancelComment}
               type="button"
               variant="ghost"
-              rounded="full"
               size="sm"
             >
               Cancelar
@@ -87,7 +76,6 @@ export function CommentForm() {
             <Button
               onClick={createComment}
               type="button"
-              rounded="full"
               size="sm"
               disabled={isPending}
             >

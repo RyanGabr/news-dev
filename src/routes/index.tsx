@@ -7,6 +7,7 @@ import { SignUp } from "../pages/auth/sign-up";
 import { AuthRedirect } from "./auth-redirect";
 import { Profile } from "@/pages/app/profile";
 import { Settings } from "@/pages/app/settings";
+import { Publish } from "@/pages/app/publish";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: "/post/:id",
         element: <Post />,
+      },
+      {
+        path: "/publish",
+        element: <Publish />,
       },
       {
         path: "/:username",

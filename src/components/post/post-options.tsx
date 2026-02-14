@@ -1,5 +1,5 @@
 import { useGetPostById } from "@/hooks/use-posts";
-import { MoreHorizontalIcon, Share08Icon } from "@hugeicons/core-free-icons";
+import { MoreHorizontalIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useUser } from "@supabase/auth-helpers-react";
 import { useParams } from "react-router-dom";
@@ -7,7 +7,6 @@ import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { DeletePost } from "./delete-post";
@@ -31,16 +30,12 @@ export function PostOptions() {
     post.author_id === user?.id && (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="secondary" size="sm" rounded="full">
-            <HugeiconsIcon icon={MoreHorizontalIcon} size={20} />
+          <Button variant="outline" className="px-2">
+            <HugeiconsIcon icon={MoreHorizontalIcon} size={18} />
           </Button>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent align="start" className="w-52">
-          <DropdownMenuItem>
-            Compartilhar
-            <HugeiconsIcon icon={Share08Icon} strokeWidth={2} />
-          </DropdownMenuItem>
+        <DropdownMenuContent align="end" className="w-52">
           <EditPost post={post} />
           <DeletePost />
         </DropdownMenuContent>
