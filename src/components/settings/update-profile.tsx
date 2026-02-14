@@ -23,6 +23,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { Label } from "../ui/label";
+import { toast } from "sonner";
 
 interface UpdateProfileProps {
   profile: Profile;
@@ -104,11 +105,19 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
       {
         onSuccess: () => {
           setDialogIsOpen(false);
+          toast.success("Perfil atualizado com sucesso!", {
+            position: "bottom-center",
+            style: {
+              fontSize: 16,
+              height: 50,
+              backgroundColor: "var(--foreground)",
+              color: "var(--background)",
+              border: "none",
+            },
+          });
         },
       },
     );
-
-    console.log(finalAvatarUrl);
   }
 
   return (
