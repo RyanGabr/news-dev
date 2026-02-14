@@ -21,6 +21,8 @@ import {
 import { DropdownMenuItem } from "../ui/dropdown-menu";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Edit03Icon } from "@hugeicons/core-free-icons";
+import { toast } from "sonner";
+import Avvvatars from "avvvatars-react";
 
 interface EditPostProps {
   post: PostWithAuthor;
@@ -64,6 +66,16 @@ export function EditPost({ post }: EditPostProps) {
       {
         onSuccess: () => {
           setDialogIsOpen(false);
+          toast.success("Publicaçao atualizada com sucesso!", {
+            position: "bottom-center",
+            style: {
+              fontSize: 16,
+              height: 50,
+              backgroundColor: "var(--foreground)",
+              color: "var(--background)",
+              border: "none",
+            },
+          });
         },
       },
     );
@@ -120,15 +132,23 @@ export function EditPost({ post }: EditPostProps) {
           Editar publicaçao
         </DropdownMenuItem>
       </DialogTrigger>
-      <DialogContent className="w-3xl border border-border/70">
+      <DialogContent className="w-3xl">
         <form onSubmit={handleSubmit(editComment)} className="space-y-5">
           <div className="flex flex-col gap-6">
             <div>
-              <img
-                src="https://pbs.twimg.com/profile_images/1999199376619581440/8W7FN5gc_400x400.jpg"
-                alt=""
-                className="rounded-full min-w-11 max-w-11"
-              />
+              {post.profiles.avatar_url ? (
+                <img
+                  src={post.profiles.avatar_url}
+                  alt=""
+                  className="min-w-11 max-w-11 rounded-full"
+                />
+              ) : (
+                <Avvvatars
+                  value={post.profiles.username}
+                  size={44}
+                  style="shape"
+                />
+              )}
             </div>
 
             <div className="space-y-1.5 w-full">
@@ -142,7 +162,7 @@ export function EditPost({ post }: EditPostProps) {
                     spellCheck={false}
                     type="text"
                     placeholder="Título da postagem"
-                    className="w-full text-3xl font-semibold outline-none"
+                    className="w-full text-3xl font-semibold font-serif outline-none"
                   />
                 )}
               />
@@ -194,7 +214,9 @@ export function EditPost({ post }: EditPostProps) {
                   }, 500);
                 }}
                 type="button"
-                variant="ghost"
+                variant="outline"
+                rounded="md"
+                size="sm"
               >
                 Cancelar
               </Button>
@@ -202,6 +224,8 @@ export function EditPost({ post }: EditPostProps) {
 
             <Button
               type="submit"
+              rounded="md"
+              size="sm"
               disabled={
                 (formValues.title?.trim() === post.title &&
                   formValues.content?.trim() === post.content) ||
