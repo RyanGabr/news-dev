@@ -2,6 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { Footer } from "./footer";
 import { NavigationBar } from "./navigation-bar";
 import { Activity } from "react";
+import ScrollToTop from "../ui/scroll-to-top";
 
 export function Layout() {
   const location = useLocation();
@@ -10,6 +11,8 @@ export function Layout() {
 
   return (
     <div className="w-full h-screen">
+      <ScrollToTop />
+
       <NavigationBar />
 
       <div className="bg-secondary py-2.5">
