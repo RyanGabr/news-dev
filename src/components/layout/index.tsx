@@ -3,6 +3,7 @@ import { Footer } from "./footer";
 import { NavigationBar } from "./navigation-bar";
 import { Activity } from "react";
 import ScrollToTop from "../ui/scroll-to-top";
+import { TitleManager } from "@/routes/title-manager";
 
 export function Layout() {
   const location = useLocation();
@@ -12,6 +13,7 @@ export function Layout() {
   return (
     <div className="w-full h-screen">
       <ScrollToTop />
+      <TitleManager />
 
       <NavigationBar />
 

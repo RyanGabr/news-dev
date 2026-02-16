@@ -2,6 +2,7 @@ import { useGetProfileByUsername } from "@/hooks/use-profile";
 import { Calendar03Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import Avvvatars from "avvvatars-react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export function Header() {
@@ -10,6 +11,10 @@ export function Header() {
   const { data: profile } = useGetProfileByUsername({
     username: username!,
   });
+
+  useEffect(() => {
+    document.title = `${profile.display_name} (@${profile.username})`;
+  }, [profile]);
 
   const profileCreatedAt = new Date(profile.created_at!);
 

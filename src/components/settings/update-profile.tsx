@@ -123,7 +123,7 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
   return (
     <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
       <DialogTrigger asChild>
-        <Button size="xs" variant="secondary">
+        <Button size="xs" variant="secondary" rounded="md">
           Editar
         </Button>
       </DialogTrigger>

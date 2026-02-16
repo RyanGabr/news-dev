@@ -1,19 +1,22 @@
 import { useGetPostById } from "@/hooks/use-posts";
 import { Link, useParams } from "react-router-dom";
 import Avvvatars from "avvvatars-react";
+import { useEffect } from "react";
 
 export function PostHeader() {
-  const { id } = useParams();
+  const { id: postId } = useParams();
 
-  if (!id) {
-    throw new Error("Post not found");
+  if (!postId) {
+    throw new Error("Publicação não encontrada");
   }
-
-  const postId = id;
 
   const { data: post } = useGetPostById({
     id: postId,
   });
+
+  useEffect(() => {
+    document.title = post.title;
+  }, [post]);
 
   const postCreatedAt = new Date(post.created_at!);
 
