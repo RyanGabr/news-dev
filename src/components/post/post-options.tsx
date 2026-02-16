@@ -30,7 +30,7 @@ export function PostOptions() {
     post.author_id === user?.id && (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="px-2">
+          <Button aria-label="Opções" variant="outline" className="px-2">
             <HugeiconsIcon icon={MoreHorizontalIcon} size={18} />
           </Button>
         </DropdownMenuTrigger>

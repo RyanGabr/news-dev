@@ -39,6 +39,7 @@ export function Menu() {
             <img
               src={profile.avatar_url}
               className="min-w-8 max-w-8 rounded-full"
+              alt="Profile avatar"
             />
           ) : (
             <Avvvatars value={profile.username} size={32} style="shape" />

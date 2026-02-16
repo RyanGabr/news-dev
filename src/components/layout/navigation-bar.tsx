@@ -24,7 +24,7 @@ export function NavigationBar() {
               <Link to="/" className="flex items-center gap-2">
                 <img
                   src="https://www.notion.com/front-static/favicon.ico"
-                  alt=""
+                  alt="Logo"
                   className="w-6"
                 />
 

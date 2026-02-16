@@ -5,7 +5,7 @@ export function Footer() {
         <div className="flex items-center gap-4">
           <img
             src="https://www.notion.com/front-static/favicon.ico"
-            alt=""
+            alt="Logo"
             className="w-7"
           />
 

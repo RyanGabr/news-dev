@@ -35,7 +35,7 @@ export function CommentList() {
             {comment.author?.avatar_url ? (
               <img
                 src={comment.author?.avatar_url ?? ""}
-                alt=""
+                alt="Profile avatar"
                 className="min-w-8 max-w-8 min-h-8 max-h-8 rounded-full"
               />
             ) : (

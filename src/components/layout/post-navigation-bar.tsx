@@ -44,6 +44,7 @@ export function PostNavigationBar() {
           <TooltipTrigger asChild>
             <Button
               onClick={() => navigate("/")}
+              aria-label="Fechar publicação"
               variant="outline"
               className="px-2"
             >

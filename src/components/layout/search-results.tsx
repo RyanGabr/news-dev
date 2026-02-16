@@ -72,6 +72,7 @@ export function SearchResults({ search, setCommandOpen }: SearchResultsProps) {
             <img
               src={post.profiles.avatar_url}
               className="min-w-8 max-w-8 rounded-full"
+              alt="Profile avatar"
             />
           ) : (
             <Avvvatars value={post.profiles.username} size={32} style="shape" />

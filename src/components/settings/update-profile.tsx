@@ -152,7 +152,7 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
               {previewUrl ? (
                 <img
                   src={previewUrl}
-                  alt="Profile preview"
+                  alt="Profile avatar preview"
                   className="min-w-24 max-w-24 h-24 rounded-full object-cover"
                 />
               ) : (

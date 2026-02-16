@@ -102,7 +102,7 @@ export function EditComment({ comment }: EditCommentProps) {
           {comment.author?.avatar_url ? (
             <img
               src={comment.author.avatar_url}
-              alt=""
+              alt="Profile avatar"
               className="min-w-8 max-w-8 rounded-full"
             />
           ) : (

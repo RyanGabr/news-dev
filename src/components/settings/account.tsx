@@ -28,7 +28,7 @@ export function Account({ user }: AccountProps) {
           {profile.avatar_url ? (
             <img
               src={profile.avatar_url}
-              alt=""
+              alt="Profile avatar"
               className="min-w-12 max-w-12 rounded-full"
             />
           ) : (

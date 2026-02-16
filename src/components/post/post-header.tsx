@@ -47,7 +47,7 @@ export function PostHeader() {
         {post.profiles.avatar_url ? (
           <img
             src={post.profiles.avatar_url}
-            alt=""
+            alt="Profile avatar"
             className="min-w-6 max-w-6 rounded-full"
           />
         ) : (

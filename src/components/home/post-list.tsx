@@ -60,6 +60,7 @@ export function PostList() {
                   <img
                     src={post.profiles.avatar_url}
                     className="min-w-8 max-w-8 rounded-full"
+                    alt="Profile avatar"
                   />
                 ) : (
                   <Avvvatars
@@ -85,6 +86,7 @@ export function PostList() {
         <Button
           disabled={page === 1}
           onClick={handlePrev}
+          aria-label="Página anterior"
           variant="secondary"
           size="xs"
           className="px-1.5"
@@ -94,6 +96,7 @@ export function PostList() {
         <Button
           disabled={!hasNextPage}
           onClick={handleNext}
+          aria-label="Próxima página"
           variant="secondary"
           size="xs"
           className="px-1.5"

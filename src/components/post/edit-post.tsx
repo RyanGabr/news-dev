@@ -139,7 +139,7 @@ export function EditPost({ post }: EditPostProps) {
               {post.profiles.avatar_url ? (
                 <img
                   src={post.profiles.avatar_url}
-                  alt=""
+                  alt="Profile avatar"
                   className="min-w-11 max-w-11 rounded-full"
                 />
               ) : (

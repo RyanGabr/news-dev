@@ -38,6 +38,7 @@ export function Header() {
             <img
               src={profile.avatar_url}
               className="min-w-24 max-w-24 rounded-full border-4 border-popover"
+              alt="Profile avatar"
             />
           ) : (
             <div className="rounded-full border-4 border-popover">
