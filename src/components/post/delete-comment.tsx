@@ -1,19 +1,19 @@
+import { useDeleteComment } from "@/hooks/use-comments";
+import { Delete02Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { toast } from "sonner";
+import { Button } from "../ui/button";
 import {
   Dialog,
   DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
-  DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
-import { Delete02Icon } from "@hugeicons/core-free-icons";
-import { Button } from "../ui/button";
-import { useState } from "react";
-import { useDeleteComment } from "@/hooks/use-comments";
-import { useParams } from "react-router-dom";
 
 interface DeleteCommentProps {
   commentId: string;
@@ -31,10 +31,26 @@ export function DeleteComment({ commentId }: DeleteCommentProps) {
   const postId = id;
 
   async function deleteComment() {
-    await mutateAsync({
-      commentId: commentId,
-      postId: postId,
-    });
+    await mutateAsync(
+      {
+        commentId: commentId,
+        postId: postId,
+      },
+      {
+        onSuccess: () => {
+          toast.success("Comentário removido com sucesso!", {
+            position: "bottom-center",
+            style: {
+              fontSize: 16,
+              height: 50,
+              backgroundColor: "var(--foreground)",
+              color: "var(--background)",
+              border: "none",
+            },
+          });
+        },
+      },
+    );
   }
 
   return (
@@ -45,29 +61,29 @@ export function DeleteComment({ commentId }: DeleteCommentProps) {
             e.preventDefault();
             setDialogIsOpen(true);
           }}
-          variant="destructive"
         >
-          Excluir
           <HugeiconsIcon icon={Delete02Icon} />
+          Excluir
         </DropdownMenuItem>
       </DialogTrigger>
-      <DialogContent className="w-sm">
-        <DialogTitle>Excluir comentário</DialogTitle>
+      <DialogContent className="w-md">
+        <p className="text-lg font-medium">Deletar comentário</p>
         <DialogDescription>
-          Excluir seu comentário permanentemente?
+          Você realmente deseja deletar seu comentário permanentemente?
         </DialogDescription>
 
-        <DialogFooter className="flex-row sm:justify-normal">
+        <DialogFooter>
           <DialogClose asChild>
-            <Button variant="secondary" size="sm" className="w-full">
+            <Button variant="outline" size="sm" rounded="md">
               Cancelar
             </Button>
           </DialogClose>
+
           <Button
             onClick={deleteComment}
             disabled={isPending}
             size="sm"
-            className="w-full"
+            rounded="md"
           >
             Deletar
           </Button>

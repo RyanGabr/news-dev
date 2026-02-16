@@ -11,9 +11,11 @@ import {
 import { DeleteComment } from "./delete-comment";
 import { EditComment } from "./edit-comment";
 import Avvvatars from "avvvatars-react";
+import { useGetCurrentProfile } from "@/hooks/use-profile";
 
 export function CommentList() {
   const { id } = useParams();
+  const { data: currentProfile } = useGetCurrentProfile();
 
   if (!id) {
     throw new Error("Post not found");
@@ -62,19 +64,21 @@ export function CommentList() {
                 </div>
               </div>
 
-              <div>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="p-0">
-                      <HugeiconsIcon icon={MoreVerticalIcon} size={20} />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="w-40 p-1.5">
-                    <EditComment comment={comment} />
-                    <DeleteComment commentId={comment.id} />
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
+              {currentProfile?.id === comment.author_id && (
+                <div>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="blank" className="p-0">
+                        <HugeiconsIcon icon={MoreVerticalIcon} size={20} />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="center" className="w-52">
+                      <EditComment comment={comment} />
+                      <DeleteComment commentId={comment.id} />
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+              )}
             </div>
 
             <div>

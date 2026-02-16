@@ -10,7 +10,7 @@ const buttonVariants = cva(
         default: "bg-brand text-background hover:opacity-90",
         secondary:
           "bg-secondary dark:bg-popover text-foreground hover:bg-foreground/10",
-        outline: "bg-popover border border-border",
+        outline: "bg-popover border border-border hover:bg-foreground/5",
         ghost: "hover:bg-secondary-foreground font-normal",
         link: "hover:underline font-normal text-muted-foreground",
         blank: "",

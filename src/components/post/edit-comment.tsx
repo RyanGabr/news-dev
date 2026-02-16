@@ -14,6 +14,8 @@ import { Button } from "../ui/button";
 import { useUpdateComment } from "@/hooks/use-comments";
 import { useParams } from "react-router-dom";
 import z from "zod/v3";
+import Avvvatars from "avvvatars-react";
+import { toast } from "sonner";
 
 interface EditCommentProps {
   comment: CommentWithAutor;
@@ -67,6 +69,16 @@ export function EditComment({ comment }: EditCommentProps) {
       {
         onSuccess: () => {
           setDialogIsOpen(false);
+          toast.success("Comentário atualizado com sucesso!", {
+            position: "bottom-center",
+            style: {
+              fontSize: 16,
+              height: 50,
+              backgroundColor: "var(--foreground)",
+              color: "var(--background)",
+              border: "none",
+            },
+          });
         },
       },
     );
@@ -81,17 +93,26 @@ export function EditComment({ comment }: EditCommentProps) {
             setDialogIsOpen(true);
           }}
         >
-          Editar
           <HugeiconsIcon icon={Edit03Icon} />
+          Editar comentário
         </DropdownMenuItem>
       </DialogTrigger>
-      <DialogContent className="w-lg gap-5">
-        <div className="flex items-center gap-3">
-          <img
-            src="https://pbs.twimg.com/profile_images/1999199376619581440/8W7FN5gc_400x400.jpg"
-            alt=""
-            className="w-10 rounded-full"
-          />
+      <DialogContent className="w-lg gap-8">
+        <div className="flex items-center gap-2.5">
+          {comment.author?.avatar_url ? (
+            <img
+              src={comment.author.avatar_url}
+              alt=""
+              className="min-w-8 max-w-8 rounded-full"
+            />
+          ) : (
+            <Avvvatars
+              value={comment.author?.username ?? ""}
+              size={32}
+              style="shape"
+            />
+          )}
+
           <p className="text-lg">{comment.author?.username}</p>
         </div>
 
@@ -108,11 +129,15 @@ export function EditComment({ comment }: EditCommentProps) {
 
         <DialogFooter className="m-0">
           <DialogClose asChild>
-            <Button variant="ghost">Cancelar</Button>
+            <Button variant="outline" size="sm" rounded="md">
+              Cancelar
+            </Button>
           </DialogClose>
 
           <Button
             type="button"
+            size="sm"
+            rounded="md"
             onClick={updateComment}
             disabled={inputValue.trim() === comment.content || isPending}
           >
