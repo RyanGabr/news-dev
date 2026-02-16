@@ -1,6 +1,25 @@
+import { useGetPostById } from "@/hooks/use-posts";
 import { Link } from "react-router-dom";
+import { MarkdownCleaner } from "./markdown-cleaner";
 
 export function Header() {
+  const { data: post } = useGetPostById({
+    id: "144a6c0e-818b-4e47-8fbc-089b00eab70f",
+  });
+
+  const postCreatedAt = new Date(post.created_at!);
+
+  const dateOptions: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
+  const postFormattedDate = new Intl.DateTimeFormat(
+    "pt-BR",
+    dateOptions,
+  ).format(postCreatedAt);
+
   return (
     <div className="flex flex-col gap-8">
       <strong className="text-3xl lg:text-4xl font-semibold tracking-tight">
@@ -8,7 +27,7 @@ export function Header() {
       </strong>
 
       <Link
-        to=""
+        to={`/post/${post.id}`}
         className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-12 items-center"
       >
         <div>
@@ -17,17 +36,10 @@ export function Header() {
 
         <div className="space-y-2">
           <p className="text-sm lg:text-base text-muted-foreground">
-            14 de fevereiro de 2026
+            {postFormattedDate}
           </p>
-          <p className="font-semibold text-2xl lg:text-3xl">
-            Seja bem-vindo ao Lumi. Leia, escreva e compartilhe com a comunidade
-          </p>
-          <p className="text-sm lg:text-base text-muted-foreground line-clamp-3">
-            O Lumi é um projeto pessoal dedicado à publicação de textos, artigos
-            e à interação entre pessoas que buscam conteúdo relevante. Criado
-            com uma estética minimalista, o espaço prioriza a leitura e a troca
-            direta de informações.
-          </p>
+          <p className="font-semibold text-2xl lg:text-3xl">{post.title}</p>
+          <MarkdownCleaner markdown={post.content} />
         </div>
       </Link>
     </div>

@@ -19,7 +19,7 @@ export function MarkdownCleaner({ markdown, className }: PlainTextProps) {
   return (
     <p
       className={cn(
-        "whitespace-pre-wrap text-foreground/50 line-clamp-1 text-[13px]",
+        "whitespace-pre-wrap text-sm lg:text-base text-muted-foreground line-clamp-3",
         className,
       )}
     >
