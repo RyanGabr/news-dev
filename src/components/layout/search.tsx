@@ -1,21 +1,13 @@
-import { FileAddIcon, Search01Icon } from "@hugeicons/core-free-icons";
+import { Search01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Activity, useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import {
-  CommandDialog,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "../ui/command";
+import { CommandDialog, CommandInput } from "../ui/command";
 import { SearchResults } from "./search-results";
-import { useNavigate } from "react-router-dom";
 
 export function Search() {
   const [commandOpen, setCommandOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -44,31 +36,15 @@ export function Search() {
       <CommandDialog
         open={commandOpen}
         onOpenChange={setCommandOpen}
-        className="max-w-2xl bg-popover backdrop-blur-lg shadow-none rounded-[20px] dark:border border-border"
+        className="max-w-2xl bg-popover shadow-none rounded-2xl top-10 sm:top-1/3 border-none"
         showCloseButton={false}
       >
         <CommandInput
-          placeholder="Pesquisar publicações..."
+          placeholder="Pesquise pelo título de publicações..."
           value={search}
           onValueChange={(search: string) => setSearch(search)}
-          className="text-lg bg-transparent placeholder:opacity-80 px-1.5"
+          className="bg-transparent placeholder:opacity-80 px-1.5 text-lg"
         />
-
-        <CommandList className="border-t py-1.5 h-64">
-          <CommandGroup>
-            <CommandItem
-              value="publish"
-              onSelect={() => {
-                // 1. Primeiro sinalizamos que o modal deve fechar
-                setCommandOpen(false);
-                navigate("/publish");
-              }}
-            >
-              <HugeiconsIcon icon={FileAddIcon} />
-              Criar publicação
-            </CommandItem>
-          </CommandGroup>
-        </CommandList>
 
         <Activity mode={search.trim().length > 0 ? "visible" : "hidden"}>
           <SearchResults search={search} setCommandOpen={setCommandOpen} />

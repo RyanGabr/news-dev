@@ -74,11 +74,7 @@ export function SearchResults({ search, setCommandOpen }: SearchResultsProps) {
               className="min-w-8 max-w-8 rounded-full"
             />
           ) : (
-            <Avvvatars
-              value={post.profiles.display_name}
-              size={32}
-              style="shape"
-            />
+            <Avvvatars value={post.profiles.username} size={32} style="shape" />
           )}
         </div>
 

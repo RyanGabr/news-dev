@@ -241,7 +241,7 @@ export function SignUp() {
         </form>
       ) : (
         <div className="absolute top-1/2 left-1/2 -translate-1/2 w-96 flex flex-col gap-5 text-center">
-          <div className="p-6 bg-background rounded-2xl flex flex-col items-center gap-1">
+          <div className="p-10 bg-background rounded-2xl flex flex-col items-center gap-1">
             <div className="flex items-center gap-2 mb-2">
               <div>
                 <img
@@ -256,8 +256,8 @@ export function SignUp() {
               </div>
             </div>
 
-            <h2 className="font-medium text-lg">Confirme sua caixa de email</h2>
-            <p className="text-muted-foreground text-sm">
+            <h2 className="font-bold text-lg">Confirme sua caixa de email</h2>
+            <p className="text-muted-foreground text-xs">
               Verifique seu email, enviamos uma confirmação de email para voce!
             </p>
           </div>
