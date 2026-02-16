@@ -10,6 +10,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  LogoutSquare01Icon,
+  Settings02Icon,
+  UserFullViewIcon,
+} from "@hugeicons/core-free-icons";
 
 export function Menu() {
   const { mutateAsync } = useUserLogout();
@@ -42,12 +48,17 @@ export function Menu() {
       <DropdownMenuContent className="w-52" align="end" sideOffset={10}>
         <DropdownMenuGroup>
           <DropdownMenuItem onClick={() => navigate(`/${profile.username}`)}>
+            <HugeiconsIcon icon={UserFullViewIcon} />
             Ver perfil
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => navigate("/settings")}>
+            <HugeiconsIcon icon={Settings02Icon} />
             Configuraçoes
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={handleLogout}>Sair</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleLogout}>
+            <HugeiconsIcon icon={LogoutSquare01Icon} />
+            Sair
+          </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
