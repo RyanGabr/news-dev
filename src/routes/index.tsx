@@ -1,13 +1,18 @@
-import { Post } from "@/pages/app/post";
+import { Loading } from "@/components/home/loading";
+import { Publish } from "@/pages/app/publish";
+import { Settings } from "@/pages/app/settings";
+import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../components/layout";
-import { Home } from "../pages/app/home";
 import { Login } from "../pages/auth/login";
 import { SignUp } from "../pages/auth/sign-up";
 import { AuthRedirect } from "./auth-redirect";
-import { Profile } from "@/pages/app/profile";
-import { Settings } from "@/pages/app/settings";
-import { Publish } from "@/pages/app/publish";
+import { Loading as LoadingPost } from "@/components/post/loading";
+import { Loading as LoadingProfile } from "@/components/profile/loading";
+
+const Home = lazy(() => import("@/pages/app/home"));
+const Post = lazy(() => import("@/pages/app/post"));
+const Profile = lazy(() => import("@/pages/app/profile"));
 
 export const router = createBrowserRouter([
   {
@@ -32,11 +37,19 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Home />
+          </Suspense>
+        ),
       },
       {
         path: "/post/:id",
-        element: <Post />,
+        element: (
+          <Suspense fallback={<LoadingPost />}>
+            <Post />
+          </Suspense>
+        ),
       },
       {
         path: "/publish",
@@ -44,7 +57,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/:username",
-        element: <Profile />,
+        element: (
+          <Suspense fallback={<LoadingProfile />}>
+            <Profile />
+          </Suspense>
+        ),
       },
       {
         path: "/settings",

@@ -2,7 +2,7 @@ import { Skeleton } from "../ui/skeleton";
 
 export function Loading() {
   return (
-    <>
+    <div className="px-6 xl:px-0 max-w-5xl mx-auto space-y-10 lg:space-y-20 sm:mt-20">
       <div className="flex flex-col gap-8">
         <strong className="text-3xl lg:text-4xl font-semibold tracking-tight">
           Início
@@ -33,6 +33,6 @@ export function Loading() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
