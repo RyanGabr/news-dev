@@ -33,6 +33,10 @@ h6 {
     font-family: "Lora", "Times New Roman", Times, serif;
 }
 
+.font-mono {
+    font-family: "JetBrains Mono", monospace;
+}
+
 @layer base {
     .prose * {
         font-family: "Lora" !important;

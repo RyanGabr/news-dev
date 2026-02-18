@@ -9,6 +9,7 @@ import { SignUp } from "../pages/auth/sign-up";
 import { AuthRedirect } from "./auth-redirect";
 import { Loading as LoadingPost } from "@/components/post/loading";
 import { Loading as LoadingProfile } from "@/components/profile/loading";
+import { ErrorState } from "@/components/ui/error-state";
 
 const Home = lazy(() => import("@/pages/app/home"));
 const Post = lazy(() => import("@/pages/app/post"));
@@ -34,6 +35,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    errorElement: <ErrorState />,
     children: [
       {
         path: "/",
