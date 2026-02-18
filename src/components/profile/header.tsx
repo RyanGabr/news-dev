@@ -29,10 +29,10 @@ export function Header() {
   ).format(profileCreatedAt);
 
   return (
-    <div className="bg-popover dark:bg-secondary rounded-lg">
-      <div className="h-40 bg-foreground rounded-t-lg" />
+    <div className="bg-popover dark:bg-secondary rounded-2xl">
+      <div className="h-32 bg-foreground/10 rounded-t-2xl" />
 
-      <div className="p-6 space-y-5 relative">
+      <div className="p-5 sm:p-6 space-y-5 relative">
         <div className="flex items-center gap-5 absolute -top-14">
           {profile.avatar_url ? (
             <img
@@ -47,27 +47,24 @@ export function Header() {
           )}
         </div>
 
-        <div className="mt-8 space-y-1">
+        <div className="mt-8 space-y-2">
           <div className="flex items-center gap-2">
             <p className="text-xl lg:text-2xl font-semibold">
               {profile.display_name}
             </p>
+            <p className="text-xl text-muted-foreground">@{profile.username}</p>
           </div>
 
           <div>
             {profile.bio && (
-              <p className="text-sm leading-4 lg:text-[15px]">{profile.bio}</p>
+              <p className="text-sm lg:text-[15px]">{profile.bio}</p>
             )}
           </div>
         </div>
 
         <div className="flex items-center gap-1.5 text-muted-foreground">
-          <HugeiconsIcon icon={Calendar03Icon} size={18} />
+          <HugeiconsIcon icon={Calendar03Icon} size={16} />
           <p className="text-sm">Entrou em {profileFormattedDate}</p>
-
-          <div className="size-0.5 bg-muted-foreground" />
-
-          <p className="text-sm">@{profile.username}</p>
         </div>
       </div>
     </div>
