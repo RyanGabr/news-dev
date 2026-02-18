@@ -2,7 +2,7 @@ import { Skeleton } from "../ui/skeleton";
 
 export function Loading() {
   return (
-    <div className="pb-10 space-y-10">
+    <div className="px-6 md:px-0 max-w-2xl mx-auto pt-8 py-10 space-y-10">
       <Skeleton className="w-12 h-3 rounded-[2px]" />
 
       <div className="space-y-5">

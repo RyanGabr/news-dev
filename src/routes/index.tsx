@@ -1,6 +1,5 @@
 import { Loading } from "@/components/home/loading";
 import { Publish } from "@/pages/app/publish";
-import { Settings } from "@/pages/app/settings";
 import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../components/layout";
@@ -9,11 +8,13 @@ import { SignUp } from "../pages/auth/sign-up";
 import { AuthRedirect } from "./auth-redirect";
 import { Loading as LoadingPost } from "@/components/post/loading";
 import { Loading as LoadingProfile } from "@/components/profile/loading";
+import { Loading as LoadingSettings } from "@/components/settings/loading";
 import { ErrorState } from "@/components/ui/error-state";
 
 const Home = lazy(() => import("@/pages/app/home"));
 const Post = lazy(() => import("@/pages/app/post"));
 const Profile = lazy(() => import("@/pages/app/profile"));
+const Settings = lazy(() => import("@/pages/app/settings"));
 
 export const router = createBrowserRouter([
   {
@@ -67,7 +68,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/settings",
-        element: <Settings />,
+        element: (
+          <Suspense fallback={<LoadingSettings />}>
+            <Settings />
+          </Suspense>
+        ),
       },
     ],
   },
