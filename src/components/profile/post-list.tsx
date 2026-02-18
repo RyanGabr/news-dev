@@ -95,6 +95,7 @@ export function PostList() {
 
           return (
             <Link
+              key={post.id}
               to={`/post/${post.id}`}
               className="flex flex-col gap-4 bg-popover dark:bg-secondary p-4 rounded-md hover:opacity-70 transition"
             >
