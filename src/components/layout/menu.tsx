@@ -34,7 +34,7 @@ export function Menu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="cursor-pointer">
+        <button aria-label="Abrir menu do usuário" className="cursor-pointer">
           {profile.avatar_url ? (
             <img
               src={profile.avatar_url}
