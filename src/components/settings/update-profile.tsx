@@ -24,6 +24,8 @@ import {
 } from "../ui/dialog";
 import { Label } from "../ui/label";
 import { toast } from "sonner";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { CameraAdd01Icon } from "@hugeicons/core-free-icons";
 
 interface UpdateProfileProps {
   profile: Profile;
@@ -128,7 +130,7 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
         </Button>
       </DialogTrigger>
       <DialogContent className="w-lg">
-        <DialogTitle className="text-sm font-medium">Editar perfil</DialogTitle>
+        <p className="text-lg font-medium">Editar perfil</p>
 
         <form id="update-profile-form" onSubmit={handleSubmit(updateProfile)}>
           <div className="flex items-center justify-center py-10">
@@ -145,8 +147,12 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
               className="cursor-pointer group relative"
               type="button"
             >
-              <div className="bg-black/40 w-full h-full absolute rounded-full items-center justify-center hidden group-hover:flex transition">
-                <p className="text-xs font-medium">Alterar</p>
+              <div className="bg-black/40 dark:bg-black/60 w-full h-full absolute rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                <HugeiconsIcon
+                  icon={CameraAdd01Icon}
+                  strokeWidth={2}
+                  className="text-white"
+                />
               </div>
 
               {previewUrl ? (
@@ -166,14 +172,14 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
+            <div className="space-y-3">
               <Label>Nome de usuário</Label>
               <div className="relative">
                 <input
                   type="text"
                   {...register("username")}
                   spellCheck={false}
-                  className="px-3 py-2 rounded-md border border-border text-sm w-full"
+                  className="px-3 py-2.5 rounded-md bg-secondary dark:bg-foreground/5 text-sm w-full focus:outline-1"
                 />
 
                 <div className="absolute right-3 top-2.5">
@@ -207,23 +213,23 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
               )}
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-3">
               <Label>Nome</Label>
               <input
                 type="text"
                 {...register("display_name")}
                 spellCheck={false}
-                className="px-3 py-2 rounded-md border border-border text-sm w-full"
+                className="px-3 py-2.5 rounded-md bg-secondary dark:bg-foreground/5 text-sm w-full focus:outline-1"
               />
             </div>
 
-            <div className="space-y-2 col-span-2">
+            <div className="space-y-3 col-span-2">
               <Label>Bio</Label>
               <textarea
                 rows={5}
                 {...register("bio")}
                 spellCheck={false}
-                className="px-3 py-2 rounded-md border border-border text-sm w-full resize-none"
+                className="p-3 rounded-md text-sm w-full resize-none bg-secondary dark:bg-foreground/5 focus:outline-1"
               />
             </div>
           </div>
@@ -234,6 +240,7 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
             form="update-profile-form"
             type="submit"
             size="sm"
+            rounded="md"
             disabled={!canSave}
           >
             Salvar alterações
