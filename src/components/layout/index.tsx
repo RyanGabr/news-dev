@@ -9,6 +9,7 @@ export function Layout() {
   const location = useLocation();
 
   const isPublishPage = location.pathname.includes("publish");
+  const isSettingsPage = location.pathname.includes("settings");
 
   return (
     <div className="w-full h-screen">
@@ -27,7 +28,7 @@ export function Layout() {
         <Outlet />
       </main>
 
-      <Activity mode={isPublishPage ? "hidden" : "visible"}>
+      <Activity mode={isPublishPage || isSettingsPage ? "hidden" : "visible"}>
         <Footer />
       </Activity>
     </div>
