@@ -10,22 +10,21 @@ import {
 } from "@/schemas/profile";
 import type { Profile } from "@/types/profile";
 import { zodResolver } from "@hookform/resolvers/zod/src/zod.js";
+import { CameraAdd01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import Avvvatars from "avvvatars-react";
 import { CircleCheck, CircleX, LoaderCircle } from "lucide-react";
 import { useRef, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
+import { toast } from "sonner";
 import { Button } from "../ui/button";
 import {
   Dialog,
   DialogContent,
   DialogFooter,
-  DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
 import { Label } from "../ui/label";
-import { toast } from "sonner";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { CameraAdd01Icon } from "@hugeicons/core-free-icons";
 
 interface UpdateProfileProps {
   profile: Profile;
@@ -125,7 +124,7 @@ export function UpdateProfile({ profile }: UpdateProfileProps) {
   return (
     <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
       <DialogTrigger asChild>
-        <Button size="xs" variant="secondary" rounded="md">
+        <Button size="sm" variant="secondary" rounded="md">
           Editar
         </Button>
       </DialogTrigger>

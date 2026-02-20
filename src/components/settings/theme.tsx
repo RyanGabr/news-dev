@@ -7,15 +7,20 @@ export function Theme() {
 
   return (
     <div className="space-y-5">
-      <p className="font-medium text-muted-foreground">Tema</p>
+      <div className="space-y-2">
+        <p className="font-medium">Tema da interface</p>
+        <p className="text-muted-foreground text-sm">
+          Selecione ou personalize seu tema de UI.
+        </p>
+      </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-3">
         <button
           onClick={() => setTheme("system")}
-          className="flex flex-col cursor-pointer group"
+          className="flex flex-col gap-3 items-start cursor-pointer group"
         >
-          <div className="h-20 bg-secondary rounded-t-lg opacity-50"></div>
-          <div className="bg-secondary px-4 py-3 flex items-center justify-between rounded-b-lg">
+          <div className="w-full h-20 sm:h-32 bg-foreground/10 rounded-lg opacity-50"></div>
+          <div className="flex items-center gap-2">
             <p className="text-sm font-medium">Sistema</p>
 
             {theme === "system" && (
@@ -26,10 +31,10 @@ export function Theme() {
 
         <button
           onClick={() => setTheme("dark")}
-          className="flex flex-col cursor-pointer group"
+          className="flex flex-col gap-3 items-start cursor-pointer group"
         >
-          <div className="h-20 bg-secondary rounded-t-lg opacity-50"></div>
-          <div className="bg-secondary px-4 py-3 flex items-center justify-between rounded-b-lg">
+          <div className="w-full h-20 sm:h-32 bg-foreground/10 rounded-lg opacity-50"></div>
+          <div className="flex items-center gap-2">
             <p className="text-sm font-medium">Escuro</p>
 
             {theme === "dark" && (
@@ -40,10 +45,10 @@ export function Theme() {
 
         <button
           onClick={() => setTheme("light")}
-          className="flex flex-col cursor-pointer group"
+          className="flex flex-col gap-3 items-start cursor-pointer group"
         >
-          <div className="h-20 bg-secondary rounded-t-lg opacity-50"></div>
-          <div className="bg-secondary px-4 py-3 flex items-center justify-between rounded-b-lg">
+          <div className="w-full h-20 sm:h-32 bg-foreground/10 rounded-lg opacity-50"></div>
+          <div className="flex items-center gap-2">
             <p className="text-sm font-medium">Claro</p>
 
             {theme === "light" && (
