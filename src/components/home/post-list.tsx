@@ -88,7 +88,8 @@ export function PostList() {
           onClick={handlePrev}
           aria-label="Página anterior"
           variant="secondary"
-          size="xs"
+          size="sm"
+          rounded="lg"
           className="px-1.5"
         >
           <HugeiconsIcon icon={ArrowLeft01Icon} size={18} strokeWidth={2} />
@@ -98,7 +99,8 @@ export function PostList() {
           onClick={handleNext}
           aria-label="Próxima página"
           variant="secondary"
-          size="xs"
+          size="sm"
+          rounded="lg"
           className="px-1.5"
         >
           <HugeiconsIcon icon={ArrowRight01Icon} size={18} strokeWidth={2} />

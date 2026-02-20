@@ -132,7 +132,7 @@ export function EditPost({ post }: EditPostProps) {
           Editar publicaçao
         </DropdownMenuItem>
       </DialogTrigger>
-      <DialogContent className="w-3xl">
+      <DialogContent className="max-w-full rounded-none h-full sm:h-fit sm:w-3xl sm:rounded-[20px]">
         <form onSubmit={handleSubmit(editComment)} className="space-y-5">
           <div className="flex flex-col gap-6">
             <div>

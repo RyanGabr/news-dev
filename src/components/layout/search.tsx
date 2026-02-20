@@ -26,24 +26,23 @@ export function Search() {
         variant="secondary"
         onClick={() => setCommandOpen(true)}
         size="sm"
-        rounded="md"
-        className="w-64 justify-start hidden sm:flex"
+        className="sm:w-52 py-2.5 sm:py-1.5 justify-start"
       >
         <HugeiconsIcon icon={Search01Icon} strokeWidth={2.5} size={15} />
-        Pesquisar publicações
+        <p className="hidden sm:block">Pesquisar</p>
       </Button>
 
       <CommandDialog
         open={commandOpen}
         onOpenChange={setCommandOpen}
-        className="max-w-2xl bg-popover shadow-none rounded-2xl top-10 sm:top-1/3"
+        className="max-w-[95%] sm:max-w-2xl bg-popover shadow-none rounded-2xl sm:top-1/3"
         showCloseButton={false}
       >
         <CommandInput
-          placeholder="Pesquise pelo título de publicações..."
+          placeholder="Pesquise por publicações..."
           value={search}
           onValueChange={(search: string) => setSearch(search)}
-          className="bg-transparent placeholder:opacity-80 px-1.5 text-lg"
+          className="bg-transparent placeholder:opacity-80 px-1.5 text-lg font-medium"
         />
 
         <Activity mode={search.trim().length > 0 ? "visible" : "hidden"}>
