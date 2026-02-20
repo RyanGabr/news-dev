@@ -1,11 +1,13 @@
+import { Cancel01Icon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import { useUser } from "@supabase/auth-helpers-react";
-import { Activity } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { PostOptions } from "../post/post-options";
 import { Button } from "../ui/button";
 import { Menu } from "./menu";
-import { PostNavigationBar } from "./post-navigation-bar";
 import { Search } from "./search";
-import { PublishBar } from "./publish-bar";
+import { PublishActions } from "./publish-actions";
 
 export function NavigationBar() {
   const user = useUser();
@@ -14,26 +16,59 @@ export function NavigationBar() {
 
   const isPostPage = location.pathname.includes("post");
   const isPublishPage = location.pathname.includes("publish");
+  const isStandardView = !isPostPage && !isPublishPage;
+
+  async function copyPostLink() {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      toast("Link da publicação copiado!", {
+        position: "bottom-center",
+        style: {
+          fontSize: 16,
+          height: 50,
+          backgroundColor: "var(--foreground)",
+          color: "var(--background)",
+        },
+      });
+    } catch {
+      toast.error("Não foi possível copiar o link.");
+    }
+  }
 
   return (
-    <>
-      <nav className="w-full px-6 xl:px-0 py-3 sticky top-0 bg-background rounded-t-2xl">
-        <Activity mode={isPostPage || isPublishPage ? "hidden" : "visible"}>
-          <div className="max-w-5xl mx-auto flex items-center justify-between">
-            <div className="flex items-center gap-5">
-              <Link to="/" className="flex items-center gap-2">
-                <img
-                  src="https://www.notion.com/front-static/favicon.ico"
-                  alt="Logo"
-                  className="w-6"
-                />
+    <nav className="w-full py-3 sticky top-0 bg-background rounded-t-2xl z-50">
+      <div
+        className={`mx-auto flex items-center justify-between px-4 ${isStandardView ? "max-w-5xl xl:px-0" : "w-full"}`}
+      >
+        {/* Lado Esquerdo: Logo ou Voltar */}
+        <div>
+          {isStandardView ? (
+            <Link to="/" className="flex items-center gap-2">
+              <img
+                src="https://www.notion.com/front-static/favicon.ico"
+                alt="Logo"
+                className="w-6"
+              />
+              <h3 className="font-extrabold text-lg">lumi</h3>
+            </Link>
+          ) : (
+            <Button
+              onClick={() => navigate("/")}
+              aria-label="Fechar"
+              variant="outline"
+              className="px-2"
+            >
+              <HugeiconsIcon icon={Cancel01Icon} size={18} />
+            </Button>
+          )}
+        </div>
 
-                <h3 className="font-extrabold text-lg">lumi</h3>
-              </Link>
-            </div>
+        {/* Lado Direito: Busca + Ações Contextuais */}
+        <div className="flex items-center gap-2">
+          {!isPublishPage && <Search />}
 
+          {isStandardView && (
             <div className="flex items-center gap-2">
-              <Search />
               {user ? (
                 <>
                   <Button size="sm" onClick={() => navigate("/publish")}>
@@ -43,16 +78,22 @@ export function NavigationBar() {
                 </>
               ) : (
                 <Button onClick={() => navigate("/login")} size="sm">
-                  Entrar ou Inscrever-se
+                  Entrar
                 </Button>
               )}
             </div>
-          </div>
-        </Activity>
-
-        {isPostPage && <PostNavigationBar />}
-        {isPublishPage && <PublishBar />}
-      </nav>
-    </>
+          )}
+          {isPostPage && (
+            <div className="flex items-center gap-2">
+              <Button onClick={copyPostLink} size="sm">
+                Compartilhar
+              </Button>
+              <PostOptions />
+            </div>
+          )}
+          {isPublishPage && <PublishActions />}
+        </div>
+      </div>
+    </nav>
   );
 }

@@ -36,7 +36,7 @@ export function Search() {
       <CommandDialog
         open={commandOpen}
         onOpenChange={setCommandOpen}
-        className="max-w-2xl bg-popover shadow-none rounded-2xl top-10 sm:top-1/3 border-none"
+        className="max-w-2xl bg-popover shadow-none rounded-2xl top-10 sm:top-1/3"
         showCloseButton={false}
       >
         <CommandInput
