@@ -138,7 +138,7 @@ export function Form() {
                 autoFocus
                 spellCheck={false}
                 placeholder="Título"
-                className="w-full text-5xl font-bold tracking-tight outline-none text-center resize-none overflow-hidden placeholder:opacity-60"
+                className="w-full text-3xl sm:text-4xl font-semibold lg:text-5xl lg:font-bold tracking-tight outline-none text-center resize-none overflow-hidden placeholder:opacity-60"
                 onChange={(e) => {
                   field.onChange(e);
                   adjustTextAreaHeight(e.target);
