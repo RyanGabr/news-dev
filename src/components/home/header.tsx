@@ -1,10 +1,11 @@
 import { useGetPostById } from "@/hooks/use-posts";
 import { Link } from "react-router-dom";
 import { MarkdownCleaner } from "./markdown-cleaner";
+import WelcomeBanner from "@/assets/welcome-banner.png";
 
 export function Header() {
   const { data: post } = useGetPostById({
-    id: "144a6c0e-818b-4e47-8fbc-089b00eab70f",
+    id: "72fd78d0-5314-433a-b2c9-16f0af24daa1",
   });
 
   const postCreatedAt = new Date(post.created_at!);
@@ -28,10 +29,14 @@ export function Header() {
 
       <Link
         to={`/post/${post.id}`}
-        className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-12 items-center"
+        className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-12 items-center group"
       >
-        <div>
-          <div className="bg-brand rounded-md h-64" />
+        <div className="overflow-hidden rounded-md dark:border">
+          <img
+            src={WelcomeBanner}
+            alt="Banner boas-vindas"
+            className="rounded-md group-hover:scale-110 transition object-cover object-center duration-300"
+          />
         </div>
 
         <div className="space-y-2">

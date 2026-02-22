@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ViewIcon, ViewOffIcon } from "@hugeicons/core-free-icons";
 import { Label } from "@/components/ui/label";
+import Logo from "@/assets/logo.svg";
 
 export function Login() {
   const [passwordInputType, setPasswordInputType] =
@@ -46,12 +47,8 @@ export function Login() {
       >
         <div className="p-6 flex flex-col justify-between w-full lg:w-1/2">
           <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <img
-                src="https://www.notion.com/front-static/favicon.ico"
-                alt=""
-                className="w-6"
-              />
+            <div className="flex items-center gap-3">
+              <img src={Logo} alt="Logo" className="w-6 dark:invert" />
 
               <p className="font-semibold text-2xl tracking-tight">
                 Entrar no Lumi
@@ -69,7 +66,7 @@ export function Login() {
               <p>Não possui uma conta?</p>
               <Link
                 to="/signup"
-                className="text-foreground hover:opacity-90 transition"
+                className="text-foreground hover:opacity-90 transition font-medium"
               >
                 Inscreva-se
               </Link>
@@ -140,7 +137,7 @@ export function Login() {
                 type="submit"
                 size="sm"
                 disabled={isPending}
-                className="w-full py-2.5"
+                className="w-full py-2.5 font-semibold"
                 rounded="lg"
               >
                 {isPending ? "Entrando..." : "Continuar"}

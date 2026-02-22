@@ -20,28 +20,8 @@
         sans-serif;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: "Libre Baskerville";
-}
-
-.font-serif {
-    font-family: "Lora", "Times New Roman", Times, serif;
-}
-
 .font-mono {
     font-family: "JetBrains Mono", monospace;
-}
-
-@layer base {
-    .prose * {
-        font-family: "Lora" !important;
-        color: var(--foreground) !important;
-    }
 }
 
 @theme inline {
@@ -178,6 +158,37 @@ h6 {
     padding: 12px 0 !important;
 }
 
+.CodeMirror-line,
+.CodeMirror-line span,
+.cm-comment,
+.cm-code {
+    background-color: transparent !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.cm-comment,
+.cm-code,
+.cm-formatting-code-block {
+    font-family: "JetBrains Mono", monospace !important;
+    color: var(--chart-3);
+}
+
+.prose pre,
+.prose code,
+.prose pre code span {
+    background-color: transparent !important;
+    color: var(--foreground) !important;
+    font-family: "JetBrains Mono" !important;
+}
+
+.prose pre {
+    background-color: var(--secondary) !important;
+    border-radius: 10px;
+    /*border: 1px solid var(--border);*/
+}
+
 .dark .CodeMirror-selected {
     background-color: var(--foreground) !important;
     opacity: 15% !important;
@@ -215,10 +226,9 @@ h6 {
 /* Área de Preview */
 .editor-preview-active,
 .editor-preview-active * {
-    background-color: transparent !important;
+    background-color: var(--background) !important;
     color: var(--foreground) !important;
-    border-radius: 4px;
-    margin-top: 8px;
+    margin-top: 4px;
 }
 
 .cm-header,
@@ -247,12 +257,6 @@ body:has(.editor-preview-active)
     color: transparent !important;
 }
 
-/* Cursor (Caret) */
 .dark .CodeMirror-cursor {
     border-left: 1px solid #ffffff !important;
-}
-
-.CodeMirror-code {
-    font-size: 16px !important;
-    line-height: 1.5 !important;
 }

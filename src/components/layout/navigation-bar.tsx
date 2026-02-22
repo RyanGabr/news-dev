@@ -8,6 +8,7 @@ import { Button } from "../ui/button";
 import { Menu } from "./menu";
 import { Search } from "./search";
 import { PublishActions } from "./publish-actions";
+import Logo from "@/assets/logo.svg";
 
 export function NavigationBar() {
   const user = useUser();
@@ -43,13 +44,8 @@ export function NavigationBar() {
         {/* Lado Esquerdo: Logo ou Voltar */}
         <div>
           {isStandardView ? (
-            <Link to="/" className="flex items-center gap-2">
-              <img
-                src="https://www.notion.com/front-static/favicon.ico"
-                alt="Logo"
-                className="w-6"
-              />
-              <h3 className="font-extrabold text-lg">lumi</h3>
+            <Link to="/" className="flex items-center gap-2.5">
+              <img src={Logo} alt="Logo" className="w-7 dark:invert" />
             </Link>
           ) : (
             <Button

@@ -1,4 +1,9 @@
-import { Tick02Icon } from "@hugeicons/core-free-icons";
+import {
+  Moon02Icon,
+  Settings05Icon,
+  Sun01Icon,
+  Tick02Icon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTheme } from "../ui/theme-provider";
 
@@ -19,7 +24,13 @@ export function Theme() {
           onClick={() => setTheme("system")}
           className="flex flex-col gap-3 items-start cursor-pointer group"
         >
-          <div className="w-full h-20 sm:h-32 bg-foreground/10 rounded-lg opacity-50"></div>
+          <div className="w-full h-20 sm:h-32 bg-foreground/10 rounded-lg opacity-50 flex items-center justify-center group-hover:bg-foreground/5 transition">
+            <HugeiconsIcon
+              icon={Settings05Icon}
+              size={32}
+              className="text-muted-foreground"
+            />
+          </div>
           <div className="flex items-center gap-2">
             <p className="text-sm font-medium">Sistema</p>
 
@@ -33,7 +44,13 @@ export function Theme() {
           onClick={() => setTheme("dark")}
           className="flex flex-col gap-3 items-start cursor-pointer group"
         >
-          <div className="w-full h-20 sm:h-32 bg-foreground/10 rounded-lg opacity-50"></div>
+          <div className="w-full h-20 sm:h-32 bg-foreground/10 rounded-lg opacity-50 flex items-center justify-center group-hover:bg-foreground/5 transition">
+            <HugeiconsIcon
+              icon={Moon02Icon}
+              size={32}
+              className="text-muted-foreground"
+            />
+          </div>
           <div className="flex items-center gap-2">
             <p className="text-sm font-medium">Escuro</p>
 
@@ -47,7 +64,13 @@ export function Theme() {
           onClick={() => setTheme("light")}
           className="flex flex-col gap-3 items-start cursor-pointer group"
         >
-          <div className="w-full h-20 sm:h-32 bg-foreground/10 rounded-lg opacity-50"></div>
+          <div className="w-full h-20 sm:h-32 bg-foreground/10 rounded-lg opacity-50 flex items-center justify-center group-hover:bg-foreground/5 transition">
+            <HugeiconsIcon
+              icon={Sun01Icon}
+              size={32}
+              className="text-muted-foreground"
+            />
+          </div>
           <div className="flex items-center gap-2">
             <p className="text-sm font-medium">Claro</p>
 

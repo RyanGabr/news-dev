@@ -38,7 +38,7 @@ export function PostHeader() {
       </div>
 
       <div>
-        <h1 className="font-bold text-3xl lg:text-[40px] lg:leading-12 tracking-tight text-center">
+        <h1 className="font-semibold text-3xl lg:text-5xl lg:font-bold tracking-tight text-center">
           {post.title}
         </h1>
       </div>
@@ -48,10 +48,10 @@ export function PostHeader() {
           <img
             src={post.profiles.avatar_url}
             alt="Profile avatar"
-            className="min-w-6 max-w-6 rounded-full"
+            className="min-w-7 max-w-7 rounded-full"
           />
         ) : (
-          <Avvvatars value={post.profiles.username} size={24} style="shape" />
+          <Avvvatars value={post.profiles.username} size={28} style="shape" />
         )}
 
         <div>

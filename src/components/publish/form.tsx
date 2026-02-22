@@ -138,7 +138,7 @@ export function Form() {
                 autoFocus
                 spellCheck={false}
                 placeholder="Título"
-                className="w-full text-5xl font-bold tracking-tight outline-none text-center resize-none overflow-hidden font-serif placeholder:opacity-60"
+                className="w-full text-5xl font-bold tracking-tight outline-none text-center resize-none overflow-hidden placeholder:opacity-60"
                 onChange={(e) => {
                   field.onChange(e);
                   adjustTextAreaHeight(e.target);
@@ -147,6 +147,7 @@ export function Form() {
                   field.ref(el);
                   if (el) adjustTextAreaHeight(el);
                 }}
+                rows={1}
               />
             )}
           />
@@ -156,9 +157,9 @@ export function Form() {
         </div>
       </div>
 
-      <hr />
+      <hr className="max-w-2xl mx-auto" />
 
-      <div className="space-y-2">
+      <div className="space-y-2 max-w-2xl mx-auto">
         <Controller
           name="content"
           control={control}

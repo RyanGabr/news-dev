@@ -10,6 +10,7 @@ import { useCallback, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { signupSchema, type SignupFormData } from "../../schemas/signup";
+import Logo from "@/assets/logo.svg";
 
 export function SignUp() {
   const [pageStep, setPageStep] = useState<string>("form");
@@ -71,12 +72,8 @@ export function SignUp() {
           {/*Left side*/}
           <div className="p-6 flex flex-col justify-between w-full lg:w-1/2">
             <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <img
-                  src="https://www.notion.com/front-static/favicon.ico"
-                  alt="Logo"
-                  className="w-6"
-                />
+              <div className="flex items-center gap-3">
+                <img src={Logo} alt="Logo" className="w-6 dark:invert" />
 
                 <p className="font-semibold text-2xl tracking-tight">
                   Inscrever-se
@@ -94,7 +91,7 @@ export function SignUp() {
                 <p>Já possui uma conta?</p>
                 <Link
                   to="/login"
-                  className="text-foreground hover:opacity-90 transition"
+                  className="text-foreground hover:opacity-90 transition font-medium"
                 >
                   Fazer login
                 </Link>
@@ -222,7 +219,7 @@ export function SignUp() {
                   type="submit"
                   size="sm"
                   disabled={isPending || !isAvailable}
-                  className="w-full py-2.5"
+                  className="w-full py-2.5 font-semibold"
                   rounded="lg"
                 >
                   {isPending ? "Cadastrando..." : "Cadastrar"}
