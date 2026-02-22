@@ -6,6 +6,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useTheme } from "../ui/theme-provider";
+import { showSuccessToast } from "@/lib/utils";
 
 export function Theme() {
   const { theme, setTheme } = useTheme();
@@ -21,7 +22,12 @@ export function Theme() {
 
       <div className="grid grid-cols-3 gap-3">
         <button
-          onClick={() => setTheme("system")}
+          onClick={() => {
+            setTheme("system");
+            showSuccessToast({
+              message: "Tema alterado com sucesso!",
+            });
+          }}
           className="flex flex-col gap-3 items-start cursor-pointer group"
         >
           <div className="w-full h-20 sm:h-32 bg-foreground/10 rounded-lg opacity-50 flex items-center justify-center group-hover:bg-foreground/5 transition">
@@ -41,7 +47,12 @@ export function Theme() {
         </button>
 
         <button
-          onClick={() => setTheme("dark")}
+          onClick={() => {
+            setTheme("dark");
+            showSuccessToast({
+              message: "Tema alterado com sucesso!",
+            });
+          }}
           className="flex flex-col gap-3 items-start cursor-pointer group"
         >
           <div className="w-full h-20 sm:h-32 bg-foreground/10 rounded-lg opacity-50 flex items-center justify-center group-hover:bg-foreground/5 transition">
@@ -61,7 +72,12 @@ export function Theme() {
         </button>
 
         <button
-          onClick={() => setTheme("light")}
+          onClick={() => {
+            setTheme("light");
+            showSuccessToast({
+              message: "Tema alterado com sucesso!",
+            });
+          }}
           className="flex flex-col gap-3 items-start cursor-pointer group"
         >
           <div className="w-full h-20 sm:h-32 bg-foreground/10 rounded-lg opacity-50 flex items-center justify-center group-hover:bg-foreground/5 transition">
