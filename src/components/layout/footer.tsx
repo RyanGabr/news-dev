@@ -8,7 +8,7 @@ export function Footer() {
           <img src={Logo} alt="Logo" className="w-7 dark:invert" />
 
           <p className="font-medium text-muted-foreground text-sm">
-            © 2026 lumi.com
+            © 2026 lumiwrite
           </p>
         </div>
 
