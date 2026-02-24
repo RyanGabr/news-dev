@@ -71,7 +71,7 @@ export function PostList() {
                 )}
               </div>
 
-              <div className="space-y-1">
+              <div className="flex flex-col gap-1 justify-between h-full">
                 <p className="font-semibold leading-5">{post.title}</p>
                 <p className="text-muted-foreground text-[15px]">
                   {postFormattedDate}

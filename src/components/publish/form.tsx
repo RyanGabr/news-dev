@@ -80,6 +80,19 @@ export function Form() {
     });
   }
 
+  function onCreatePostError() {
+    toast.error("Preencha os campos para publicar", {
+      position: "bottom-center",
+      style: {
+        fontSize: 16,
+        height: 50,
+        backgroundColor: "var(--foreground)",
+        color: "var(--background)",
+        border: "none",
+      },
+    });
+  }
+
   const adjustTextAreaHeight = (el: HTMLTextAreaElement) => {
     el.style.height = "auto";
     el.style.height = `${el.scrollHeight}px`;
@@ -124,7 +137,7 @@ export function Form() {
   return (
     <form
       id="create-post-form"
-      onSubmit={handleSubmit(createPost)}
+      onSubmit={handleSubmit(createPost, onCreatePostError)}
       className="space-y-5 p-6"
     >
       <div className="flex flex-col gap-6">
@@ -152,7 +165,11 @@ export function Form() {
             )}
           />
           {errors.title && (
-            <p className="text-sm text-red-400">{errors.title.message}</p>
+            <div className="max-w-2xl mx-auto">
+              <p className="text-sm text-red-400 text-center">
+                {errors.title.message}
+              </p>
+            </div>
           )}
         </div>
       </div>
@@ -171,19 +188,17 @@ export function Form() {
             />
           )}
         />
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <span
+            className={`text-sm text-muted-foreground ${formValues.content.length > 20000 && "text-red-400 font-semibold"}`}
+          >
+            {formValues.content.length} / 20000
+          </span>
+
           <div>
             {errors.content && (
               <p className="text-sm text-red-400">{errors.content.message}</p>
             )}
-          </div>
-
-          <div className="flex items-center gap-1">
-            <span
-              className={`text-sm text-muted-foreground ${formValues.content.length > 20000 && "text-red-400 font-semibold"}`}
-            >
-              {formValues.content.length} / 20000
-            </span>
           </div>
         </div>
       </div>

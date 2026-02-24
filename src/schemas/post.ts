@@ -8,10 +8,10 @@ export const postSchema = z.object({
 
   content: z
     .string()
-    .min(10, "O corpo do post deve ter pelo menos 10 caracteres.")
+    .min(10, "O corpo da publicação deve ter pelo menos 10 caracteres.")
     .max(
       20000,
-      "O corpo do post excedeu o limite máximo de 20.000 caracteres.",
+      "O corpo da publicação excedeu o limite máximo de 20.000 caracteres.",
     ),
 });
 
